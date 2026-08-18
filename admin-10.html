@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wendy's Treats — Admin Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FBF2E4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1. RESET & VARIABLES — same tokens as index.html for a
+   consistent look between the storefront and this dashboard.
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ivory:#FBF2E4; --ivory-deep:#F3E4CB; --paper:#FFFFFF;
+  --ink:#2B1810; --ink-dark:#1C0F08; --ink-soft:#6B5142;
+  --folere:#A31D3D; --folere-deep:#7A1530; --gold:#C6821F; --gold-light:#E8B65C;
+  --leaf:#4B6B3F; --line:#E6D2AE;
+  --shadow-sm:0 2px 10px rgba(43,24,16,.08);
+  --shadow-md:0 10px 30px rgba(43,24,16,.12);
+  --shadow-lg:0 20px 50px rgba(43,24,16,.18);
+  --radius-sm:10px; --radius-md:18px; --radius-lg:28px;
+  --font-display:'Bricolage Grotesque',system-ui,sans-serif;
+  --font-body:'Figtree',system-ui,sans-serif;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+body{font-family:var(--font-body);background:var(--ivory);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;}
+img,svg{display:block;max-width:100%;}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit;}
+button{background:none;border:none;cursor:pointer;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
+:focus-visible{outline:2.5px solid var(--folere);outline-offset:3px;border-radius:4px;}
+.container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px;}
+.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.icon--sm{width:15px;height:15px;}
+.icon--lg{width:28px;height:28px;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--folere);margin-bottom:8px;}
+.eyebrow::before{content:'';width:18px;height:2px;background:currentColor;display:inline-block;}
+
+/* ============================================================
+   2. BUTTONS & FORM CONTROLS
+   ============================================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:700;font-size:15px;white-space:nowrap;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;cursor:pointer;border:2px solid transparent;}
+.btn:active{transform:scale(.97);}
+.btn--folere{background:var(--folere);color:#fff;box-shadow:var(--shadow-sm);}
+.btn--folere:hover{background:var(--folere-deep);box-shadow:var(--shadow-md);}
+.btn--block{width:100%;}
+.btn--sm{padding:9px 16px;font-size:13px;}
+.icon-btn{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;background:var(--paper);color:var(--ink);box-shadow:var(--shadow-sm);transition:transform .15s ease;}
+.icon-btn:hover{transform:translateY(-2px);}
+.form-row{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px;}
+.form-group{display:flex;flex-direction:column;gap:7px;}
+.form-label{font-size:13px;font-weight:700;color:var(--ink);}
+.form-label .opt{font-weight:500;color:var(--ink-soft);text-transform:none;}
+.form-input,.form-select,.form-textarea{border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:13px 14px;background:var(--ivory);font-size:14.5px;color:var(--ink);width:100%;transition:border-color .15s ease;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--folere);outline:none;}
+.form-input.has-error,.form-select.has-error,.form-textarea.has-error{border-color:var(--folere);background:#FDF0F1;}
+.form-error-msg{font-size:12px;color:var(--folere);font-weight:600;display:none;}
+.form-error-msg.is-visible{display:block;}
+.form-textarea{resize:vertical;min-height:90px;font-family:inherit;}
+.form-hint{font-size:11.5px;color:var(--ink-soft);line-height:1.4;margin-top:2px;}
+@media (min-width:640px){.form-row{grid-template-columns:1fr 1fr;}}
+.image-upload-row{display:flex;gap:14px;align-items:flex-start;}
+.image-preview{
+  width:64px;height:64px;border-radius:14px;background:var(--ivory-deep);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;
+}
+.image-preview img{width:100%;height:100%;object-fit:cover;}
+.image-upload-controls{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px;}
+.admin-remove-image-btn{align-self:flex-start;font-size:12px;font-weight:700;color:var(--folere);text-decoration:underline;text-underline-offset:2px;}
+
+/* ============================================================
+   3. ADMIN HEADER
+   ============================================================ */
+.admin-page-header{position:sticky;top:0;z-index:50;background:rgba(251,242,228,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:16px 0;}
+.admin-page-header-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.admin-brand{display:flex;align-items:center;gap:10px;}
+.admin-brand-emoji{width:38px;height:38px;border-radius:11px;background:var(--ivory-deep);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.admin-brand-name{display:block;font-family:var(--font-display);font-weight:800;font-size:16px;letter-spacing:-.01em;}
+.admin-brand-sub{display:block;font-size:11.5px;color:var(--ink-soft);font-weight:600;}
+.admin-header-actions{display:flex;align-items:center;gap:10px;}
+.btn--muted{background:var(--ivory-deep);color:var(--ink);}
+.btn--muted:hover{background:var(--line);}
+
+/* ============================================================
+   4. LOGIN
+   ============================================================ */
+.admin-login-wrap{max-width:420px;margin:0 auto;}
+.admin-login-card{background:var(--paper);border-radius:var(--radius-lg);padding:30px 26px;box-shadow:var(--shadow-md);}
+.admin-login-card h1{font-size:22px;margin-bottom:6px;}
+.admin-login-card p{font-size:13.5px;color:var(--ink-soft);margin-bottom:22px;}
+
+/* ============================================================
+   5. DASHBOARD
+   ============================================================ */
+.admin-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--line);}
+.admin-topbar span{font-size:13.5px;color:var(--ink-soft);}
+.admin-tab-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:24px;scrollbar-width:none;}
+.admin-tab-row::-webkit-scrollbar{display:none;}
+.admin-tab{flex-shrink:0;padding:10px 18px;border-radius:999px;font-weight:700;font-size:13.5px;color:var(--ink-soft);background:var(--paper);box-shadow:var(--shadow-sm);}
+.admin-tab.is-active{background:var(--ink-dark);color:var(--ivory);}
+.admin-panel{display:none;}
+.admin-panel.is-active{display:block;}
+.admin-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.admin-stat-card{background:var(--paper);border-radius:var(--radius-md);padding:18px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;}
+.admin-stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.admin-stat-icon{width:42px;height:42px;border-radius:12px;background:var(--ivory-deep);color:var(--folere);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.admin-stat-value{display:block;font-family:var(--font-display);font-weight:800;font-size:22px;line-height:1.2;}
+.admin-stat-label{display:block;font-size:11.5px;color:var(--ink-soft);}
+.admin-row{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);margin-bottom:10px;}
+.admin-row--stack{align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px 12px;}
+.admin-row-emoji{width:46px;height:46px;border-radius:12px;background:var(--ivory-deep);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0;}
+.admin-row-body{flex:1;min-width:0;}
+.admin-row-body h4{font-size:14.5px;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.admin-row-body p{font-size:13px;color:var(--ink-soft);margin-top:2px;}
+.admin-row-time{display:block;font-size:11.5px;color:#B29C87;margin-top:4px;}
+.admin-row-actions{display:flex;gap:8px;flex-shrink:0;}
+.admin-icon-action{width:36px;height:36px;border-radius:50%;background:var(--ivory-deep);color:var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.admin-icon-action--danger{color:var(--folere);}
+.admin-status{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:999px;background:var(--ivory-deep);color:var(--ink-soft);}
+.admin-status--confirmed,.admin-status--approved{background:#EAF3E7;color:var(--leaf);}
+.admin-status--pending{background:#FDF0D9;color:#a3690f;}
+.admin-empty{text-align:center;padding:40px 20px;color:var(--ink-soft);font-size:14px;}
+@media (min-width:640px){.admin-stat-grid{grid-template-columns:repeat(3,1fr);}}
+@media (min-width:900px){.admin-stat-grid{grid-template-columns:repeat(5,1fr);}}
+
+/* ============================================================
+   6. MODALS
+   ============================================================ */
+.modal-backdrop{position:fixed;inset:0;background:rgba(28,15,8,.5);z-index:98;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.modal-backdrop.is-open{opacity:1;pointer-events:auto;}
+.modal-dialog{position:fixed;left:50%;top:50%;width:calc(100% - 40px);max-width:460px;background:var(--ivory);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);z-index:99;padding:26px 24px 28px;transform:translate(-50%,-50%) scale(.94);opacity:0;pointer-events:none;transition:transform .25s cubic-bezier(.16,1,.3,1),opacity .25s ease;max-height:calc(100vh - 60px);overflow-y:auto;}
+.modal-dialog.is-open{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:auto;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.modal-head h3{font-size:19px;}
+
+/* ============================================================
+   7. TOAST
+   ============================================================ */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink-dark);color:var(--ivory);padding:13px 22px;border-radius:999px;font-size:13.5px;font-weight:700;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);max-width:88vw;}
+.toast.is-visible{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast .icon{color:var(--leaf);width:17px;height:17px;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-close" viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></symbol>
+  <symbol id="icon-cart" viewBox="0 0 24 24"><path d="M6 8h12l-1.2 11.5a1 1 0 0 1-1 .9H8.2a1 1 0 0 1-1-.9L6 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></symbol>
+  <symbol id="icon-graduation" viewBox="0 0 24 24"><path d="M2.5 9 12 4.5 21.5 9 12 13.5 2.5 9z"/><path d="M6.5 11v4.5c0 1.7 2.7 3.2 5.5 3.2s5.5-1.5 5.5-3.2V11"/></symbol>
+  <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></symbol>
+  <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M6 10.5a6 6 0 0 1 12 0c0 3.5 1 5 2 6H4c1-1 2-2.5 2-6z"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0"/></symbol>
+  <symbol id="icon-edit" viewBox="0 0 24 24"><path d="M4 20l1-4.5L15.5 5 19 8.5 8.5 19 4 20z"/><line x1="13.5" y1="6.5" x2="17.5" y2="10.5"/></symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1V7"/><path d="M6 7l1 12.5a1.5 1.5 0 0 0 1.5 1.5h7a1.5 1.5 0 0 0 1.5-1.5L18 7"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9.5"/></symbol>
+</svg>
+
+<header class="admin-page-header">
+  <div class="container admin-page-header-inner">
+    <div class="admin-brand">
+      <span class="admin-brand-emoji">🎂</span>
+      <div><span class="admin-brand-name">Wendy's Treats</span><span class="admin-brand-sub">Admin Dashboard</span></div>
+    </div>
+    <div class="admin-header-actions">
+      <a href="index.html" class="btn btn--sm btn--muted">View Storefront</a>
+      <button type="button" class="btn btn--sm btn--muted" id="admin-logout-btn" hidden>Log Out</button>
+    </div>
+  </div>
+</header>
+
+<main class="container" style="padding-top:32px;padding-bottom:60px">
+  <div id="admin-login-view">
+    <div class="admin-login-wrap">
+      <span class="eyebrow">Local Admin Tools</span>
+      <div class="admin-login-card">
+        <h1>Admin Login</h1>
+        <p>Changes you make here are saved in this browser only — they won't sync to other devices without a real backend.</p>
+        <form id="admin-login-form" novalidate>
+          <div class="form-group" style="margin-bottom:14px">
+            <label class="form-label" for="admin-email">Admin Email</label>
+            <input class="form-input" type="email" id="admin-email" placeholder="you@example.com" required autocomplete="username">
+          </div>
+          <div class="form-group" style="margin-bottom:18px">
+            <label class="form-label" for="admin-password">Password</label>
+            <input class="form-input" type="password" id="admin-password" required autocomplete="current-password">
+            <span class="form-error-msg" id="admin-login-error">That email or password isn't right.</span>
+          </div>
+          <button type="submit" class="btn btn--folere btn--block">Log In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="admin-dashboard-view" hidden>
+    <div class="admin-topbar">
+      <span>Signed in — changes save automatically to this browser.</span>
+      <button type="button" class="btn btn--sm btn--muted" id="change-password-btn">Change Password</button>
+    </div>
+
+    <div class="admin-tab-row">
+      <button type="button" class="admin-tab is-active js-admin-tab" data-tab="overview">Overview</button>
+      <button type="button" class="admin-tab js-admin-tab" data-tab="products">Products</button>
+      <button type="button" class="admin-tab js-admin-tab" data-tab="orders">Orders</button>
+      <button type="button" class="admin-tab js-admin-tab" data-tab="bookings">Bookings</button>
+      <button type="button" class="admin-tab js-admin-tab" data-tab="trainees">Trainees</button>
+      <button type="button" class="admin-tab js-admin-tab" data-tab="posts">Posts</button>
+    </div>
+
+    <div class="admin-panel is-active" id="admin-panel-overview">
+      <div class="admin-stat-grid" id="admin-stat-grid"></div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel-products">
+      <button type="button" class="btn btn--folere btn--sm js-admin-add-product" style="margin-bottom:16px">+ Add Product</button>
+      <div id="admin-product-list"></div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel-orders">
+      <div id="admin-order-list"></div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel-bookings">
+      <div id="admin-booking-list"></div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel-trainees">
+      <div id="admin-trainee-list"></div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel-posts">
+      <button type="button" class="btn btn--folere btn--sm js-admin-add-post" style="margin-bottom:16px">+ Add Post</button>
+      <div id="admin-post-list"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ============ PRODUCT FORM MODAL ============ -->
+<div class="modal-backdrop js-close-product-modal" id="product-modal-backdrop"></div>
+<div class="modal-dialog" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" aria-hidden="true">
+  <div class="modal-head">
+    <h3 id="product-modal-title">Add Product</h3>
+    <button type="button" class="icon-btn js-close-product-modal" aria-label="Close"><svg class="icon"><use href="#icon-close"/></svg></button>
+  </div>
+  <form id="product-form" novalidate>
+    <input type="hidden" id="p-id">
+    <input type="hidden" id="p-image">
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="p-name">Product Name</label>
+      <input class="form-input" type="text" id="p-name" required>
+      <span class="form-error-msg">Enter a product name.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Product Photo <span class="opt">(optional — falls back to the emoji below)</span></label>
+      <div class="image-upload-row">
+        <div class="image-preview" id="p-image-preview"><span id="p-image-preview-emoji">🍽️</span></div>
+        <div class="image-upload-controls">
+          <label class="btn btn--sm btn--muted" style="cursor:pointer">
+            Upload Photo
+            <input type="file" id="p-image-file" accept="image/*" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0">
+          </label>
+          <input class="form-input" type="url" id="p-image-url" placeholder="or paste an image URL">
+          <button type="button" class="admin-remove-image-btn" id="p-image-remove" hidden>Remove photo</button>
+        </div>
+      </div>
+      <span class="form-hint">Photos are resized automatically to keep this browser's storage light. A pasted URL (e.g. from an image host) uses no local storage at all.</span>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="p-category">Category</label>
+        <select class="form-select" id="p-category"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="p-emoji">Emoji <span class="opt">(fallback)</span></label>
+        <input class="form-input" type="text" id="p-emoji" maxlength="4" placeholder="🎂">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="p-price">Price (FCFA) <span class="opt">(blank = custom)</span></label>
+        <input class="form-input" type="number" id="p-price" min="0" placeholder="e.g. 1500">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="p-price-label">Price Label <span class="opt">(optional)</span></label>
+        <input class="form-input" type="text" id="p-price-label" placeholder="e.g. From 15,000 FCFA">
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="p-desc">Description</label>
+      <textarea class="form-textarea" id="p-desc" required></textarea>
+      <span class="form-error-msg">Enter a short description.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label" for="p-badge">Badge <span class="opt">(optional, e.g. Bestseller)</span></label>
+      <input class="form-input" type="text" id="p-badge" placeholder="Bestseller">
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label" style="display:flex;align-items:center;gap:8px;cursor:pointer">
+        <input type="checkbox" id="p-featured" style="width:16px;height:16px">
+        Feature on homepage <span class="opt">(shows in the Favorites section)</span>
+      </label>
+    </div>
+    <button type="submit" class="btn btn--folere btn--block">Save Product</button>
+  </form>
+</div>
+
+<!-- ============ POST FORM MODAL ============ -->
+<div class="modal-backdrop js-close-post-modal" id="post-modal-backdrop"></div>
+<div class="modal-dialog" id="post-modal" role="dialog" aria-modal="true" aria-labelledby="post-modal-title" aria-hidden="true">
+  <div class="modal-head">
+    <h3 id="post-modal-title">New Announcement</h3>
+    <button type="button" class="icon-btn js-close-post-modal" aria-label="Close"><svg class="icon"><use href="#icon-close"/></svg></button>
+  </div>
+  <form id="post-form" novalidate>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="post-title">Title</label>
+      <input class="form-input" type="text" id="post-title" placeholder="e.g. Valentine's Specials" required>
+      <span class="form-error-msg">Enter a title.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="post-message">Message</label>
+      <textarea class="form-textarea" id="post-message" placeholder="Short description customers will see on the home banner" required></textarea>
+      <span class="form-error-msg">Enter a message.</span>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="post-badge">Badge Text</label>
+        <input class="form-input" type="text" id="post-badge" placeholder="LIMITED TIME">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="post-emoji">Emoji</label>
+        <input class="form-input" type="text" id="post-emoji" maxlength="4" placeholder="🎉">
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label" for="post-cta-target">Links To</label>
+      <select class="form-select" id="post-cta-target"></select>
+    </div>
+    <button type="submit" class="btn btn--folere btn--block">Post to Home Page</button>
+  </form>
+</div>
+
+<!-- ============ CHANGE PASSWORD MODAL ============ -->
+<div class="modal-backdrop js-close-password-modal" id="password-modal-backdrop"></div>
+<div class="modal-dialog" id="password-modal" role="dialog" aria-modal="true" aria-labelledby="password-modal-title" aria-hidden="true">
+  <div class="modal-head">
+    <h3 id="password-modal-title">Change Password</h3>
+    <button type="button" class="icon-btn js-close-password-modal" aria-label="Close"><svg class="icon"><use href="#icon-close"/></svg></button>
+  </div>
+  <form id="password-form" novalidate>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="cp-current">Current Password</label>
+      <input class="form-input" type="password" id="cp-current" required autocomplete="current-password">
+      <span class="form-error-msg">That's not the current password.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="cp-new">New Password <span class="opt">(6+ characters)</span></label>
+      <input class="form-input" type="password" id="cp-new" required minlength="6" autocomplete="new-password">
+      <span class="form-error-msg">Use at least 6 characters.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label" for="cp-confirm">Confirm New Password</label>
+      <input class="form-input" type="password" id="cp-confirm" required autocomplete="new-password">
+      <span class="form-error-msg">Passwords don't match.</span>
+    </div>
+    <button type="submit" class="btn btn--folere btn--block">Update Password</button>
+  </form>
+</div>
+
+<div class="toast" id="toast">
+  <svg class="icon icon--sm"><use href="#icon-check"/></svg>
+  <span id="toast-text">Saved</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" crossorigin="anonymous"></script>
+<script>
+(function(){
+  'use strict';
+
+  /* ============================================================
+     SUPABASE
+     Get these two values from Supabase → Project Settings → API.
+     The anon key is safe to expose here — it only grants what the
+     Row Level Security policies in supabase_schema.sql allow.
+     Never put the service_role key in this file.
+     ============================================================ */
+  var SUPABASE_URL = 'https://dwtlsztnklxhgaghxfzc.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3dGxzenRua2x4aGdhZ2h4ZnpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4ODQ0NzIsImV4cCI6MjEwMjQ2MDQ3Mn0.wd7jiE84t3hwdOeIiieG3QzOfzTTuruqc-rwKYaBbDI';
+  if(SUPABASE_URL === 'YOUR_SUPABASE_URL' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY'){
+    document.body.innerHTML =
+      '<div style="max-width:420px;margin:80px auto;padding:32px;text-align:center;font-family:inherit;color:#3a2a1e">' +
+      '<div style="font-size:40px;margin-bottom:12px">🔌</div>' +
+      '<h2 style="margin:0 0 12px">Supabase isn\'t connected yet</h2>' +
+      '<p style="margin:0;line-height:1.6">Open this file and replace <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script with your real project values — see README.md for exactly where to find them.</p>' +
+      '</div>';
+    throw new Error('Supabase is not configured yet — replace SUPABASE_URL / SUPABASE_ANON_KEY near the top of the script.');
+  }
+  var supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  /* ============================================================
+     DATA LAYER — Supabase
+     map*() helpers translate the database's snake_case columns
+     into the exact shape the rendering code below already expects.
+     ============================================================ */
+  var CATEGORIES = [];
+  var PRODUCTS = [];
+  function findProduct(id){ for(var i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].id===id) return PRODUCTS[i]; } return null; }
+  function findCategory(id){ for(var i=0;i<CATEGORIES.length;i++){ if(CATEGORIES[i].id===id) return CATEGORIES[i]; } return null; }
+
+  function mapProduct(row){
+    return {
+      id: row.id, name: row.name, category: row.category_id, desc: row.description,
+      price: row.price, priceLabel: row.price_label, image: row.image_url,
+      emoji: row.emoji, badge: row.badge, badgeStyle: row.badge_style,
+      type: row.item_type, isFeatured: row.is_featured
+    };
+  }
+  function mapPost(row){
+    return {
+      id: row.id, title: row.title, message: row.message, badge: row.badge,
+      emoji: row.emoji, ctaText: row.cta_text, ctaTarget: row.cta_target,
+      active: row.is_active, createdAt: row.created_at
+    };
+  }
+  function mapOrder(row){
+    return {
+      id: row.id, status: row.status, createdAt: row.created_at,
+      subtotalLabel: formatPrice(row.subtotal),
+      items: (row.order_items || []).map(function(it){ return {name: it.product_name, qty: it.quantity, lineLabel: it.line_label}; })
+    };
+  }
+  function mapBooking(row){
+    return {
+      id: row.id, name: row.name, phone: row.phone, orderType: row.order_type,
+      date: row.needed_on, status: row.status, createdAt: row.created_at
+    };
+  }
+  function mapTrainee(row){
+    return { id: row.id, name: row.name, phone: row.phone, reason: row.reason, status: row.status, createdAt: row.created_at };
+  }
+
+  async function loadCategories(){
+    var res = await supabaseClient.from('categories').select('*').order('sort_order');
+    if(res.error){ showToast(res.error.message); CATEGORIES = []; return; }
+    CATEGORIES = res.data.map(function(row){ return {id: row.id, name: row.name, emoji: row.emoji}; });
+  }
+  async function loadProducts(){
+    var res = await supabaseClient.from('products').select('*').order('created_at', {ascending:false});
+    if(res.error){ showToast(res.error.message); PRODUCTS = []; return; }
+    PRODUCTS = res.data.map(mapProduct);
+  }
+
+  var posts = [];
+  var orders = [];
+  var bookings = [];
+  var trainees = [];
+  async function loadPosts(){
+    var res = await supabaseClient.from('posts').select('*').order('created_at', {ascending:false});
+    if(res.error){ showToast(res.error.message); posts = []; return; }
+    posts = res.data.map(mapPost);
+  }
+  async function loadOrders(){
+    var res = await supabaseClient.from('orders').select('*, order_items(*)').order('created_at', {ascending:false});
+    if(res.error){ showToast(res.error.message); orders = []; return; }
+    orders = res.data.map(mapOrder);
+  }
+  async function loadBookings(){
+    var res = await supabaseClient.from('bookings').select('*').order('created_at', {ascending:false});
+    if(res.error){ showToast(res.error.message); bookings = []; return; }
+    bookings = res.data.map(mapBooking);
+  }
+  async function loadTrainees(){
+    var res = await supabaseClient.from('trainees').select('*').order('created_at', {ascending:false});
+    if(res.error){ showToast(res.error.message); trainees = []; return; }
+    trainees = res.data.map(mapTrainee);
+  }
+
+  function formatPrice(n){ return n.toLocaleString('en-US') + ' FCFA'; }
+  function icon(name, extraClass){ return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') + '"><use href="#icon-' + name + '"/></svg>'; }
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function relativeTime(ts){
+    var mins = Math.floor((Date.now() - ts) / 60000);
+    if(mins < 1) return 'Just now';
+    if(mins < 60) return mins + 'm ago';
+    var hrs = Math.floor(mins / 60);
+    if(hrs < 24) return hrs + 'h ago';
+    return Math.floor(hrs / 24) + 'd ago';
+  }
+  var toastTimer = null;
+  function showToast(msg){
+    var toast = document.getElementById('toast');
+    var text = document.getElementById('toast-text');
+    if(!toast || !text) return;
+    text.textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('is-visible'); }, 2600);
+  }
+
+  /* ============================================================
+     AUTH
+     ============================================================ */
+  var currentSession = null; // kept in sync by supabaseClient.auth.onAuthStateChange, set up in init()
+  function isAdminLoggedIn(){ return !!currentSession; }
+  function setupAdminAuth(){
+    var form = document.getElementById('admin-login-form');
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      var emailInput = document.getElementById('admin-email');
+      var passwordInput = document.getElementById('admin-password');
+      var email = emailInput.value.trim();
+      var password = passwordInput.value;
+      var errorEl = document.getElementById('admin-login-error');
+      var submitBtn = form.querySelector('button[type="submit"]');
+
+      function fail(){
+        errorEl.classList.add('is-visible');
+        emailInput.classList.add('has-error');
+        passwordInput.classList.add('has-error');
+      }
+      function succeed(){
+        errorEl.classList.remove('is-visible');
+        emailInput.classList.remove('has-error');
+        passwordInput.classList.remove('has-error');
+        showToast('Welcome back!');
+        // onAuthStateChange (set up in init) fires renderApp() automatically
+      }
+      submitBtn.disabled = true;
+      var res = await supabaseClient.auth.signInWithPassword({email: email, password: password});
+      submitBtn.disabled = false;
+      if(res.error){ fail(); return; }
+      succeed();
+    });
+    document.getElementById('admin-logout-btn').addEventListener('click', function(){
+      supabaseClient.auth.signOut();
+      // onAuthStateChange fires renderApp() automatically
+    });
+  }
+  async function renderApp(){
+    var loginView = document.getElementById('admin-login-view');
+    var dashView = document.getElementById('admin-dashboard-view');
+    var logoutBtn = document.getElementById('admin-logout-btn');
+    if(isAdminLoggedIn()){
+      loginView.hidden = true;
+      dashView.hidden = false;
+      logoutBtn.hidden = false;
+      await Promise.all([loadCategories(), loadProducts(), loadOrders(), loadBookings(), loadTrainees(), loadPosts()]);
+      renderAllPanels();
+    } else {
+      loginView.hidden = false;
+      dashView.hidden = true;
+      logoutBtn.hidden = true;
+    }
+  }
+
+  /* ============================================================
+     RENDER: PANELS
+     ============================================================ */
+  function renderOverview(){
+    var el = document.getElementById('admin-stat-grid');
+    var stats = [
+      {label:'Pending Orders', value:orders.filter(function(o){ return o.status==='pending'; }).length, ic:'cart', tab:'orders'},
+      {label:'Pending Bookings', value:bookings.filter(function(b){ return b.status==='pending'; }).length, ic:'calendar', tab:'bookings'},
+      {label:'Trainee Applications', value:trainees.filter(function(t){ return t.status==='pending'; }).length, ic:'graduation', tab:'trainees'},
+      {label:'Products Listed', value:PRODUCTS.length, ic:'grid', tab:'products'},
+      {label:'Active Posts', value:posts.filter(function(p){ return p.active !== false; }).length, ic:'bell', tab:'posts'}
+    ];
+    el.innerHTML = stats.map(function(s){
+      return '<button type="button" class="admin-stat-card js-admin-stat-link" data-tab="' + s.tab + '"><div class="admin-stat-icon">' + icon(s.ic) + '</div><div><span class="admin-stat-value">' + s.value + '</span><span class="admin-stat-label">' + s.label + '</span></div></button>';
+    }).join('');
+  }
+  function renderProducts(){
+    var el = document.getElementById('admin-product-list');
+    if(PRODUCTS.length === 0){ el.innerHTML = '<p class="admin-empty">No products yet.</p>'; return; }
+    el.innerHTML = PRODUCTS.map(function(p){
+      var cat = findCategory(p.category);
+      var visual = p.image ? '<img src="' + p.image.replace(/"/g,'&quot;') + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">' : p.emoji;
+      return (
+        '<div class="admin-row">' +
+          '<div class="admin-row-emoji">' + visual + '</div>' +
+          '<div class="admin-row-body"><h4>' + escapeHtml(p.name) + '</h4><p>' + escapeHtml(p.priceLabel) + ' · ' + escapeHtml(cat ? cat.name : p.category) + '</p></div>' +
+          '<div class="admin-row-actions">' +
+            '<button type="button" class="admin-icon-action js-admin-edit-product" data-id="' + p.id + '" aria-label="Edit ' + escapeHtml(p.name) + '">' + icon('edit','icon--sm') + '</button>' +
+            '<button type="button" class="admin-icon-action admin-icon-action--danger js-admin-delete-product" data-id="' + p.id + '" aria-label="Delete ' + escapeHtml(p.name) + '">' + icon('trash','icon--sm') + '</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+  function renderOrders(){
+    var el = document.getElementById('admin-order-list');
+    if(orders.length === 0){ el.innerHTML = '<p class="admin-empty">No orders yet.</p>'; return; }
+    el.innerHTML = orders.map(function(o){
+      var itemsText = o.items.map(function(i){ return i.name + ' x' + i.qty; }).join(', ');
+      return (
+        '<div class="admin-row admin-row--stack">' +
+          '<div class="admin-row-body"><h4>' + escapeHtml(o.subtotalLabel) + '<span class="admin-status admin-status--' + o.status + '">' + o.status + '</span></h4>' +
+          '<p>' + escapeHtml(itemsText) + '</p><span class="admin-row-time">' + relativeTime(o.createdAt) + '</span></div>' +
+          (o.status === 'pending' ? '<button type="button" class="btn btn--folere btn--sm js-admin-confirm-order" data-id="' + o.id + '">Confirm</button>' : '') +
+        '</div>'
+      );
+    }).join('');
+  }
+  function renderBookings(){
+    var el = document.getElementById('admin-booking-list');
+    if(bookings.length === 0){ el.innerHTML = '<p class="admin-empty">No bookings yet.</p>'; return; }
+    el.innerHTML = bookings.map(function(b){
+      return (
+        '<div class="admin-row admin-row--stack">' +
+          '<div class="admin-row-body"><h4>' + escapeHtml(b.name) + '<span class="admin-status admin-status--' + b.status + '">' + b.status + '</span></h4>' +
+          '<p>' + escapeHtml(b.orderType) + (b.date ? ' · ' + escapeHtml(b.date) : '') + ' · ' + escapeHtml(b.phone) + '</p>' +
+          '<span class="admin-row-time">' + relativeTime(b.createdAt) + '</span></div>' +
+          (b.status === 'pending' ? '<button type="button" class="btn btn--folere btn--sm js-admin-confirm-booking" data-id="' + b.id + '">Confirm</button>' : '') +
+        '</div>'
+      );
+    }).join('');
+  }
+  function renderTrainees(){
+    var el = document.getElementById('admin-trainee-list');
+    if(trainees.length === 0){ el.innerHTML = '<p class="admin-empty">No trainee applications yet.</p>'; return; }
+    el.innerHTML = trainees.map(function(t){
+      return (
+        '<div class="admin-row admin-row--stack">' +
+          '<div class="admin-row-body"><h4>' + escapeHtml(t.name) + '<span class="admin-status admin-status--' + t.status + '">' + t.status + '</span></h4>' +
+          '<p>' + escapeHtml(t.reason) + '</p><span class="admin-row-time">' + escapeHtml(t.phone) + ' · ' + relativeTime(t.createdAt) + '</span></div>' +
+          (t.status === 'pending' ? '<button type="button" class="btn btn--folere btn--sm js-admin-approve-trainee" data-id="' + t.id + '">Approve</button>' : '') +
+        '</div>'
+      );
+    }).join('');
+  }
+  function renderPosts(){
+    var el = document.getElementById('admin-post-list');
+    if(posts.length === 0){ el.innerHTML = '<p class="admin-empty">No posts yet — add one to feature it on the home page banner.</p>'; return; }
+    el.innerHTML = posts.map(function(p){
+      return (
+        '<div class="admin-row">' +
+          '<div class="admin-row-emoji">' + (p.emoji || '🎉') + '</div>' +
+          '<div class="admin-row-body"><h4>' + escapeHtml(p.title) + '</h4><p>' + escapeHtml(p.message) + '</p></div>' +
+          '<div class="admin-row-actions"><button type="button" class="admin-icon-action admin-icon-action--danger js-admin-delete-post" data-id="' + p.id + '" aria-label="Delete ' + escapeHtml(p.title) + '">' + icon('trash','icon--sm') + '</button></div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+  function renderAllPanels(){
+    renderOverview(); renderProducts(); renderOrders(); renderBookings(); renderTrainees(); renderPosts();
+  }
+  function switchToTab(tabName){
+    document.querySelectorAll('.js-admin-tab').forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === tabName); });
+    document.querySelectorAll('.admin-panel').forEach(function(p){ p.classList.remove('is-active'); });
+    var panel = document.getElementById('admin-panel-' + tabName);
+    if(panel) panel.classList.add('is-active');
+  }
+  function setupTabs(){
+    document.querySelectorAll('.js-admin-tab').forEach(function(tab){
+      tab.addEventListener('click', function(){ switchToTab(tab.dataset.tab); });
+    });
+  }
+
+  /* ============================================================
+     PRODUCT MODAL
+     ============================================================ */
+  function updateImagePreview(value, emojiFallback){
+    var preview = document.getElementById('p-image-preview');
+    var removeBtn = document.getElementById('p-image-remove');
+    if(value){
+      preview.innerHTML = '<img src="' + value.replace(/"/g,'&quot;') + '" alt="">';
+      removeBtn.hidden = false;
+    } else {
+      preview.innerHTML = '<span id="p-image-preview-emoji">' + (emojiFallback || '🍽️') + '</span>';
+      removeBtn.hidden = true;
+    }
+  }
+  function compressImageToBlob(file, callback){
+    var reader = new FileReader();
+    reader.onload = function(evt){
+      var img = new Image();
+      img.onload = function(){
+        var maxDim = 640;
+        var w = img.width, h = img.height;
+        if(w > h && w > maxDim){ h = Math.round(h * maxDim / w); w = maxDim; }
+        else if(h >= w && h > maxDim){ w = Math.round(w * maxDim / h); h = maxDim; }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob(function(blob){ callback(blob); }, 'image/jpeg', 0.72);
+      };
+      img.onerror = function(){ showToast("Couldn't read that image — try a different file."); };
+      img.src = evt.target.result;
+    };
+    reader.onerror = function(){ showToast("Couldn't read that file."); };
+    reader.readAsDataURL(file);
+  }
+  // Extracts the storage path from one of our own public URLs, so we know
+  // it's safe to delete — never touches a pasted external URL.
+  function extractStoragePath(url){
+    var marker = '/storage/v1/object/public/product-images/';
+    var idx = url ? url.indexOf(marker) : -1;
+    return idx === -1 ? null : url.slice(idx + marker.length);
+  }
+  async function deleteProductImageIfOwned(url){
+    var path = extractStoragePath(url);
+    if(!path) return;
+    try{ await supabaseClient.storage.from('product-images').remove([path]); }
+    catch(err){ /* best-effort cleanup — a leftover file isn't worth failing the save/delete over */ }
+  }
+  var isUploadingImage = false;
+  function setupImageUploadControls(){
+    document.getElementById('p-image-file').addEventListener('change', function(e){
+      var file = e.target.files[0];
+      if(!file) return;
+      if(file.type.indexOf('image/') !== 0){ showToast('Please choose an image file'); return; }
+      if(file.size > 10 * 1024 * 1024){ showToast('That image is too large — try one under 10MB'); return; }
+      var tempPreviewUrl = URL.createObjectURL(file);
+      updateImagePreview(tempPreviewUrl);
+      isUploadingImage = true;
+      compressImageToBlob(file, async function(blob){
+        try{
+          var path = 'products/' + Date.now().toString(36) + Math.random().toString(36).slice(2,8) + '.jpg';
+          var uploadRes = await supabaseClient.storage.from('product-images').upload(path, blob, {contentType: 'image/jpeg'});
+          if(uploadRes.error) throw uploadRes.error;
+          var publicUrl = supabaseClient.storage.from('product-images').getPublicUrl(path).data.publicUrl;
+          document.getElementById('p-image').value = publicUrl;
+          document.getElementById('p-image-url').value = '';
+          updateImagePreview(publicUrl);
+        } catch(err){
+          showToast("Couldn't upload that image — " + err.message);
+          updateImagePreview(document.getElementById('p-image').value || '');
+        } finally {
+          URL.revokeObjectURL(tempPreviewUrl);
+          isUploadingImage = false;
+        }
+      });
+    });
+    document.getElementById('p-image-url').addEventListener('input', function(e){
+      var url = e.target.value.trim();
+      document.getElementById('p-image').value = url;
+      if(url){ document.getElementById('p-image-file').value = ''; }
+      updateImagePreview(url, document.getElementById('p-emoji').value.trim());
+    });
+    document.getElementById('p-image-remove').addEventListener('click', function(){
+      document.getElementById('p-image').value = '';
+      document.getElementById('p-image-url').value = '';
+      document.getElementById('p-image-file').value = '';
+      updateImagePreview('', document.getElementById('p-emoji').value.trim());
+    });
+    document.getElementById('p-emoji').addEventListener('input', function(){
+      if(!document.getElementById('p-image').value){ updateImagePreview('', this.value.trim()); }
+    });
+  }
+  var editingOriginalImage = null; // the image URL in place when the modal opened, so we can clean it up if replaced
+  function openProductModal(productId){
+    var backdrop = document.getElementById('product-modal-backdrop');
+    var modal = document.getElementById('product-modal');
+    var form = document.getElementById('product-form');
+    var catSel = document.getElementById('p-category');
+    catSel.innerHTML = CATEGORIES.map(function(c){ return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
+    form.reset();
+    document.getElementById('p-image').value = '';
+    ['p-name','p-desc'].forEach(function(id){
+      var input = document.getElementById(id);
+      input.classList.remove('has-error');
+      input.nextElementSibling.classList.remove('is-visible');
+    });
+    if(productId){
+      var p = findProduct(productId);
+      document.getElementById('product-modal-title').textContent = 'Edit Product';
+      document.getElementById('p-id').value = p.id;
+      document.getElementById('p-name').value = p.name;
+      catSel.value = p.category;
+      document.getElementById('p-emoji').value = p.emoji;
+      document.getElementById('p-price').value = p.price != null ? p.price : '';
+      document.getElementById('p-price-label').value = p.priceLabel;
+      document.getElementById('p-desc').value = p.desc;
+      document.getElementById('p-badge').value = p.badge || '';
+      document.getElementById('p-featured').checked = !!p.isFeatured;
+      document.getElementById('p-image').value = p.image || '';
+      if(p.image && /^https?:\/\//i.test(p.image)){ document.getElementById('p-image-url').value = p.image; }
+      updateImagePreview(p.image || '', p.emoji);
+      editingOriginalImage = p.image || null;
+    } else {
+      document.getElementById('product-modal-title').textContent = 'Add Product';
+      document.getElementById('p-id').value = '';
+      document.getElementById('p-featured').checked = false;
+      updateImagePreview('', '🍽️');
+      editingOriginalImage = null;
+    }
+    backdrop.classList.add('is-open'); modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden';
+  }
+  function closeProductModal(){
+    document.getElementById('product-modal-backdrop').classList.remove('is-open');
+    document.getElementById('product-modal').classList.remove('is-open');
+    document.getElementById('product-modal').setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  function setupProductModal(){
+    document.querySelectorAll('.js-close-product-modal').forEach(function(b){ b.addEventListener('click', closeProductModal); });
+    document.getElementById('product-form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      if(isUploadingImage){ showToast('Still uploading the photo — try again in a moment'); return; }
+      var id = document.getElementById('p-id').value;
+      var name = document.getElementById('p-name').value.trim();
+      var category = document.getElementById('p-category').value;
+      var emoji = document.getElementById('p-emoji').value.trim() || (findCategory(category) ? findCategory(category).emoji : '🍽️');
+      var priceRaw = document.getElementById('p-price').value;
+      var priceLabelRaw = document.getElementById('p-price-label').value.trim();
+      var desc = document.getElementById('p-desc').value.trim();
+      var badge = document.getElementById('p-badge').value.trim();
+      var isFeatured = document.getElementById('p-featured').checked;
+      var image = document.getElementById('p-image').value.trim();
+
+      var nameInput = document.getElementById('p-name');
+      var descInput = document.getElementById('p-desc');
+      nameInput.classList.toggle('has-error', !name);
+      nameInput.nextElementSibling.classList.toggle('is-visible', !name);
+      descInput.classList.toggle('has-error', !desc);
+      descInput.nextElementSibling.classList.toggle('is-visible', !desc);
+      if(!name || !desc) return;
+
+      var payload = {
+        name: name, category_id: category || null, description: desc,
+        price_label: priceLabelRaw || (priceRaw !== '' ? formatPrice(Number(priceRaw)) : ''),
+        price: priceRaw !== '' ? Number(priceRaw) : null,
+        emoji: emoji, badge: badge || null, badge_style: badge ? 'folere' : null,
+        is_featured: isFeatured, image_url: image || null
+      };
+
+      var submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      var res = id
+        ? await supabaseClient.from('products').update(payload).eq('id', id).select().single()
+        : await supabaseClient.from('products').insert(payload).select().single();
+      submitBtn.disabled = false;
+      if(res.error){ showToast(res.error.message); return; }
+      if(editingOriginalImage && editingOriginalImage !== image){ deleteProductImageIfOwned(editingOriginalImage); }
+      await loadProducts();
+      renderProducts(); renderOverview();
+      closeProductModal();
+      showToast('Product saved');
+    });
+  }
+  async function deleteProduct(id){
+    var p = findProduct(id);
+    if(!p) return;
+    if(!window.confirm('Delete "' + p.name + '"? This cannot be undone.')) return;
+    var res = await supabaseClient.from('products').delete().eq('id', id);
+    if(res.error){ showToast(res.error.message); return; }
+    deleteProductImageIfOwned(p.image);
+    await loadProducts();
+    renderProducts(); renderOverview();
+    showToast('Product deleted');
+  }
+
+  /* ============================================================
+     POST MODAL
+     ============================================================ */
+  function openPostModal(){
+    var ctaSel = document.getElementById('post-cta-target');
+    var options = [{id:'all', name:'Full Menu'}].concat(CATEGORIES);
+    ctaSel.innerHTML = options.map(function(c){ return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
+    var form = document.getElementById('post-form');
+    form.reset();
+    ['post-title','post-message'].forEach(function(id){
+      var input = document.getElementById(id);
+      input.classList.remove('has-error');
+      input.nextElementSibling.classList.remove('is-visible');
+    });
+    document.getElementById('post-modal-backdrop').classList.add('is-open');
+    document.getElementById('post-modal').classList.add('is-open');
+    document.getElementById('post-modal').setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePostModal(){
+    document.getElementById('post-modal-backdrop').classList.remove('is-open');
+    document.getElementById('post-modal').classList.remove('is-open');
+    document.getElementById('post-modal').setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  function setupPostModal(){
+    document.querySelectorAll('.js-close-post-modal').forEach(function(b){ b.addEventListener('click', closePostModal); });
+    document.getElementById('post-form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      var title = document.getElementById('post-title').value.trim();
+      var message = document.getElementById('post-message').value.trim();
+      var badge = document.getElementById('post-badge').value.trim();
+      var emoji = document.getElementById('post-emoji').value.trim();
+      var ctaTarget = document.getElementById('post-cta-target').value;
+
+      var titleInput = document.getElementById('post-title');
+      var msgInput = document.getElementById('post-message');
+      titleInput.classList.toggle('has-error', !title);
+      titleInput.nextElementSibling.classList.toggle('is-visible', !title);
+      msgInput.classList.toggle('has-error', !message);
+      msgInput.nextElementSibling.classList.toggle('is-visible', !message);
+      if(!title || !message) return;
+
+      var submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      var res = await supabaseClient.from('posts').insert({
+        title: title, message: message, badge: badge || 'NEW', emoji: emoji || '🎉',
+        cta_target: ctaTarget, cta_text: 'Order Now', is_active: true
+      });
+      submitBtn.disabled = false;
+      if(res.error){ showToast(res.error.message); return; }
+      await loadPosts();
+      renderPosts(); renderOverview();
+      closePostModal();
+      showToast('Posted to home page');
+    });
+  }
+  async function deletePost(id){
+    var p = posts.filter(function(x){ return x.id === id; })[0];
+    if(!p) return;
+    var res = await supabaseClient.from('posts').delete().eq('id', id);
+    if(res.error){ showToast(res.error.message); return; }
+    await loadPosts();
+    renderPosts(); renderOverview();
+    showToast('Post deleted');
+  }
+
+  /* ============================================================
+     CHANGE PASSWORD
+     ============================================================ */
+  function openPasswordModal(){
+    var form = document.getElementById('password-form');
+    form.reset();
+    ['cp-current','cp-new','cp-confirm'].forEach(function(id){
+      var input = document.getElementById(id);
+      input.classList.remove('has-error');
+      input.nextElementSibling.classList.remove('is-visible');
+    });
+    document.getElementById('password-modal-backdrop').classList.add('is-open');
+    document.getElementById('password-modal').classList.add('is-open');
+    document.getElementById('password-modal').setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePasswordModal(){
+    document.getElementById('password-modal-backdrop').classList.remove('is-open');
+    document.getElementById('password-modal').classList.remove('is-open');
+    document.getElementById('password-modal').setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  function setupPasswordModal(){
+    document.getElementById('change-password-btn').addEventListener('click', openPasswordModal);
+    document.querySelectorAll('.js-close-password-modal').forEach(function(b){ b.addEventListener('click', closePasswordModal); });
+    document.getElementById('password-form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      var currentInput = document.getElementById('cp-current');
+      var newInput = document.getElementById('cp-new');
+      var confirmInput = document.getElementById('cp-confirm');
+      var current = currentInput.value;
+      var next = newInput.value;
+      var confirmVal = confirmInput.value;
+
+      var newOk = next.length >= 6;
+      var matchOk = next === confirmVal;
+      newInput.classList.toggle('has-error', !newOk);
+      newInput.nextElementSibling.classList.toggle('is-visible', !newOk);
+      confirmInput.classList.toggle('has-error', !matchOk);
+      confirmInput.nextElementSibling.classList.toggle('is-visible', !matchOk);
+      if(!newOk || !matchOk) return;
+
+      var submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+
+      // Re-check the current password before changing it, by attempting a
+      // real sign-in with it — this is the check Supabase's client exposes.
+      var checkRes = await supabaseClient.auth.signInWithPassword({
+        email: currentSession.user.email, password: current
+      });
+      if(checkRes.error){
+        currentInput.classList.add('has-error');
+        currentInput.nextElementSibling.classList.add('is-visible');
+        submitBtn.disabled = false;
+        return;
+      }
+      currentInput.classList.remove('has-error');
+      currentInput.nextElementSibling.classList.remove('is-visible');
+
+      var updateRes = await supabaseClient.auth.updateUser({password: next});
+      submitBtn.disabled = false;
+      if(updateRes.error){ showToast(updateRes.error.message); return; }
+      closePasswordModal();
+      showToast('Password updated');
+    });
+  }
+
+  /* ============================================================
+     APPROVALS
+     ============================================================ */
+  async function confirmOrder(id){
+    var o = orders.filter(function(x){ return x.id === id; })[0];
+    if(!o) return;
+    var res = await supabaseClient.from('orders').update({status:'confirmed'}).eq('id', id);
+    if(res.error){ showToast(res.error.message); return; }
+    await loadOrders();
+    renderOrders(); renderOverview();
+    showToast('Order confirmed');
+  }
+  async function confirmBooking(id){
+    var b = bookings.filter(function(x){ return x.id === id; })[0];
+    if(!b) return;
+    var res = await supabaseClient.from('bookings').update({status:'confirmed'}).eq('id', id);
+    if(res.error){ showToast(res.error.message); return; }
+    await loadBookings();
+    renderBookings(); renderOverview();
+    showToast('Booking confirmed');
+  }
+  async function approveTrainee(id){
+    var t = trainees.filter(function(x){ return x.id === id; })[0];
+    if(!t) return;
+    var res = await supabaseClient.from('trainees').update({status:'approved'}).eq('id', id);
+    if(res.error){ showToast(res.error.message); return; }
+    await loadTrainees();
+    renderTrainees(); renderOverview();
+    showToast('Trainee approved');
+  }
+
+  /* ============================================================
+     DELEGATED CLICKS + LIVE REFRESH
+     ============================================================ */
+  function setupDelegatedEvents(){
+    document.addEventListener('click', function(e){
+      var b;
+      if((b = e.target.closest('.js-admin-add-product'))){ openProductModal(null); return; }
+      if((b = e.target.closest('.js-admin-edit-product'))){ openProductModal(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-delete-product'))){ deleteProduct(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-confirm-order'))){ confirmOrder(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-confirm-booking'))){ confirmBooking(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-approve-trainee'))){ approveTrainee(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-add-post'))){ openPostModal(); return; }
+      if((b = e.target.closest('.js-admin-delete-post'))){ deletePost(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-stat-link'))){ switchToTab(b.dataset.tab); return; }
+    });
+  }
+  // Orders/bookings/trainees now live in Postgres, reachable from any device —
+  // so "seeing it update live" is a poll against the real API, not a localStorage
+  // trick that only worked between tabs of the same browser.
+  function setupLiveRefresh(){
+    setInterval(async function(){
+      if(!isAdminLoggedIn()) return;
+      var prevOrders = orders.length, prevBookings = bookings.length, prevTrainees = trainees.length;
+      await Promise.all([loadOrders(), loadBookings(), loadTrainees()]);
+      renderOrders(); renderBookings(); renderTrainees(); renderOverview();
+      if(orders.length > prevOrders) showToast('New order received');
+      if(bookings.length > prevBookings) showToast('New booking received');
+      if(trainees.length > prevTrainees) showToast('New trainee application');
+    }, 20000);
+  }
+
+  function init(){
+    setupAdminAuth();
+    setupTabs();
+    setupProductModal();
+    setupImageUploadControls();
+    setupPostModal();
+    setupPasswordModal();
+    setupDelegatedEvents();
+    setupLiveRefresh();
+    // Fires immediately with whatever session already exists (or null), then
+    // again on every login/logout/token refresh — renderApp() stays in sync.
+    supabaseClient.auth.onAuthStateChange(function(event, session){
+      currentSession = session;
+      renderApp();
+    });
+  }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wendy's Treats | Homemade Cakes, Snacks &amp; Local Drinks in Cameroon</title>
+<meta name="description" content="Wendy's Treats — homemade birthday cakes, cupcakes, savory Cameroonian snacks, and local drinks like foléré and kossam. Retail &amp; bulk orders, delivery available.">
+<meta property="og:title" content="Wendy's Treats">
+<meta property="og:description" content="Homemade cakes, snacks &amp; local drinks — made fresh, delivered with love.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FBF2E4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1. RESET & VARIABLES
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ivory:#FBF2E4;
+  --ivory-deep:#F3E4CB;
+  --paper:#FFFFFF;
+  --ink:#2B1810;
+  --ink-dark:#1C0F08;
+  --ink-soft:#6B5142;
+  --folere:#A31D3D;
+  --folere-deep:#7A1530;
+  --gold:#C6821F;
+  --gold-light:#E8B65C;
+  --leaf:#4B6B3F;
+  --line:#E6D2AE;
+  --line-dark:#3A2416;
+  --shadow-sm:0 2px 10px rgba(43,24,16,.08);
+  --shadow-md:0 10px 30px rgba(43,24,16,.12);
+  --shadow-lg:0 20px 50px rgba(43,24,16,.18);
+  --radius-sm:10px;
+  --radius-md:18px;
+  --radius-lg:28px;
+  --font-display:'Bricolage Grotesque',system-ui,sans-serif;
+  --font-body:'Figtree',system-ui,sans-serif;
+}
+html{-webkit-text-size-adjust:100%;}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+body{
+  font-family:var(--font-body);
+  background:var(--ivory);
+  color:var(--ink);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  padding-bottom:78px;
+}
+@media (min-width:1024px){body{padding-bottom:0;}}
+img,svg{display:block;max-width:100%;}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit;}
+button{background:none;border:none;cursor:pointer;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
+:focus-visible{outline:2.5px solid var(--folere);outline-offset:3px;border-radius:4px;}
+
+/* ============================================================
+   2. LAYOUT UTILITIES
+   ============================================================ */
+.container{width:100%;max-width:1240px;margin:0 auto;padding:0 20px;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-body);font-weight:700;font-size:12px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--folere);
+  margin-bottom:10px;
+}
+.eyebrow::before{content:'';width:18px;height:2px;background:currentColor;display:inline-block;}
+.section-title{font-size:clamp(26px,5vw,38px);letter-spacing:-.01em;color:var(--ink);}
+.section-head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:22px;}
+.view-all-link{display:inline-flex;align-items:center;gap:2px;font-weight:700;font-size:13.5px;color:var(--folere);flex-shrink:0;padding-bottom:4px;}
+.view-all-link .icon{width:17px;height:17px;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+
+/* Icon base */
+.icon{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.icon--sm{width:16px;height:16px;}
+.icon--lg{width:28px;height:28px;}
+
+/* ============================================================
+   3. BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 26px;border-radius:999px;font-weight:700;font-size:15px;
+  font-family:var(--font-body);white-space:nowrap;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease;
+  cursor:pointer;border:2px solid transparent;
+}
+.btn:active{transform:scale(.97);}
+.btn--primary{background:var(--gold);color:var(--ink-dark);box-shadow:var(--shadow-sm);}
+.btn--primary:hover{background:var(--gold-light);box-shadow:var(--shadow-md);}
+.btn--folere{background:var(--folere);color:#fff;box-shadow:var(--shadow-sm);}
+.btn--folere:hover{background:var(--folere-deep);box-shadow:var(--shadow-md);}
+.btn--outline{background:transparent;border-color:rgba(251,242,228,.4);color:var(--ivory);}
+.btn--outline:hover{border-color:var(--ivory);background:rgba(251,242,228,.08);}
+.btn--block{width:100%;}
+.btn--sm{padding:10px 18px;font-size:13px;}
+.btn[disabled]{opacity:.5;cursor:not-allowed;}
+
+.icon-btn{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--paper);color:var(--ink);box-shadow:var(--shadow-sm);
+  position:relative;transition:transform .15s ease,box-shadow .15s ease;
+}
+.icon-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.icon-btn__badge{
+  position:absolute;top:-4px;right:-4px;background:var(--folere);color:#fff;
+  font-size:10px;font-weight:800;min-width:19px;height:19px;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;padding:0 4px;
+  border:2px solid var(--ivory);
+}
+.icon-btn__dot{
+  display:none;position:absolute;top:9px;right:9px;width:9px;height:9px;border-radius:50%;
+  background:var(--folere);border:2px solid var(--paper);
+}
+
+/* ============================================================
+   4. APP HEADER (persistent: brand row + home row OR sub-page row)
+   ============================================================ */
+.app-header{
+  position:sticky;top:0;z-index:100;background:rgba(251,242,228,.96);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);padding-top:14px;
+  transition:box-shadow .25s ease;
+}
+.app-header.is-scrolled{box-shadow:0 4px 20px rgba(43,24,16,.1);}
+.app-header-top{display:flex;align-items:center;gap:12px;padding-bottom:14px;}
+.app-header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.header-cta{display:none;}
+.desktop-nav{display:none;align-items:center;gap:24px;flex-shrink:0;}
+.desktop-nav a{font-weight:600;font-size:14.5px;color:var(--ink-soft);transition:color .15s ease;white-space:nowrap;}
+.desktop-nav a:hover{color:var(--folere);}
+
+/* Row 1 middle slot: brand name, always visible, same row as the icons */
+.app-greet-block{display:flex;align-items:center;flex:1;min-width:0;}
+.app-greet-brand{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* Row 2, home only: search */
+.app-search-row{display:flex;gap:10px;align-items:center;padding-bottom:16px;}
+.search-bar{flex:1;display:flex;align-items:center;gap:9px;background:var(--paper);border-radius:999px;padding:12px 16px;box-shadow:var(--shadow-sm);min-width:0;}
+.search-bar .icon{color:var(--ink-soft);}
+.search-bar input{flex:1;min-width:0;border:none;background:none;outline:none;font-size:14.5px;color:var(--ink);}
+.search-bar input::placeholder{color:#B29C87;}
+.filter-btn{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:var(--ink-dark);color:var(--ivory);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-sm);transition:transform .15s ease;
+}
+.filter-btn:hover{transform:translateY(-2px);}
+
+/* ============================================================
+   5. MOBILE NAV OVERLAY
+   ============================================================ */
+.mobile-nav{
+  position:fixed;inset:0;background:var(--ivory);z-index:200;
+  display:flex;flex-direction:column;padding:22px 24px 30px;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;
+}
+.mobile-nav.is-open{transform:translateX(0);}
+.mobile-nav-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;}
+.logo-text{font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-.01em;line-height:1;font-family:var(--font-display);}
+.mobile-nav-links{display:flex;flex-direction:column;gap:6px;margin-bottom:auto;}
+.mobile-nav-links a{
+  font-family:var(--font-display);font-weight:700;font-size:28px;color:var(--ink);
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.mobile-nav-bottom{padding-top:26px;}
+.mobile-nav-bottom .btn{margin-bottom:18px;}
+.mobile-social-row{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* ============================================================
+   6. PAGE SYSTEM (client-side "pages" + open animation)
+   ============================================================ */
+.app-page{display:none;padding-bottom:44px;}
+.app-page.is-active{display:block;animation:pageIn .4s cubic-bezier(.16,1,.3,1) both;}
+.app-page:focus{outline:none;}
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.page-intro{padding-top:22px;margin-bottom:24px;}
+.page-lead{font-size:15px;color:var(--ink-soft);margin-top:4px;max-width:52ch;}
+.page-title{font-size:clamp(24px,5vw,32px);letter-spacing:-.01em;color:var(--ink);}
+
+/* ============================================================
+   7. HERO CAROUSEL (lives on the Home page)
+   ============================================================ */
+.hero-banner-wrap{padding-top:22px;padding-bottom:6px;}
+.hero-carousel{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  background:radial-gradient(ellipse at 15% -10%,#3A2113 0%,var(--ink-dark) 60%);
+  box-shadow:var(--shadow-lg);
+}
+.hero-carousel::after{
+  content:'';position:absolute;right:-100px;top:-90px;width:340px;height:340px;
+  background:radial-gradient(circle,rgba(198,130,31,.28) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-slide{position:relative;z-index:1;padding:36px 24px 28px;opacity:1;transition:opacity .18s ease;}
+.hero-slide-inner{display:flex;flex-direction:column;gap:26px;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;background:rgba(251,242,228,.12);
+  border:1px solid rgba(251,242,228,.28);color:var(--gold-light);font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:6px 13px;border-radius:999px;margin-bottom:16px;
+}
+.hero-slide h2{font-size:clamp(25px,6.5vw,36px);color:var(--ivory);letter-spacing:-.02em;font-family:var(--font-display);}
+.hero-slide h2 em{font-style:normal;color:var(--gold-light);display:block;}
+.hero-slide .hero-sub{margin-top:12px;font-size:14.5px;color:#D8C3AE;max-width:42ch;}
+.hero-slide .btn{margin-top:22px;}
+.hero-slide-visual{position:relative;width:150px;height:150px;margin:0 auto;}
+.hero-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:172px;height:172px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,182,92,.35),transparent 70%);pointer-events:none;
+}
+.hero-slide-emoji{
+  position:absolute;top:-6px;right:-8px;font-size:50px;z-index:2;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,.35));
+}
+.hero-dots{display:flex;justify-content:center;gap:7px;padding:0 0 20px;position:relative;z-index:1;}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(251,242,228,.32);transition:background .2s ease,width .2s ease;}
+.hero-dot.is-active{background:var(--gold-light);width:20px;border-radius:4px;}
+
+/* ============================================================
+   8. STAMP BADGE (hero + promo + product cards)
+   ============================================================ */
+.hero-stamp{
+  width:172px;height:172px;border-radius:50%;
+  border:2px solid var(--gold-light);position:relative;
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-9deg);flex-shrink:0;
+  background:rgba(251,242,228,.03);
+}
+.hero-stamp::before{content:'';position:absolute;inset:9px;border:1px solid var(--gold-light);border-radius:50%;opacity:.7;}
+.hero-stamp-text{text-align:center;font-family:var(--font-display);color:var(--gold-light);text-transform:uppercase;}
+.hero-stamp-text .l1{display:block;font-size:11px;letter-spacing:.12em;font-weight:600;opacity:.85;}
+.hero-stamp-text .l2{display:block;font-size:18px;font-weight:800;letter-spacing:.02em;margin:3px 0;}
+.hero-stamp-text .l3{display:block;font-size:11px;letter-spacing:.12em;font-weight:600;opacity:.85;}
+.hero-carousel .hero-stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-9deg);width:140px;height:140px;}
+
+.stamp-badge{
+  position:absolute;top:12px;left:12px;z-index:2;
+  width:62px;height:62px;border-radius:50%;
+  background:var(--ivory);border:2px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  transform:rotate(-8deg);
+}
+.stamp-badge::before{content:'';position:absolute;inset:5px;border:1px solid var(--ink);border-radius:50%;}
+.stamp-badge span{
+  font-family:var(--font-display);font-weight:800;font-size:8.5px;line-height:1.15;
+  text-transform:uppercase;letter-spacing:.01em;color:var(--ink);position:relative;
+}
+.stamp-badge--folere{border-color:var(--folere);}
+.stamp-badge--folere::before{border-color:var(--folere);}
+.stamp-badge--folere span{color:var(--folere);}
+.stamp-badge--gold{border-color:var(--gold);}
+.stamp-badge--gold::before{border-color:var(--gold);}
+.stamp-badge--gold span{color:#a3690f;}
+.stamp-badge--leaf{border-color:var(--leaf);}
+.stamp-badge--leaf::before{border-color:var(--leaf);}
+.stamp-badge--leaf span{color:var(--leaf);}
+
+/* ============================================================
+   9. CATEGORY ICON ROW (Home) + CATEGORY TILES (Menu directory)
+   ============================================================ */
+.cat-icon-row{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none;-ms-overflow-style:none;}
+.cat-icon-row::-webkit-scrollbar{display:none;}
+.cat-icon-item{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:8px;width:66px;}
+.cat-icon-circle{
+  width:58px;height:58px;border-radius:50%;background:var(--paper);box-shadow:var(--shadow-sm);
+  display:flex;align-items:center;justify-content:center;font-size:25px;
+  transition:transform .2s ease;
+}
+.cat-icon-item:hover .cat-icon-circle{transform:translateY(-2px);}
+.cat-icon-label{font-size:11.5px;font-weight:700;color:var(--ink-soft);}
+
+.cat-tile-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.cat-tile{
+  display:flex;align-items:center;gap:14px;background:var(--paper);border-radius:var(--radius-md);
+  padding:16px 18px;box-shadow:var(--shadow-sm);transition:transform .15s ease,box-shadow .15s ease;
+}
+.cat-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.cat-tile-emoji{width:52px;height:52px;border-radius:14px;background:var(--ivory-deep);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.cat-tile-text{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;}
+.cat-tile-name{font-weight:700;font-size:15.5px;color:var(--ink);}
+.cat-tile-count{font-size:12.5px;color:var(--ink-soft);}
+.cat-tile-arrow{color:var(--ink-soft);flex-shrink:0;}
+@media (min-width:640px){.cat-tile-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ============================================================
+   10. CARDS: FAVORITES / DEALS + PRODUCTS
+   ============================================================ */
+.card-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+.deal-row{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 16px;scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none;}
+.deal-row::-webkit-scrollbar{display:none;}
+.deal-row .product-card{flex:0 0 198px;scroll-snap-align:start;}
+.product-card{
+  position:relative;background:var(--paper);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.product-visual{
+  height:150px;display:flex;align-items:center;justify-content:center;position:relative;
+  background:linear-gradient(135deg,var(--ivory-deep),var(--ivory));overflow:hidden;
+}
+.product-visual img{width:100%;height:100%;object-fit:cover;}
+.product-visual--cakes{background:linear-gradient(135deg,#F6DCE3,#FBF2E4);}
+.product-visual--cupcakes{background:linear-gradient(135deg,#F3E2C9,#FBF2E4);}
+.product-visual--savory{background:linear-gradient(135deg,#EFD9B8,#FBF2E4);}
+.product-visual--drinks{background:linear-gradient(135deg,#F0CBD3,#FBF2E4);}
+.product-visual--parfaits{background:linear-gradient(135deg,#E4DCEF,#FBF2E4);}
+.product-emoji{font-size:52px;filter:drop-shadow(0 6px 10px rgba(43,24,16,.15));}
+.product-info{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1;gap:6px;}
+.product-info h3{font-size:16.5px;color:var(--ink);}
+.product-desc{font-size:13px;color:var(--ink-soft);line-height:1.5;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;}
+.product-price{font-weight:800;font-size:15px;color:var(--ink);font-family:var(--font-display);}
+.card-action-btn{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--folere);color:#fff;transition:transform .15s ease,background .15s ease;
+}
+.card-action-btn:hover{background:var(--folere-deep);transform:scale(1.08);}
+.card-action-btn.card-action-book{background:var(--gold);color:var(--ink-dark);}
+.card-action-btn.card-action-book:hover{background:var(--gold-light);}
+.menu-empty{grid-column:1/-1;text-align:center;color:var(--ink-soft);padding:34px 10px;font-size:14.5px;}
+
+/* ============================================================
+   11. SERVICES
+   ============================================================ */
+.service-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+.service-card{
+  background:var(--paper);border-radius:var(--radius-md);padding:26px 22px;
+  box-shadow:var(--shadow-sm);text-align:left;
+}
+.service-icon{
+  width:52px;height:52px;border-radius:14px;background:var(--ivory-deep);
+  display:flex;align-items:center;justify-content:center;color:var(--folere);margin-bottom:16px;
+}
+.service-card h3{font-size:16.5px;margin-bottom:6px;color:var(--ink);}
+.service-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
+@media (min-width:720px){.service-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ============================================================
+   12. CATEGORY PILLS (category page quick-switch)
+   ============================================================ */
+.pill-row{
+  display:flex;gap:10px;overflow-x:auto;padding:4px 2px 4px;margin-bottom:22px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.pill-row::-webkit-scrollbar{display:none;}
+.pill{
+  flex-shrink:0;display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:999px;background:var(--paper);box-shadow:var(--shadow-sm);
+  font-weight:700;font-size:13.5px;color:var(--ink-soft);
+  transition:background .15s ease,color .15s ease;
+}
+.pill-emoji{font-size:15px;}
+.pill.is-active{background:var(--folere);color:#fff;}
+.category-page-count{font-size:13px;color:var(--ink-soft);font-weight:600;margin-bottom:16px;}
+
+/* ============================================================
+   13. PROMO
+   ============================================================ */
+.promo{
+  position:relative;overflow:hidden;border-radius:var(--radius-lg);
+  background:radial-gradient(ellipse at 88% 0%,#3A2113 0%,var(--ink-dark) 60%);
+  padding:36px 24px;display:flex;flex-direction:column;gap:26px;align-items:center;text-align:center;
+}
+.promo-inner{max-width:480px;}
+.promo h2{font-size:clamp(22px,5vw,30px);color:var(--ivory);margin:10px 0 12px;letter-spacing:-.01em;}
+.promo p{color:#D8C3AE;font-size:15px;margin-bottom:22px;max-width:44ch;}
+.promo .hero-stamp{width:118px;height:118px;margin:0 auto;}
+.promo .hero-stamp-text .l2{font-size:15px;}
+@media (min-width:720px){
+  .promo{flex-direction:row;justify-content:space-between;text-align:left;padding:42px 44px;}
+  .promo-inner{max-width:60%;}
+}
+@media (min-width:1024px){.promo{padding:54px 56px;}}
+
+/* ============================================================
+   13b. HOME PAGE FOOTER
+   ============================================================ */
+.home-footer{padding:36px 0 6px;text-align:center;}
+.home-footer-social{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+.home-footer-social .social-icon-link{background:var(--ivory-deep);color:var(--ink);}
+.home-footer-social .social-icon-link:hover{background:var(--folere);color:#fff;}
+.home-footer-copy{font-size:12.5px;color:var(--ink-soft);margin-bottom:6px;}
+.home-footer-credit{font-size:12.5px;color:var(--ink-soft);}
+.home-footer-credit a{text-decoration:underline;text-underline-offset:2px;color:var(--ink-soft);}
+
+/* ============================================================
+   14. BOOKING FORM
+   ============================================================ */
+.booking-layout{display:grid;grid-template-columns:1fr;gap:32px;align-items:start;}
+.booking-card{
+  background:var(--paper);border-radius:var(--radius-lg);padding:28px 22px;
+  box-shadow:var(--shadow-md);
+}
+.form-row{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px;}
+.form-group{display:flex;flex-direction:column;gap:7px;}
+.form-label{font-size:13px;font-weight:700;color:var(--ink);}
+.form-label .opt{font-weight:500;color:var(--ink-soft);text-transform:none;letter-spacing:0;}
+.form-input,.form-select,.form-textarea{
+  border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:13px 14px;
+  background:var(--ivory);font-size:14.5px;color:var(--ink);transition:border-color .15s ease;
+  width:100%;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--folere);outline:none;}
+.form-input.has-error,.form-select.has-error,.form-textarea.has-error{border-color:var(--folere);background:#FDF0F1;}
+.form-error-msg{font-size:12px;color:var(--folere);font-weight:600;display:none;}
+.form-error-msg.is-visible{display:block;}
+.form-textarea{resize:vertical;min-height:90px;font-family:inherit;}
+.radio-row{display:flex;gap:20px;}
+.radio-opt{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;cursor:pointer;}
+.radio-opt input{width:18px;height:18px;accent-color:var(--folere);}
+#address-group{display:none;}
+#address-group.is-visible{display:flex;}
+.booking-submit-row{display:flex;flex-direction:column;gap:14px;margin-top:6px;}
+.whatsapp-direct{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  color:var(--leaf);font-weight:700;font-size:14px;padding:8px;
+}
+.booking-success{
+  display:none;align-items:center;gap:10px;background:#EAF3E7;color:var(--leaf);
+  padding:14px 16px;border-radius:var(--radius-sm);font-weight:600;font-size:14px;margin-top:16px;
+}
+.booking-success.is-visible{display:flex;}
+.booking-side{display:flex;flex-direction:column;gap:14px;}
+.booking-info-card{
+  background:var(--ivory-deep);border-radius:var(--radius-md);padding:22px;display:flex;gap:14px;align-items:flex-start;
+}
+.booking-info-card .icon-wrap{
+  width:42px;height:42px;border-radius:12px;background:var(--paper);color:var(--folere);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.booking-info-card h4{font-size:15px;margin-bottom:4px;}
+.booking-info-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
+@media (min-width:1024px){.booking-layout{grid-template-columns:1.3fr 1fr;}}
+
+/* ============================================================
+   15. ABOUT + INSTAGRAM
+   ============================================================ */
+.about-grid{display:grid;grid-template-columns:1fr;gap:30px;align-items:center;}
+.about-text p{font-size:15.5px;color:var(--ink-soft);margin-bottom:14px;line-height:1.7;}
+.about-visual{
+  border-radius:var(--radius-lg);background:linear-gradient(135deg,#F6DCE3,var(--ivory-deep));
+  aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;padding:30px;
+}
+.about-visual .emoji-float{font-size:44px;opacity:.9;}
+.about-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+.about-tag{
+  background:var(--ivory-deep);color:var(--ink);font-weight:700;font-size:12.5px;
+  padding:9px 16px;border-radius:999px;display:inline-flex;align-items:center;gap:7px;
+}
+.about-tag .icon{color:var(--folere);}
+.about-instagram{margin-top:40px;}
+.about-instagram-title{font-family:var(--font-display);font-size:19px;margin-bottom:6px;color:var(--ink);}
+.about-instagram-sub{font-size:13.5px;color:var(--ink-soft);margin-bottom:18px;}
+.insta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.insta-tile{
+  aspect-ratio:1/1;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:30px;position:relative;overflow:hidden;transition:transform .2s ease;
+}
+.insta-tile:hover{transform:scale(1.04);}
+.insta-tile:nth-child(6n+1){background:linear-gradient(135deg,#F6DCE3,#FBF2E4);}
+.insta-tile:nth-child(6n+2){background:linear-gradient(135deg,#EFD9B8,#FBF2E4);}
+.insta-tile:nth-child(6n+3){background:linear-gradient(135deg,#F0CBD3,#FBF2E4);}
+.insta-tile:nth-child(6n+4){background:linear-gradient(135deg,#E4DCEF,#FBF2E4);}
+.insta-tile:nth-child(6n+5){background:linear-gradient(135deg,#F3E2C9,#FBF2E4);}
+.insta-tile:nth-child(6n+6){background:linear-gradient(135deg,#DCE8D6,#FBF2E4);}
+@media (min-width:720px){.about-grid{grid-template-columns:1fr 1fr;}}
+
+/* ============================================================
+   16. FAQ
+   ============================================================ */
+.faq-list{display:flex;flex-direction:column;gap:12px;max-width:760px;}
+.faq-item{background:var(--paper);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);overflow:hidden;}
+.faq-question{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:19px 22px;text-align:left;font-weight:700;font-size:15px;color:var(--ink);
+}
+.faq-question .icon{color:var(--folere);transition:transform .25s ease;flex-shrink:0;}
+.faq-item.is-open .faq-question .icon{transform:rotate(180deg);}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.faq-answer-inner{padding:0 22px 20px;font-size:14.5px;color:var(--ink-soft);line-height:1.6;}
+
+/* ============================================================
+   17. CONTACT PAGE
+   ============================================================ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;}
+.contact-card{
+  display:flex;flex-direction:column;gap:6px;background:var(--paper);border-radius:var(--radius-md);
+  padding:18px 16px;box-shadow:var(--shadow-sm);transition:transform .15s ease,box-shadow .15s ease;
+}
+a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.contact-card-icon{width:38px;height:38px;border-radius:10px;background:var(--ivory-deep);color:var(--folere);display:flex;align-items:center;justify-content:center;margin-bottom:2px;}
+.contact-card-icon .icon{width:19px;height:19px;}
+.contact-card-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+.contact-card-value{font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;}
+.contact-social{background:var(--ink-dark);border-radius:var(--radius-lg);padding:26px;text-align:center;margin-bottom:24px;}
+.contact-social h4{font-family:var(--font-display);color:var(--ivory);font-size:15px;margin-bottom:14px;}
+.footer-social{display:flex;gap:10px;flex-wrap:wrap;}
+.contact-social .footer-social{justify-content:center;}
+.social-icon-link{
+  width:40px;height:40px;border-radius:50%;background:rgba(251,242,228,.08);
+  display:flex;align-items:center;justify-content:center;color:var(--ivory);
+  transition:background .15s ease,transform .15s ease;
+}
+.social-icon-link:hover{background:var(--folere);transform:translateY(-2px);}
+.contact-credit{display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;font-size:12.5px;color:var(--ink-soft);padding-top:8px;}
+.contact-credit a{text-decoration:underline;text-underline-offset:2px;color:var(--ink-soft);}
+@media (min-width:640px){.contact-grid{grid-template-columns:repeat(4,1fr);}}
+
+/* ============================================================
+   17b. PROFILE / ACTIVITY PAGE
+   ============================================================ */
+.activity-list{display:flex;flex-direction:column;gap:12px;}
+.activity-item{display:flex;gap:14px;background:var(--paper);border-radius:var(--radius-md);padding:16px 18px;box-shadow:var(--shadow-sm);align-items:flex-start;}
+.activity-icon{width:42px;height:42px;border-radius:12px;background:var(--ivory-deep);color:var(--folere);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.activity-body{flex:1;min-width:0;}
+.activity-body h4{font-size:15px;margin-bottom:3px;color:var(--ink);}
+.activity-body p{font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
+.activity-time{display:block;font-size:11.5px;color:#B29C87;font-weight:600;margin-top:6px;}
+.activity-empty{text-align:center;padding:50px 20px;color:var(--ink-soft);}
+.activity-empty .icon{width:44px;height:44px;margin:0 auto 14px;color:var(--line);}
+.activity-empty p{margin-bottom:18px;font-size:14px;}
+
+/* ============================================================
+   18. BOTTOM MOBILE NAV
+   ============================================================ */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:90;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+  display:flex;padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+  box-shadow:0 -4px 20px rgba(43,24,16,.08);
+}
+.bottom-nav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:6px 2px;color:var(--ink-soft);font-size:10.5px;font-weight:700;position:relative;
+}
+.bottom-nav-item.is-active{color:var(--folere);}
+.bottom-nav-item.is-active::before{content:'';position:absolute;top:0;width:26px;height:3px;border-radius:3px;background:var(--folere);}
+.bottom-nav-item .icon{width:21px;height:21px;}
+@media (min-width:1024px){.bottom-nav{display:none;}}
+
+/* ============================================================
+   19. CART DRAWER
+   ============================================================ */
+.cart-backdrop{
+  position:fixed;inset:0;background:rgba(28,15,8,.5);z-index:198;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.cart-backdrop.is-open{opacity:1;pointer-events:auto;}
+.cart-drawer{
+  position:fixed;top:0;right:0;bottom:0;width:100%;max-width:420px;background:var(--ivory);
+  z-index:199;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+}
+.cart-drawer.is-open{transform:translateX(0);}
+.cart-drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line);}
+.cart-drawer-head h3{font-size:19px;}
+.cart-items{flex:1;overflow-y:auto;padding:16px 22px;}
+.cart-empty{text-align:center;padding:50px 20px;color:var(--ink-soft);}
+.cart-empty .icon{width:44px;height:44px;margin:0 auto 14px;color:var(--line);}
+.cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center;}
+.cart-item-emoji{width:52px;height:52px;border-radius:12px;background:var(--ivory-deep);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.cart-item-info{flex:1;min-width:0;}
+.cart-item-info h5{font-size:14.5px;margin-bottom:3px;}
+.cart-item-price{font-size:12.5px;color:var(--ink-soft);}
+.qty-stepper{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.qty-btn{width:26px;height:26px;border-radius:50%;background:var(--ivory-deep);display:flex;align-items:center;justify-content:center;}
+.qty-btn .icon{width:14px;height:14px;}
+.qty-input{
+  width:40px;text-align:center;font-weight:700;font-size:13.5px;color:var(--ink);
+  border:1.5px solid var(--line);border-radius:8px;padding:5px 2px;background:var(--paper);
+  -moz-appearance:textfield;
+}
+.qty-input::-webkit-outer-spin-button,.qty-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.qty-input:focus{border-color:var(--folere);outline:none;}
+.cart-item-remove{color:var(--folere);flex-shrink:0;}
+.cart-drawer-foot{padding:14px 22px 22px;border-top:1px solid var(--line);}
+.cart-subtotal-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-weight:700;font-size:16px;}
+.cart-subtotal-row span:last-child{font-family:var(--font-display);color:var(--folere);}
+.cart-browse-link{display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:13px;color:var(--folere);padding:4px 0 14px;}
+.cart-browse-link .icon{width:15px;height:15px;}
+
+/* ============================================================
+   19b. MODALS (trainee application + notifications) — shared backdrop/dialog
+   ============================================================ */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(28,15,8,.5);z-index:248;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.modal-backdrop.is-open{opacity:1;pointer-events:auto;}
+.modal-dialog{
+  position:fixed;left:50%;top:50%;width:calc(100% - 40px);max-width:440px;
+  background:var(--ivory);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+  z-index:249;padding:26px 24px 28px;
+  transform:translate(-50%,-50%) scale(.94);opacity:0;pointer-events:none;
+  transition:transform .25s cubic-bezier(.16,1,.3,1),opacity .25s ease;
+  max-height:calc(100vh - 60px);overflow-y:auto;
+}
+.modal-dialog.is-open{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:auto;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.modal-head h3{font-size:19px;}
+.notif-list{display:flex;flex-direction:column;max-height:60vh;overflow-y:auto;}
+.notif-item{display:flex;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line);}
+.notif-item:last-child{border-bottom:none;}
+.notif-dot-indicator{width:8px;height:8px;border-radius:50%;background:var(--folere);flex-shrink:0;margin-top:6px;}
+.notif-item.is-read .notif-dot-indicator{background:var(--line);}
+.notif-item-body p{font-size:14px;color:var(--ink);line-height:1.5;}
+.notif-item-time{font-size:11.5px;color:var(--ink-soft);margin-top:3px;display:block;}
+.notif-empty{text-align:center;padding:34px 10px;color:var(--ink-soft);font-size:14px;}
+
+/* ============================================================
+   20. TOAST
+   ============================================================ */
+.toast{
+  position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink-dark);color:var(--ivory);padding:13px 22px;border-radius:999px;
+  font-size:13.5px;font-weight:700;z-index:300;opacity:0;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease;display:flex;align-items:center;gap:8px;
+  box-shadow:var(--shadow-lg);white-space:normal;max-width:88vw;text-align:left;
+}
+.toast.is-visible{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast .icon{color:var(--leaf);width:17px;height:17px;flex-shrink:0;}
+
+/* ============================================================
+   21. RESPONSIVE — DESKTOP (≥1024px)
+   ============================================================ */
+@media (min-width:1024px){
+  .desktop-nav{display:flex;}
+  .header-cta{display:inline-flex;}
+  .card-grid{grid-template-columns:repeat(2,1fr);}
+  #category-page-grid.card-grid{grid-template-columns:repeat(4,1fr);}
+  .hero-banner-wrap{padding-top:30px;}
+  .hero-slide{padding:60px 50px;}
+  .hero-slide-visual{width:200px;height:200px;}
+  .hero-glow{width:220px;height:220px;}
+  .hero-carousel .hero-stamp{width:178px;height:178px;}
+  .hero-slide-emoji{font-size:70px;}
+}
+@media (min-width:640px) and (max-width:1023px){
+  #category-page-grid.card-grid{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ SVG ICON SPRITE ============ -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="20.5" y2="20.5"/></symbol>
+  <symbol id="icon-sliders" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2"/><line x1="4" y1="13" x2="20" y2="13"/><circle cx="16" cy="13" r="2"/><line x1="4" y1="19" x2="20" y2="19"/><circle cx="11" cy="19" r="2"/></symbol>
+  <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M6 10.5a6 6 0 0 1 12 0c0 3.5 1 5 2 6H4c1-1 2-2.5 2-6z"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0"/></symbol>
+  <symbol id="icon-cart" viewBox="0 0 24 24"><path d="M6 8h12l-1.2 11.5a1 1 0 0 1-1 .9H8.2a1 1 0 0 1-1-.9L6 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="icon-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="icon-minus" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="icon-chevron-right" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24"><line x1="20" y1="12" x2="5" y2="12"/><polyline points="11 6 5 12 11 18"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></symbol>
+  <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M5.5 4h3.2l1.6 4.2-2 1.3a11.5 11.5 0 0 0 5.2 5.2l1.3-2 4.2 1.6v3.2a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 4 6.6 1.5 1.5 0 0 1 5.5 4z"/></symbol>
+  <symbol id="icon-location" viewBox="0 0 24 24"><path d="M12 21s7-7.2 7-12.2a7 7 0 0 0-14 0C5 13.8 12 21 12 21z"/><circle cx="12" cy="9" r="2.6"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14.5"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9.5"/></symbol>
+  <symbol id="icon-truck" viewBox="0 0 24 24"><path d="M2.5 6.5h11v9h-11z"/><path d="M13.5 10h4l3 3v2.5h-7z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9.5h12V10"/></symbol>
+  <symbol id="icon-graduation" viewBox="0 0 24 24"><path d="M2.5 9 12 4.5 21.5 9 12 13.5 2.5 9z"/><path d="M6.5 11v4.5c0 1.7 2.7 3.2 5.5 3.2s5.5-1.5 5.5-3.2V11"/></symbol>
+  <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.2 12 13l8.5-6.8"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></symbol>
+  <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 0 0-7.35 12.75L3.5 20.5l4.4-1.15A8.5 8.5 0 1 0 12 3.5z"/><path d="M8.7 8.9c.2-.45.4-.45.65-.45h.4c.15 0 .35 0 .5.4.2.4.55 1.3.6 1.4.05.1.08.25 0 .4-.08.15-.13.25-.25.4-.13.13-.25.25-.35.38-.13.13-.25.25-.1.5.5.9 1.05 1.5 1.9 2 .55.35.95.4 1.25.35.25 0 .45-.25.55-.45.1-.25.35-.45.55-.55.2-.1.3-.1.45 0 .15.05.9.45 1.1.55.2.1.3.15.35.25.05.1.05.55-.15 1-.2.45-1.1.9-1.5.95-.4.05-1.45.2-3.3-1.2-2.2-1.65-2.75-3.3-2.85-3.6-.1-.3-.5-1.4.15-1.93z"/></symbol>
+  <symbol id="icon-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1"/></symbol>
+  <symbol id="icon-facebook" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14 9.5h-1.5c-.7 0-1.2.55-1.2 1.3V12h2.6l-.35 2.4h-2.25V19"/></symbol>
+  <symbol id="icon-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="8.3" y1="8.3" x2="15.7" y2="15.7"/><line x1="15.7" y1="8.3" x2="8.3" y2="15.7"/></symbol>
+  <symbol id="icon-youtube" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10 9.7v4.6l4.6-2.3z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="icon-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8.3" r=".9" fill="currentColor" stroke="none"/><line x1="8" y1="11" x2="8" y2="17"/><path d="M11.5 17v-3.7c0-1.4.9-2.3 2.1-2.3s2 .9 2 2.3V17"/><line x1="11.5" y1="11" x2="11.5" y2="17"/></symbol>
+  <symbol id="icon-tiktok" viewBox="0 0 24 24"><path d="M13 4v10.8a3.3 3.3 0 1 1-2.7-3.25"/><path d="M13 4c.3 2.3 2.1 4.1 4.4 4.4"/></symbol>
+  <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M4.5 20c1-4 4-6 7.5-6s6.5 2 7.5 6"/></symbol>
+  <symbol id="icon-edit" viewBox="0 0 24 24"><path d="M4 20l1-4.5L15.5 5 19 8.5 8.5 19 4 20z"/><line x1="13.5" y1="6.5" x2="17.5" y2="10.5"/></symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1V7"/><path d="M6 7l1 12.5a1.5 1.5 0 0 0 1.5 1.5h7a1.5 1.5 0 0 0 1.5-1.5L18 7"/></symbol>
+</svg>
+
+<!-- ============ APP HEADER (persistent) ============ -->
+<header class="app-header" id="site-header">
+  <div class="container app-header-top">
+    <button class="icon-btn" id="menu-toggle" aria-label="Open menu">
+      <svg class="icon"><use href="#icon-menu"/></svg>
+    </button>
+
+    <div class="app-greet-block" id="home-greet-block">
+      <h1 class="app-greet-brand">Wendy's Treats</h1>
+    </div>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <a href="#/menu">Menu</a>
+      <a href="#/services">Services</a>
+      <a href="#/booking">Book Now</a>
+      <a href="#/about">About</a>
+      <a href="#/faq">FAQ</a>
+      <a href="#/contact">Contact</a>
+    </nav>
+    <div class="app-header-actions">
+      <a class="btn btn--folere btn--sm header-cta" href="#/booking">Book a Cake</a>
+      <button class="icon-btn" id="notif-btn" aria-label="Notifications">
+        <svg class="icon"><use href="#icon-bell"/></svg>
+        <span class="icon-btn__dot"></span>
+      </button>
+      <button class="icon-btn js-cart-toggle" aria-label="Open cart">
+        <svg class="icon"><use href="#icon-cart"/></svg>
+        <span class="icon-btn__badge" id="cart-count" style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Home-only: search row -->
+  <div class="container app-search-row" id="home-search-row">
+    <label class="search-bar">
+      <svg class="icon icon--sm"><use href="#icon-search"/></svg>
+      <input type="search" id="site-search" placeholder="Search cakes, snacks, drinks…" aria-label="Search menu" autocomplete="off">
+    </label>
+    <button class="filter-btn" id="filter-toggle" aria-label="Browse categories">
+      <svg class="icon"><use href="#icon-sliders"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ MOBILE NAV OVERLAY ============ -->
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <div class="mobile-nav-top">
+    <span class="logo-text">Wendy's Treats</span>
+    <button class="icon-btn" id="mobile-nav-close" aria-label="Close menu">
+      <svg class="icon"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav-links js-mobile-link-container" aria-label="Mobile primary">
+    <a href="#/menu" class="js-mobile-link">Menu</a>
+    <a href="#/services" class="js-mobile-link">Services</a>
+    <a href="#/booking" class="js-mobile-link">Book Now</a>
+    <a href="#/about" class="js-mobile-link">About</a>
+    <a href="#/faq" class="js-mobile-link">FAQ</a>
+    <a href="#/contact" class="js-mobile-link">Contact</a>
+  </nav>
+  <div class="mobile-nav-bottom">
+    <a href="#/booking" class="btn btn--folere btn--block js-mobile-link">Book a Cake</a>
+    <div class="mobile-social-row" id="mobile-nav-social"></div>
+  </div>
+</div>
+
+<!-- ============ PAGE: HOME ============ -->
+<section class="app-page" id="page-home" data-page="home">
+  <section class="hero-banner-wrap">
+    <div class="container">
+      <div class="hero-carousel">
+        <div class="hero-slide" id="hero-slide"></div>
+        <div class="hero-dots" id="hero-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-top:30px">
+    <div class="cat-icon-row" id="cat-icon-row"></div>
+  </section>
+
+  <section class="container" style="padding-top:26px" id="favorites">
+    <div class="section-head-row">
+      <div>
+        <span class="eyebrow">Customer Favorites</span>
+        <h2 class="section-title">Wendy's Picks</h2>
+      </div>
+      <a href="#/category/all" class="view-all-link">View All<svg class="icon"><use href="#icon-chevron-right"/></svg></a>
+    </div>
+    <div class="deal-row" id="favorites-grid"></div>
+  </section>
+
+  <section class="container" style="padding-top:14px">
+    <div class="promo">
+      <div class="promo-inner">
+        <span class="eyebrow" style="color:var(--gold-light)">Planning Something Special?</span>
+        <h2>Bulk Orders &amp; Event Catering, Handled With Care</h2>
+        <p>Weddings, birthdays, graduations, office parties — tell us what you need and we'll build a package that fits, big or small.</p>
+        <a href="#/booking" class="btn btn--primary js-preset-bulk">Request a Quote</a>
+      </div>
+      <div class="hero-stamp">
+        <div class="hero-stamp-text">
+          <span class="l1">Ask Us</span>
+          <span class="l2">Any Size</span>
+          <span class="l3">Any Occasion</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="home-footer">
+    <div class="container">
+      <div class="home-footer-social" id="home-footer-social"></div>
+      <p class="home-footer-copy" id="home-footer-year">© 2026 Wendy's Treats. All rights reserved.</p>
+      <p class="home-footer-credit">Crafted by <a href="#" target="_blank" rel="noopener">Newton</a></p>
+    </div>
+  </footer>
+</section>
+
+<!-- ============ PAGE: MENU DIRECTORY ============ -->
+<section class="app-page" id="page-menu" data-page="menu">
+  <div class="container">
+    <div class="page-intro">
+      <span class="eyebrow">Full Menu</span>
+      <p class="page-lead">Tap a category to see what's inside.</p>
+    </div>
+    <div class="cat-tile-grid" id="menu-cat-tiles"></div>
+  </div>
+</section>
+
+<!-- ============ PAGE: CATEGORY (dynamic) ============ -->
+<section class="app-page" id="page-category" data-page="category">
+  <div class="container">
+    <div class="page-intro" style="padding-top:18px;margin-bottom:14px">
+      <p class="category-page-count" id="category-page-count">Treats</p>
+    </div>
+    <div class="pill-row" id="category-page-pills"></div>
+    <div class="card-grid" id="category-page-grid"></div>
+  </div>
+</section>
+
+<!-- ============ PAGE: SERVICES ============ -->
+<section class="app-page" id="page-services" data-page="services">
+  <div class="container">
+    <div class="page-intro">
+      <span class="eyebrow">Why Wendy's Treats</span>
+      <p class="page-lead">Baked with care, delivered with love.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-icon"><svg class="icon icon--lg"><use href="#icon-truck"/></svg></div>
+        <h3>Fast Delivery</h3>
+        <p>We deliver your treats fresh, right to your doorstep.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg class="icon icon--lg"><use href="#icon-grid"/></svg></div>
+        <h3>Bulk &amp; Retail</h3>
+        <p>From a single cupcake to a full event order — we've got you covered.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg class="icon icon--lg"><use href="#icon-home"/></svg></div>
+        <h3>Homemade Goodness</h3>
+        <p>Every treat is lovingly made fresh from our home kitchen.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg class="icon icon--lg"><use href="#icon-graduation"/></svg></div>
+        <h3>Open to Trainees</h3>
+        <p>Want to learn baking &amp; pastry skills hands-on? We welcome trainees.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE: BOOKING ============ -->
+<section class="app-page" id="page-booking" data-page="booking">
+  <div class="container">
+    <div class="page-intro">
+      <span class="eyebrow">Get In Touch</span>
+      <p class="page-lead">Fill in the details below and we'll confirm everything over WhatsApp.</p>
+    </div>
+    <div class="booking-layout">
+      <form class="booking-card" id="booking-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="b-name">Full Name</label>
+            <input class="form-input" type="text" id="b-name" name="name" placeholder="Your name" required>
+            <span class="form-error-msg">Enter your name to continue.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="b-phone">Phone / WhatsApp Number</label>
+            <input class="form-input" type="tel" id="b-phone" name="phone" placeholder="e.g. 6XX XXX XXX" required>
+            <span class="form-error-msg">Enter a valid phone number to continue.</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="b-order-type">Order Type</label>
+            <select class="form-select" id="b-order-type" name="orderType">
+              <option value="Birthday Cake Order">Birthday Cake Order</option>
+              <option value="Bulk / Event Order">Bulk / Event Order</option>
+              <option value="Retail Order">Retail Order</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="b-category">Category <span class="opt">(optional)</span></label>
+            <select class="form-select" id="b-category" name="category"></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="b-date">Date Needed <span class="opt">(optional)</span></label>
+            <input class="form-input" type="date" id="b-date" name="date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Delivery Method</label>
+            <div class="radio-row" style="padding-top:8px">
+              <label class="radio-opt"><input type="radio" name="deliveryMethod" value="Delivery" checked> Delivery</label>
+              <label class="radio-opt"><input type="radio" name="deliveryMethod" value="Pickup"> Pickup</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" id="address-group">
+          <label class="form-label" for="b-address">Delivery Address</label>
+          <input class="form-input" type="text" id="b-address" name="address" placeholder="e.g. Molyko, Buea">
+        </div>
+        <div class="form-group" style="margin-top:2px">
+          <label class="form-label" for="b-notes">Additional Notes <span class="opt">(optional)</span></label>
+          <textarea class="form-textarea" id="b-notes" name="notes" placeholder="Flavor, size, design ideas, quantity, etc."></textarea>
+        </div>
+        <div class="booking-submit-row">
+          <button type="submit" class="btn btn--folere btn--block">
+            <svg class="icon icon--sm"><use href="#icon-whatsapp"/></svg>
+            Send Booking via WhatsApp
+          </button>
+          <a href="#" class="whatsapp-direct js-whatsapp-direct">
+            <svg class="icon icon--sm"><use href="#icon-whatsapp"/></svg>
+            Or chat with us directly on WhatsApp
+          </a>
+        </div>
+        <div class="booking-success" id="booking-success">
+          <svg class="icon"><use href="#icon-check"/></svg>
+          <span>Thanks! We've opened WhatsApp with your booking details — just hit send.</span>
+        </div>
+      </form>
+      <div class="booking-side">
+        <div class="booking-info-card">
+          <div class="icon-wrap"><svg class="icon"><use href="#icon-clock"/></svg></div>
+          <div><h4>Booking Lead Time</h4><p>3–5 days for standard cakes, 1–2 weeks for large or intricate designs.</p></div>
+        </div>
+        <div class="booking-info-card">
+          <div class="icon-wrap"><svg class="icon"><use href="#icon-truck"/></svg></div>
+          <div><h4>Delivery</h4><p>Available on request — delivery fees may apply depending on location.</p></div>
+        </div>
+        <div class="booking-info-card">
+          <div class="icon-wrap"><svg class="icon"><use href="#icon-graduation"/></svg></div>
+          <div>
+            <h4>Want to Learn With Us?</h4>
+            <p>We welcome trainees who'd like to learn hands-on baking &amp; pastry skills.</p>
+            <button type="button" class="btn btn--folere btn--sm js-open-trainee-modal" style="margin-top:12px">Apply to Train</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE: ABOUT ============ -->
+<section class="app-page" id="page-about" data-page="about">
+  <div class="container">
+    <div class="page-intro">
+      <span class="eyebrow">Our Story</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Wendy's Treats began with a simple love for baking and bringing people together over good food. Today, we create custom birthday cakes, cake loaves, cupcakes, and a range of savory Cameroonian favorites and local drinks — all made fresh, by hand, from our home kitchen.</p>
+        <p>Whether you're celebrating a birthday, hosting an event, or just craving something delicious, we're here to make it sweeter — one order at a time.</p>
+        <div class="about-tags">
+          <span class="about-tag"><svg class="icon icon--sm"><use href="#icon-check"/></svg>Homemade</span>
+          <span class="about-tag"><svg class="icon icon--sm"><use href="#icon-check"/></svg>Bulk &amp; Retail</span>
+          <span class="about-tag"><svg class="icon icon--sm"><use href="#icon-check"/></svg>Delivery Available</span>
+          <span class="about-tag"><svg class="icon icon--sm"><use href="#icon-check"/></svg>Trainees Welcome</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <span class="emoji-float">🎂</span><span class="emoji-float">🥧</span><span class="emoji-float">🍹</span><span class="emoji-float">🧁</span><span class="emoji-float">🥛</span>
+      </div>
+    </div>
+    <div class="about-instagram">
+      <h2 class="about-instagram-title">Follow the Sweetness</h2>
+      <p class="about-instagram-sub">See our latest creations — @wendystreats on Instagram</p>
+      <div class="insta-grid" id="instagram-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE: FAQ ============ -->
+<section class="app-page" id="page-faq" data-page="faq">
+  <div class="container">
+    <div class="page-intro">
+      <span class="eyebrow">Questions</span>
+      <p class="page-lead">Everything you need to know before ordering.</p>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- ============ PAGE: CONTACT ============ -->
+<section class="app-page" id="page-contact" data-page="contact">
+  <div class="container">
+    <div class="page-intro">
+      <span class="eyebrow">Get In Touch</span>
+      <p class="page-lead">We'd love to hear from you — reach out anytime.</p>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-card" id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">
+        <span class="contact-card-icon"><svg class="icon"><use href="#icon-whatsapp"/></svg></span>
+        <span class="contact-card-label">WhatsApp</span>
+        <span class="contact-card-value" id="footer-whatsapp-text">+237 6XX XXX XXX</span>
+      </a>
+      <div class="contact-card">
+        <span class="contact-card-icon"><svg class="icon"><use href="#icon-mail"/></svg></span>
+        <span class="contact-card-label">Email</span>
+        <span class="contact-card-value">hello@wendystreats.com</span>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-icon"><svg class="icon"><use href="#icon-location"/></svg></span>
+        <span class="contact-card-label">Location</span>
+        <span class="contact-card-value">Buea, Cameroon</span>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-icon"><svg class="icon"><use href="#icon-clock"/></svg></span>
+        <span class="contact-card-label">Hours</span>
+        <span class="contact-card-value">Mon–Sat 8AM–7PM<br>Sun by appointment</span>
+      </div>
+    </div>
+    <div class="contact-social">
+      <h4>Follow Along</h4>
+      <div class="footer-social" id="footer-social"></div>
+    </div>
+    <div class="contact-credit">
+      <span id="current-year-line">© 2026 Wendy's Treats. All rights reserved.</span>
+      <span>Crafted by <a href="#" target="_blank" rel="noopener">Newton</a></span>
+      <a href="admin.html" style="margin-top:2px">Admin Login</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE: PROFILE / ACTIVITY ============ -->
+<section class="app-page" id="page-profile" data-page="profile">
+  <div class="container">
+    <div class="page-intro">
+      <span class="eyebrow">Your Activity</span>
+      <p class="page-lead">Bookings and orders you've sent us this visit.</p>
+    </div>
+    <div class="activity-list" id="activity-list"></div>
+  </div>
+</section>
+
+<!-- ============ BOTTOM MOBILE NAV ============ -->
+<nav class="bottom-nav" aria-label="Mobile bottom navigation">
+  <a href="#/" class="bottom-nav-item is-active js-bottom-link" data-route="home">
+    <svg class="icon"><use href="#icon-home"/></svg>Home
+  </a>
+  <a href="#/menu" class="bottom-nav-item js-bottom-link" data-route="menu">
+    <svg class="icon"><use href="#icon-grid"/></svg>Menu
+  </a>
+  <a href="#/booking" class="bottom-nav-item js-bottom-link" data-route="booking">
+    <svg class="icon"><use href="#icon-calendar"/></svg>Book
+  </a>
+  <a href="#/contact" class="bottom-nav-item js-bottom-link" data-route="contact">
+    <svg class="icon"><use href="#icon-phone"/></svg>Contact
+  </a>
+  <a href="#/profile" class="bottom-nav-item js-bottom-link" data-route="profile">
+    <svg class="icon"><use href="#icon-user"/></svg>Profile
+  </a>
+</nav>
+
+<!-- ============ CART DRAWER ============ -->
+<div class="cart-backdrop" id="cart-backdrop"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <h3>Your Order</h3>
+    <button class="icon-btn cart-close-btn" aria-label="Close cart">
+      <svg class="icon"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-drawer-foot">
+    <a href="#/category/all" class="cart-browse-link js-close-cart-nav">
+      <svg class="icon"><use href="#icon-arrow-left"/></svg>
+      Back to Full Menu
+    </a>
+    <div class="cart-subtotal-row"><span>Subtotal</span><span id="cart-subtotal">0 FCFA</span></div>
+    <button class="btn btn--folere btn--block" id="cart-checkout-btn">
+      <svg class="icon icon--sm"><use href="#icon-whatsapp"/></svg>
+      Send Order via WhatsApp
+    </button>
+  </div>
+</aside>
+
+<!-- ============ TRAINEE APPLICATION MODAL ============ -->
+<div class="modal-backdrop js-close-trainee-modal" id="trainee-modal-backdrop"></div>
+<div class="modal-dialog" id="trainee-modal" role="dialog" aria-modal="true" aria-labelledby="trainee-modal-title" aria-hidden="true">
+  <div class="modal-head">
+    <h3 id="trainee-modal-title">Apply to Train</h3>
+    <button type="button" class="icon-btn js-close-trainee-modal" aria-label="Close">
+      <svg class="icon"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <form id="trainee-form" novalidate>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="t-name">Full Name</label>
+      <input class="form-input" type="text" id="t-name" name="name" placeholder="Your name" required>
+      <span class="form-error-msg">Enter your name to continue.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="t-phone">Phone / WhatsApp Number</label>
+      <input class="form-input" type="tel" id="t-phone" name="phone" placeholder="e.g. 6XX XXX XXX" required>
+      <span class="form-error-msg">Enter a valid phone number to continue.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:6px">
+      <label class="form-label" for="t-reason">Why do you want to be a trainee?</label>
+      <textarea class="form-textarea" id="t-reason" name="reason" placeholder="Tell us a bit about yourself and what you'd like to learn…" required></textarea>
+      <span class="form-error-msg">Tell us a little about why you'd like to train with us.</span>
+    </div>
+    <button type="submit" class="btn btn--folere btn--block" style="margin-top:14px">
+      <svg class="icon icon--sm"><use href="#icon-whatsapp"/></svg>
+      Send Application via WhatsApp
+    </button>
+  </form>
+</div>
+
+<!-- ============ NOTIFICATIONS PANEL ============ -->
+<div class="modal-backdrop js-close-notif-modal" id="notif-modal-backdrop"></div>
+<div class="modal-dialog" id="notif-modal" role="dialog" aria-modal="true" aria-labelledby="notif-modal-title" aria-hidden="true">
+  <div class="modal-head">
+    <h3 id="notif-modal-title">Notifications</h3>
+    <button type="button" class="icon-btn js-close-notif-modal" aria-label="Close">
+      <svg class="icon"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <div class="notif-list" id="notif-list"></div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast">
+  <svg class="icon icon--sm"><use href="#icon-check"/></svg>
+  <span id="toast-text">Added to cart</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" crossorigin="anonymous"></script>
+<script>
+(function(){
+  'use strict';
+
+  /* ============================================================
+     CONFIG
+     ============================================================ */
+  var CONFIG = {
+    whatsappNumber: '237653863161', // Wendy's WhatsApp / contact number
+    email: 'hello@wendystreats.com', // TODO: replace with real email
+    social: {
+      whatsapp: '',
+      instagram: 'https://instagram.com/wendystreats',   // TODO: confirm real handle
+      facebook: 'https://facebook.com/wendystreats',      // TODO: confirm real handle
+      tiktok: 'https://tiktok.com/@wendystreats',         // TODO: confirm real handle
+      youtube: 'https://youtube.com/@wendystreats',       // TODO: confirm real handle
+      x: 'https://x.com/wendystreats',                    // TODO: confirm real handle
+      linkedin: 'https://linkedin.com/company/wendystreats' // TODO: confirm real handle
+    }
+  };
+  CONFIG.social.whatsapp = 'https://wa.me/' + CONFIG.whatsappNumber;
+
+  /* ============================================================
+     SUPABASE
+     Get these two values from Supabase → Project Settings → API.
+     The anon key is designed to be public — it only ever grants
+     what the Row Level Security policies in supabase_schema.sql
+     allow. Never put the service_role key in this file.
+     ============================================================ */
+  var SUPABASE_URL = 'https://dwtlsztnklxhgaghxfzc.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3dGxzenRua2x4aGdhZ2h4ZnpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4ODQ0NzIsImV4cCI6MjEwMjQ2MDQ3Mn0.wd7jiE84t3hwdOeIiieG3QzOfzTTuruqc-rwKYaBbDI';
+  if(SUPABASE_URL === 'YOUR_SUPABASE_URL' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY'){
+    document.body.innerHTML =
+      '<div style="max-width:420px;margin:80px auto;padding:32px;text-align:center;font-family:inherit;color:#3a2a1e">' +
+      '<div style="font-size:40px;margin-bottom:12px">🔌</div>' +
+      '<h2 style="margin:0 0 12px">Supabase isn\'t connected yet</h2>' +
+      '<p style="margin:0;line-height:1.6">Open this file and replace <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script with your real project values — see README.md for exactly where to find them.</p>' +
+      '</div>';
+    throw new Error('Supabase is not configured yet — replace SUPABASE_URL / SUPABASE_ANON_KEY near the top of the script.');
+  }
+  var supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  /* ============================================================
+     DATA LAYER — Supabase
+     mapProduct/mapCategory/mapPost translate the database's
+     snake_case columns into the exact shape the rendering code
+     below already expects, so nothing downstream has to change.
+     ============================================================ */
+  function mapCategory(row){
+    return { id: row.id, name: row.name, emoji: row.emoji };
+  }
+  function mapProduct(row){
+    return {
+      id: row.id, name: row.name, category: row.category_id, desc: row.description,
+      price: row.price, priceLabel: row.price_label, image: row.image_url,
+      emoji: row.emoji, badge: row.badge, badgeStyle: row.badge_style,
+      type: row.item_type, isFeatured: row.is_featured
+    };
+  }
+  function mapPost(row){
+    return {
+      id: row.id, title: row.title, message: row.message, badge: row.badge,
+      emoji: row.emoji, ctaText: row.cta_text, ctaTarget: row.cta_target,
+      active: row.is_active, createdAt: row.created_at
+    };
+  }
+
+  var CATEGORIES = [];
+  var PRODUCTS = [];
+  async function loadCatalog(){
+    var results = await Promise.all([
+      supabaseClient.from('categories').select('*').order('sort_order'),
+      supabaseClient.from('products').select('*').eq('is_active', true)
+    ]);
+    if(results[0].error){ console.error('Failed to load categories:', results[0].error.message); CATEGORIES = []; }
+    else { CATEGORIES = results[0].data.map(mapCategory); }
+    if(results[1].error){ console.error('Failed to load products:', results[1].error.message); PRODUCTS = []; }
+    else { PRODUCTS = results[1].data.map(mapProduct); }
+  }
+
+  var FAQS = [
+    {q:'Do you deliver?', a:'Yes! We offer delivery depending on your location. Delivery fees may apply — just share your address when booking.'},
+    {q:'How far in advance should I order a birthday cake?', a:'We recommend booking at least 3–5 days ahead for standard cakes, and 1–2 weeks for large or intricate designs.'},
+    {q:'Do you take bulk or event orders?', a:'Absolutely — we cater bulk and retail orders for parties, weddings, and corporate events. Reach out via the booking form or WhatsApp.'},
+    {q:"Can I learn to bake with Wendy's Treats?", a:'Yes! We welcome trainees who want to learn hands-on baking and pastry skills. Head to the Booking page and tap "Apply to Train" to send us your details.'},
+    {q:'How do I pay for my order?', a:"Once your order is confirmed over WhatsApp, we'll share payment details (Mobile Money or bank transfer) to complete it."}
+  ];
+
+  var SOCIAL_LIST = [
+    {key:'whatsapp', icon:'whatsapp'},
+    {key:'instagram', icon:'instagram'},
+    {key:'facebook', icon:'facebook'},
+    {key:'tiktok', icon:'tiktok'},
+    {key:'youtube', icon:'youtube'},
+    {key:'x', icon:'x'},
+    {key:'linkedin', icon:'linkedin'}
+  ];
+
+  var HERO_SLIDES_DEFAULT = [
+    {badge:'Fresh Today', titleTop:'Cakes Baked', titleBottom:'With Love', sub:'100% homemade birthday cakes, custom-designed and baked fresh to order.', cta:'Order a Cake', target:'cakes', emoji:'🎂', stamp:['100%','Homemade','Made to Order']},
+    {badge:'Cameroonian Favorites', titleTop:'Savory Bites,', titleBottom:'Golden & Crisp', sub:'Meat pies, scotch eggs, fish rolls & more, baked golden every day.', cta:'Order Savories', target:'savory', emoji:'🥧', stamp:['Baked','Fresh','Daily']},
+    {badge:'Local & Refreshing', titleTop:'Foléré &', titleBottom:'Kossam, Chilled', sub:'Traditional Cameroonian drinks, made the authentic way and chilled to order.', cta:'Order Drinks', target:'drinks', emoji:'🍹', stamp:['100%','Local','Recipes']}
+  ];
+  var posts = [];
+  function postToSlide(post){
+    return {
+      badge: post.badge || 'NEW', titleTop: post.title, titleBottom: '',
+      sub: post.message, cta: post.ctaText || 'Order Now', target: post.ctaTarget || 'all',
+      emoji: post.emoji || '🎉', stamp: ['Limited','Time','Offer']
+    };
+  }
+  function getHeroSlides(){
+    var live = posts.filter(function(p){ return p.active !== false; }).map(postToSlide);
+    return live.concat(HERO_SLIDES_DEFAULT);
+  }
+
+  var notifications = [];
+  // The notification bell is just a view over `posts` — there's no separate
+  // notifications table. Per-visitor "have I seen this" state lives in
+  // localStorage since it's a local UI preference, not data that needs to
+  // sync anywhere.
+  var READ_POSTS_KEY = 'wt_read_post_ids';
+  function getReadPostIds(){
+    try{ var raw = localStorage.getItem(READ_POSTS_KEY); return raw !== null ? JSON.parse(raw) : []; }
+    catch(e){ return []; }
+  }
+  function markPostsRead(ids){
+    try{
+      var existing = getReadPostIds();
+      ids.forEach(function(id){ if(existing.indexOf(id) === -1) existing.push(id); });
+      localStorage.setItem(READ_POSTS_KEY, JSON.stringify(existing));
+    } catch(e){}
+  }
+  function buildNotifications(){
+    var readIds = getReadPostIds();
+    notifications = posts.map(function(post){
+      return {
+        id: post.id,
+        message: post.title + (post.message ? ' — ' + post.message : ''),
+        time: post.createdAt,
+        read: readIds.indexOf(post.id) !== -1
+      };
+    });
+  }
+  async function loadPosts(){
+    var res = await supabaseClient.from('posts').select('*').eq('is_active', true).order('created_at', {ascending:false});
+    if(res.error){ console.error('Failed to load posts:', res.error.message); posts = []; }
+    else { posts = res.data.map(mapPost); }
+    buildNotifications();
+  }
+
+  var SIMPLE_ROUTES = ['home','menu','services','booking','about','faq','contact','profile'];
+  var PAGE_TITLES = {
+    menu:'Full Menu',
+    services:"Why Wendy's Treats",
+    booking:'Book Your Order',
+    about:'About Us',
+    faq:'FAQs',
+    contact:'Contact Us',
+    profile:'Your Activity'
+  };
+
+  /* ============================================================
+     STATE
+     ============================================================ */
+  var cart = []; // {id, qty} — kept in memory only, resets on reload
+  var activityLog = []; // {icon, title, detail, time} — kept in memory only, resets on reload
+  var heroIndex = 0;
+  var heroTimer = null;
+  var toastTimer = null;
+
+  /* ============================================================
+     UTILITIES
+     ============================================================ */
+  function formatPrice(n){ return n.toLocaleString('en-US') + ' FCFA'; }
+  function icon(name, extraClass){ return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') + '"><use href="#icon-' + name + '"/></svg>'; }
+  function findProduct(id){ for(var i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].id===id) return PRODUCTS[i]; } return null; }
+  function findCategory(id){ for(var i=0;i<CATEGORIES.length;i++){ if(CATEGORIES[i].id===id) return CATEGORIES[i]; } return null; }
+  function buildWhatsAppLink(message){ return 'https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(message); }
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function prefersReducedMotion(){
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  function logActivity(iconName, title, detail){
+    var now = new Date();
+    var time = now.toLocaleDateString('en-US', {month:'short', day:'numeric'}) + ' · ' + now.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+    activityLog.push({icon:iconName, title:title, detail:detail, time:time});
+  }
+
+  /* ============================================================
+     ROUTER — one HTML file, several "pages", shown/hidden by hash
+     ============================================================ */
+  function parseHash(){
+    var raw = location.hash.replace(/^#\/?/, '');
+    if(!raw) return {route:'home'};
+    var parts = raw.split('/').map(function(s){
+      try{ return decodeURIComponent(s); }catch(e){ return s; }
+    });
+    if(parts[0] === 'category'){ return {route:'category', categoryId: parts[1] || 'all'}; }
+    if(parts[0] === 'search'){ return {route:'category', categoryId:'all', query:(parts[1]||'').toLowerCase()}; }
+    if(SIMPLE_ROUTES.indexOf(parts[0]) > -1){ return {route:parts[0]}; }
+    return {route:'home'};
+  }
+  function categoryPageTitle(id, query){
+    if(query) return 'Results for "' + query + '"';
+    if(id === 'all') return 'All Treats';
+    var c = findCategory(id);
+    return c ? c.name : 'Menu';
+  }
+  function syncBottomNavActive(route){
+    document.querySelectorAll('.js-bottom-link').forEach(function(i){
+      var r = i.dataset.route;
+      var active = r === route || (r === 'menu' && route === 'category');
+      i.classList.toggle('is-active', active);
+    });
+  }
+  function showPage(parsed){
+    var route = parsed.route;
+    document.querySelectorAll('.app-page').forEach(function(p){ p.classList.remove('is-active'); });
+    var target = document.getElementById('page-' + route);
+    if(!target){ target = document.getElementById('page-home'); route = 'home'; }
+
+    if(route === 'category'){ renderCategoryPage(parsed.categoryId, parsed.query); }
+    if(route === 'profile'){ renderProfilePage(); }
+
+    void target.offsetWidth; // reflow so the entrance animation replays every time
+    target.classList.add('is-active');
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+
+    var isHome = route === 'home';
+    var searchRow = document.getElementById('home-search-row');
+    if(searchRow) searchRow.hidden = !isHome;
+    var titleText = isHome ? '' : (route === 'category' ? categoryPageTitle(parsed.categoryId, parsed.query) : (PAGE_TITLES[route] || ''));
+    document.title = titleText ? (titleText + " | Wendy's Treats") : "Wendy's Treats | Homemade Cakes, Snacks & Local Drinks in Cameroon";
+
+    syncBottomNavActive(route);
+    window.scrollTo(0, 0);
+  }
+  function renderRoute(){ showPage(parseHash()); }
+
+  /* ============================================================
+     RENDER: PRODUCT CARDS, PAGES DRIVEN BY CATEGORY DATA
+     ============================================================ */
+  function badgeHtml(p){
+    if(!p.badge) return '';
+    return '<div class="stamp-badge stamp-badge--' + (p.badgeStyle||'folere') + '"><span>' + escapeHtml(p.badge) + '</span></div>';
+  }
+  function productVisualHtml(p){
+    if(p.image){
+      return '<div class="product-visual"><img src="' + p.image.replace(/"/g,'&quot;') + '" alt="" loading="lazy"></div>';
+    }
+    return '<div class="product-visual product-visual--' + p.category + '"><span class="product-emoji">' + p.emoji + '</span></div>';
+  }
+  function productCardHtml(p){
+    var actionBtn = p.type === 'booking'
+      ? '<a href="#/booking" class="card-action-btn card-action-book js-book-item" data-preset-category="' + p.category + '" aria-label="Book ' + escapeHtml(p.name) + '">' + icon('calendar') + '</a>'
+      : '<button class="card-action-btn js-add-item" data-id="' + p.id + '" aria-label="Add ' + escapeHtml(p.name) + ' to cart">' + icon('plus') + '</button>';
+    return (
+      '<article class="product-card">' +
+        badgeHtml(p) +
+        productVisualHtml(p) +
+        '<div class="product-info">' +
+          '<h3>' + escapeHtml(p.name) + '</h3>' +
+          '<p class="product-desc">' + escapeHtml(p.desc) + '</p>' +
+          '<div class="product-footer">' +
+            '<span class="product-price">' + escapeHtml(p.priceLabel) + '</span>' +
+            actionBtn +
+          '</div>' +
+        '</div>' +
+      '</article>'
+    );
+  }
+  function renderFavorites(){
+    var el = document.getElementById('favorites-grid');
+    if(!el) return;
+    el.innerHTML = PRODUCTS.filter(function(p){ return p.isFeatured; }).map(productCardHtml).join('');
+  }
+  function renderCatIconRow(){
+    var el = document.getElementById('cat-icon-row');
+    if(!el) return;
+    var all = [{id:'all', name:'All', emoji:'🍽️'}].concat(CATEGORIES);
+    el.innerHTML = all.map(function(c){
+      return '<a class="cat-icon-item" href="#/category/' + c.id + '"><span class="cat-icon-circle">' + c.emoji + '</span><span class="cat-icon-label">' + c.name + '</span></a>';
+    }).join('');
+  }
+  function renderMenuDirectory(){
+    var el = document.getElementById('menu-cat-tiles');
+    if(!el) return;
+    var tiles = [{id:'all', name:'All Treats', emoji:'🍽️'}].concat(CATEGORIES);
+    el.innerHTML = tiles.map(function(c){
+      var count = c.id === 'all' ? PRODUCTS.length : PRODUCTS.filter(function(p){ return p.category === c.id; }).length;
+      return (
+        '<a class="cat-tile" href="#/category/' + c.id + '">' +
+          '<span class="cat-tile-emoji">' + c.emoji + '</span>' +
+          '<span class="cat-tile-text"><span class="cat-tile-name">' + c.name + '</span><span class="cat-tile-count">' + count + (count===1?' item':' items') + '</span></span>' +
+          '<span class="cat-tile-arrow">' + icon('chevron-right','icon--sm') + '</span>' +
+        '</a>'
+      );
+    }).join('');
+  }
+  function renderCategoryPagePills(activeId){
+    var el = document.getElementById('category-page-pills');
+    if(!el) return;
+    var all = [{id:'all', name:'All', emoji:'🍽️'}].concat(CATEGORIES);
+    el.innerHTML = all.map(function(c){
+      var active = c.id === activeId ? ' is-active' : '';
+      return '<a class="pill' + active + '" href="#/category/' + c.id + '"><span class="pill-emoji">' + c.emoji + '</span>' + c.name + '</a>';
+    }).join('');
+  }
+  function renderCategoryPage(categoryId, query){
+    var id = categoryId || 'all';
+    var list = id === 'all' ? PRODUCTS.slice() : PRODUCTS.filter(function(p){ return p.category === id; });
+    if(query){
+      list = list.filter(function(p){ return p.name.toLowerCase().indexOf(query) > -1 || p.desc.toLowerCase().indexOf(query) > -1; });
+    }
+    var countEl = document.getElementById('category-page-count');
+    var gridEl = document.getElementById('category-page-grid');
+    if(countEl) countEl.textContent = list.length + (list.length === 1 ? ' treat' : ' treats') + (query ? ' found' : '');
+    if(gridEl){
+      gridEl.innerHTML = list.length ? list.map(productCardHtml).join('') : '<p class="menu-empty">No treats found. Try a different category or search.</p>';
+    }
+    renderCategoryPagePills(query ? null : id);
+  }
+  function activityItemHtml(a){
+    return (
+      '<div class="activity-item">' +
+        '<div class="activity-icon">' + icon(a.icon) + '</div>' +
+        '<div class="activity-body">' +
+          '<h4>' + escapeHtml(a.title) + '</h4>' +
+          '<p>' + escapeHtml(a.detail) + '</p>' +
+          '<span class="activity-time">' + a.time + '</span>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+  function renderProfilePage(){
+    var el = document.getElementById('activity-list');
+    if(!el) return;
+    if(activityLog.length === 0){
+      el.innerHTML = (
+        '<div class="activity-empty">' + icon('user','icon--lg') +
+        '<p>No activity yet — your bookings and orders will show up here.</p>' +
+        '<a href="#/category/all" class="btn btn--folere btn--sm">Browse Menu</a>' +
+        '</div>'
+      );
+      return;
+    }
+    el.innerHTML = activityLog.slice().reverse().map(activityItemHtml).join('');
+  }
+
+  function renderBookingCategorySelect(){
+    var sel = document.getElementById('b-category');
+    if(!sel) return;
+    var html = '<option value="">Not sure / Other</option>';
+    CATEGORIES.forEach(function(c){ html += '<option value="' + c.name + '">' + c.name + '</option>'; });
+    sel.innerHTML = html;
+  }
+  function renderFaq(){
+    var el = document.getElementById('faq-list');
+    if(!el) return;
+    el.innerHTML = FAQS.map(function(f, i){
+      return '<div class="faq-item"><button class="faq-question" aria-expanded="false"><span>' + escapeHtml(f.q) + '</span>' + icon('chevron-down') + '</button><div class="faq-answer"><div class="faq-answer-inner">' + escapeHtml(f.a) + '</div></div></div>';
+    }).join('');
+    el.querySelectorAll('.faq-item').forEach(function(item){
+      var btn = item.querySelector('.faq-question');
+      var answer = item.querySelector('.faq-answer');
+      btn.addEventListener('click', function(){
+        var isOpen = item.classList.contains('is-open');
+        el.querySelectorAll('.faq-item').forEach(function(other){
+          other.classList.remove('is-open');
+          other.querySelector('.faq-question').setAttribute('aria-expanded','false');
+          other.querySelector('.faq-answer').style.maxHeight = null;
+        });
+        if(!isOpen){
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded','true');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+  function renderInstagram(){
+    var el = document.getElementById('instagram-grid');
+    if(!el) return;
+    var emojis = ['🎂','🧁','🥧','🍹','🥛','🍨'];
+    el.innerHTML = emojis.map(function(e){
+      return '<a class="insta-tile" href="' + CONFIG.social.instagram + '" target="_blank" rel="noopener" aria-label="View on Instagram">' + e + '</a>';
+    }).join('');
+  }
+  function renderSocialRow(containerId){
+    var el = document.getElementById(containerId);
+    if(!el) return;
+    el.innerHTML = SOCIAL_LIST.map(function(s){
+      return '<a class="social-icon-link" href="' + CONFIG.social[s.key] + '" target="_blank" rel="noopener" aria-label="' + s.key + '">' + icon(s.icon) + '</a>';
+    }).join('');
+  }
+
+  /* ============================================================
+     HERO CAROUSEL (rotating content within the Home page)
+     ============================================================ */
+  function heroSlideHtml(s){
+    return (
+      '<div class="hero-slide-inner">' +
+        '<div class="hero-slide-text">' +
+          '<span class="hero-badge">' + escapeHtml(s.badge) + '</span>' +
+          '<h2>' + escapeHtml(s.titleTop) + '<em>' + escapeHtml(s.titleBottom) + '</em></h2>' +
+          '<p class="hero-sub">' + escapeHtml(s.sub) + '</p>' +
+          '<a href="#/category/' + s.target + '" class="btn btn--primary">' + escapeHtml(s.cta) + ' ' + icon('arrow-right','icon--sm') + '</a>' +
+        '</div>' +
+        '<div class="hero-slide-visual">' +
+          '<div class="hero-glow"></div>' +
+          '<span class="hero-slide-emoji">' + s.emoji + '</span>' +
+          '<div class="hero-stamp"><div class="hero-stamp-text"><span class="l1">' + s.stamp[0] + '</span><span class="l2">' + s.stamp[1] + '</span><span class="l3">' + s.stamp[2] + '</span></div></div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+  function renderHeroDots(){
+    var el = document.getElementById('hero-dots');
+    if(!el) return;
+    var slides = getHeroSlides();
+    el.innerHTML = slides.map(function(s, i){
+      return '<button type="button" class="hero-dot' + (i===heroIndex?' is-active':'') + ' js-hero-dot" data-index="' + i + '" aria-label="Show slide ' + (i+1) + '"></button>';
+    }).join('');
+  }
+  function renderHeroSlide(immediate){
+    var el = document.getElementById('hero-slide');
+    if(!el) return;
+    var slides = getHeroSlides();
+    if(heroIndex >= slides.length) heroIndex = 0;
+    if(immediate){
+      el.innerHTML = heroSlideHtml(slides[heroIndex]);
+    } else {
+      el.style.opacity = 0;
+      setTimeout(function(){
+        el.innerHTML = heroSlideHtml(slides[heroIndex]);
+        el.style.opacity = 1;
+      }, 180);
+    }
+    renderHeroDots();
+  }
+  function goToHeroSlide(i){
+    var slides = getHeroSlides();
+    heroIndex = (i + slides.length) % slides.length;
+    renderHeroSlide(false);
+  }
+  function startHeroAutoplay(){
+    stopHeroAutoplay();
+    if(prefersReducedMotion()) return;
+    heroTimer = setInterval(function(){ goToHeroSlide(heroIndex+1); }, 6000);
+  }
+  function stopHeroAutoplay(){ if(heroTimer){ clearInterval(heroTimer); heroTimer = null; } }
+
+  /* ============================================================
+     SEARCH + FILTER ENTRY POINTS
+     ============================================================ */
+  function submitSearch(){
+    var input = document.getElementById('site-search');
+    if(!input) return;
+    var q = input.value.trim();
+    if(q){ location.hash = '#/search/' + encodeURIComponent(q.toLowerCase()); }
+  }
+  function setupSearch(){
+    var input = document.getElementById('site-search');
+    if(!input) return;
+    input.addEventListener('search', submitSearch);
+    input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); submitSearch(); } });
+  }
+  function setupFilterButton(){
+    var btn = document.getElementById('filter-toggle');
+    if(!btn) return;
+    btn.addEventListener('click', function(){ location.hash = '#/menu'; });
+  }
+  function relativeTime(ts){
+    var mins = Math.floor((Date.now() - ts) / 60000);
+    if(mins < 1) return 'Just now';
+    if(mins < 60) return mins + 'm ago';
+    var hrs = Math.floor(mins / 60);
+    if(hrs < 24) return hrs + 'h ago';
+    return Math.floor(hrs / 24) + 'd ago';
+  }
+  function renderNotifList(){
+    var el = document.getElementById('notif-list');
+    if(!el) return;
+    if(notifications.length === 0){
+      el.innerHTML = '<p class="notif-empty">No notifications yet.</p>';
+      return;
+    }
+    el.innerHTML = notifications.map(function(n){
+      return (
+        '<div class="notif-item' + (n.read ? ' is-read' : '') + '">' +
+          '<span class="notif-dot-indicator"></span>' +
+          '<div class="notif-item-body"><p>' + escapeHtml(n.message) + '</p><span class="notif-item-time">' + relativeTime(n.time) + '</span></div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+  function updateNotifBadge(){
+    var dot = document.querySelector('#notif-btn .icon-btn__dot');
+    if(!dot) return;
+    dot.style.display = notifications.some(function(n){ return !n.read; }) ? 'block' : 'none';
+  }
+  function openNotifModal(){
+    var backdrop = document.getElementById('notif-modal-backdrop');
+    var modal = document.getElementById('notif-modal');
+    if(!backdrop || !modal) return;
+    renderNotifList();
+    backdrop.classList.add('is-open');
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    notifications.forEach(function(n){ n.read = true; });
+    markPostsRead(posts.map(function(p){ return p.id; }));
+    updateNotifBadge();
+  }
+  function closeNotifModal(){
+    var backdrop = document.getElementById('notif-modal-backdrop');
+    var modal = document.getElementById('notif-modal');
+    if(!backdrop || !modal) return;
+    backdrop.classList.remove('is-open');
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  function setupNotifButton(){
+    var btn = document.getElementById('notif-btn');
+    if(btn) btn.addEventListener('click', openNotifModal);
+    document.querySelectorAll('.js-close-notif-modal').forEach(function(b){ b.addEventListener('click', closeNotifModal); });
+    updateNotifBadge();
+  }
+
+  /* ============================================================
+     CART
+     ============================================================ */
+  function addToCart(id){
+    var existing = null;
+    for(var i=0;i<cart.length;i++){ if(cart[i].id===id){ existing = cart[i]; break; } }
+    if(existing){ existing.qty += 1; } else { cart.push({id:id, qty:1}); }
+    renderCart();
+    showToast('Added to cart');
+  }
+  function removeFromCart(id){ cart = cart.filter(function(c){ return c.id !== id; }); renderCart(); }
+  function changeQty(id, delta){
+    var item = null;
+    for(var i=0;i<cart.length;i++){ if(cart[i].id===id){ item = cart[i]; break; } }
+    if(!item) return;
+    item.qty += delta;
+    if(item.qty <= 0){ removeFromCart(id); return; }
+    renderCart();
+  }
+  function setQty(id, rawValue){
+    var item = null;
+    for(var i=0;i<cart.length;i++){ if(cart[i].id===id){ item = cart[i]; break; } }
+    if(!item) return;
+    var n = parseInt(rawValue, 10);
+    if(isNaN(n) || n < 1){ removeFromCart(id); return; }
+    item.qty = n;
+    renderCart();
+  }
+  function cartCount(){ return cart.reduce(function(sum,c){ return sum + c.qty; }, 0); }
+  function cartSubtotal(){
+    return cart.reduce(function(sum,c){ var p = findProduct(c.id); return sum + (p && p.price ? p.price * c.qty : 0); }, 0);
+  }
+  function renderCart(){
+    var count = cartCount();
+    var badge = document.getElementById('cart-count');
+    if(badge){
+      if(count > 0){ badge.style.display = 'flex'; badge.textContent = count; } else { badge.style.display = 'none'; }
+    }
+    var itemsEl = document.getElementById('cart-items');
+    if(itemsEl){
+      if(cart.length === 0){
+        itemsEl.innerHTML = '<div class="cart-empty">' + icon('cart','icon--lg') + '<p>Your cart is empty — browse the menu to add treats.</p><a href="#/category/all" class="btn btn--folere btn--sm js-close-cart-nav">Browse Menu</a></div>';
+      } else {
+        itemsEl.innerHTML = cart.map(function(c){
+          var p = findProduct(c.id);
+          if(!p) return '';
+          var lineTotal = p.price ? formatPrice(p.price * c.qty) : p.priceLabel;
+          var thumb = p.image ? '<img src="' + p.image.replace(/"/g,'&quot;') + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">' : p.emoji;
+          return (
+            '<div class="cart-item">' +
+              '<div class="cart-item-emoji">' + thumb + '</div>' +
+              '<div class="cart-item-info"><h5>' + escapeHtml(p.name) + '</h5><div class="cart-item-price">' + lineTotal + '</div>' +
+                '<div class="qty-stepper">' +
+                  '<button class="qty-btn js-qty-dec" data-id="' + p.id + '" aria-label="Decrease quantity">' + icon('minus') + '</button>' +
+                  '<input type="number" class="qty-input js-qty-input" data-id="' + p.id + '" value="' + c.qty + '" min="1" step="1" inputmode="numeric" aria-label="Quantity for ' + escapeHtml(p.name) + '">' +
+                  '<button class="qty-btn js-qty-inc" data-id="' + p.id + '" aria-label="Increase quantity">' + icon('plus') + '</button>' +
+                '</div></div>' +
+              '<button class="cart-item-remove js-remove-item" data-id="' + p.id + '" aria-label="Remove ' + escapeHtml(p.name) + '">' + icon('close') + '</button>' +
+            '</div>'
+          );
+        }).join('');
+      }
+    }
+    var subtotalEl = document.getElementById('cart-subtotal');
+    if(subtotalEl) subtotalEl.textContent = formatPrice(cartSubtotal());
+  }
+  function openCart(){
+    document.getElementById('cart-drawer').classList.add('is-open');
+    document.getElementById('cart-backdrop').classList.add('is-open');
+    document.getElementById('cart-drawer').setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart(){
+    document.getElementById('cart-drawer').classList.remove('is-open');
+    document.getElementById('cart-backdrop').classList.remove('is-open');
+    document.getElementById('cart-drawer').setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  async function checkoutCart(){
+    if(cart.length === 0){ showToast('Your cart is empty'); return; }
+    var message = "Hello Wendy's Treats! I'd like to place an order:\n\n";
+    var itemCount = cartCount();
+    var itemsSnapshot = [];
+    cart.forEach(function(c){
+      var p = findProduct(c.id);
+      if(!p) return;
+      var line = p.price ? formatPrice(p.price * c.qty) : p.priceLabel;
+      message += '• ' + p.name + ' x' + c.qty + ' — ' + line + '\n';
+      itemsSnapshot.push({productId:c.id, name:p.name, qty:c.qty, lineLabel:line});
+    });
+    message += '\n*Total: ' + formatPrice(cartSubtotal()) + '*\n\nPlease confirm availability and delivery details.';
+
+    // Best-effort save so it shows up in the admin dashboard. If Supabase is
+    // unreachable this still resolves, and WhatsApp — the part that actually
+    // has to work — opens regardless.
+    try{
+      var orderRes = await supabaseClient.from('orders').insert({subtotal: cartSubtotal()}).select().single();
+      if(orderRes.error) throw orderRes.error;
+      var orderItemsPayload = itemsSnapshot.map(function(it){
+        return {order_id: orderRes.data.id, product_id: it.productId, product_name: it.name, quantity: it.qty, line_label: it.lineLabel};
+      });
+      var itemsRes = await supabaseClient.from('order_items').insert(orderItemsPayload);
+      if(itemsRes.error) throw itemsRes.error;
+    } catch(err){
+      console.error('Failed to save order:', err.message || err);
+    }
+
+    window.open(buildWhatsAppLink(message), '_blank');
+    logActivity('cart', 'Order Sent', itemCount + (itemCount === 1 ? ' item' : ' items') + ' · ' + formatPrice(cartSubtotal()));
+    showToast('Redirecting to WhatsApp…');
+  }
+
+  /* ============================================================
+     BOOKING FORM
+     ============================================================ */
+  function setupBookingForm(){
+    var form = document.getElementById('booking-form');
+    if(!form) return;
+    var addressGroup = document.getElementById('address-group');
+    var radios = form.querySelectorAll('input[name="deliveryMethod"]');
+    function syncAddressVisibility(){
+      var selected = form.querySelector('input[name="deliveryMethod"]:checked');
+      addressGroup.classList.toggle('is-visible', !!selected && selected.value === 'Delivery');
+    }
+    radios.forEach(function(r){ r.addEventListener('change', syncAddressVisibility); });
+    syncAddressVisibility();
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      var name = form.name.value.trim();
+      var phone = form.phone.value.trim();
+      var nameInput = document.getElementById('b-name');
+      var phoneInput = document.getElementById('b-phone');
+      var phoneOk = phone.replace(/[^0-9]/g,'').length >= 8;
+
+      nameInput.classList.toggle('has-error', !name);
+      nameInput.nextElementSibling.classList.toggle('is-visible', !name);
+      phoneInput.classList.toggle('has-error', !phoneOk);
+      phoneInput.nextElementSibling.classList.toggle('is-visible', !phoneOk);
+      if(!name || !phoneOk){ (name ? phoneInput : nameInput).focus(); return; }
+
+      var orderType = form.orderType.value;
+      var category = form.category.value;
+      var date = form.date.value;
+      var deliveryMethod = form.deliveryMethod.value;
+      var address = form.address.value.trim();
+      var notes = form.notes.value.trim();
+
+      var message = "Hello Wendy's Treats! I'd like to make a booking.\n\n";
+      message += '*Name:* ' + name + '\n';
+      message += '*Phone:* ' + phone + '\n';
+      message += '*Order Type:* ' + orderType + '\n';
+      if(category) message += '*Category:* ' + category + '\n';
+      if(date) message += '*Date Needed:* ' + date + '\n';
+      message += '*Delivery Method:* ' + deliveryMethod + '\n';
+      if(deliveryMethod === 'Delivery' && address) message += '*Address:* ' + address + '\n';
+      if(notes) message += '*Notes:* ' + notes + '\n';
+
+      // Best-effort save so it shows up in the admin dashboard. WhatsApp —
+      // the part that actually has to work — opens regardless of this.
+      try{
+        var bookingRes = await supabaseClient.from('bookings').insert({
+          name: name, phone: phone, order_type: orderType,
+          category_name: category || null, needed_on: date || null,
+          delivery_method: deliveryMethod, address: address || null, notes: notes || null
+        });
+        if(bookingRes.error) throw bookingRes.error;
+      } catch(err){
+        console.error('Failed to save booking:', err.message || err);
+      }
+
+      window.open(buildWhatsAppLink(message), '_blank');
+      logActivity('calendar', 'Booking Sent', orderType + (date ? ' · ' + date : ''));
+      document.getElementById('booking-success').classList.add('is-visible');
+      showToast('Redirecting to WhatsApp…');
+    });
+  }
+  function setupWhatsAppDirect(){
+    var directLink = document.querySelector('.js-whatsapp-direct');
+    if(directLink){
+      directLink.href = buildWhatsAppLink("Hello Wendy's Treats! I have a question.");
+      directLink.target = '_blank';
+      directLink.rel = 'noopener';
+    }
+  }
+  function openTraineeModal(){
+    var backdrop = document.getElementById('trainee-modal-backdrop');
+    var modal = document.getElementById('trainee-modal');
+    if(!backdrop || !modal) return;
+    backdrop.classList.add('is-open');
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    var nameInput = document.getElementById('t-name');
+    if(nameInput) setTimeout(function(){ nameInput.focus(); }, 260);
+  }
+  function closeTraineeModal(){
+    var backdrop = document.getElementById('trainee-modal-backdrop');
+    var modal = document.getElementById('trainee-modal');
+    if(!backdrop || !modal) return;
+    backdrop.classList.remove('is-open');
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  function setupTraineeModal(){
+    document.querySelectorAll('.js-open-trainee-modal').forEach(function(b){ b.addEventListener('click', openTraineeModal); });
+    document.querySelectorAll('.js-close-trainee-modal').forEach(function(b){ b.addEventListener('click', closeTraineeModal); });
+
+    var form = document.getElementById('trainee-form');
+    if(!form) return;
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      var name = form.name.value.trim();
+      var phone = form.phone.value.trim();
+      var reason = form.reason.value.trim();
+      var nameInput = document.getElementById('t-name');
+      var phoneInput = document.getElementById('t-phone');
+      var reasonInput = document.getElementById('t-reason');
+      var phoneOk = phone.replace(/[^0-9]/g,'').length >= 8;
+
+      nameInput.classList.toggle('has-error', !name);
+      nameInput.nextElementSibling.classList.toggle('is-visible', !name);
+      phoneInput.classList.toggle('has-error', !phoneOk);
+      phoneInput.nextElementSibling.classList.toggle('is-visible', !phoneOk);
+      reasonInput.classList.toggle('has-error', !reason);
+      reasonInput.nextElementSibling.classList.toggle('is-visible', !reason);
+      if(!name || !phoneOk || !reason){ return; }
+
+      var message = "Hello Wendy's Treats! I'd like to apply as a trainee.\n\n";
+      message += '*Name:* ' + name + '\n';
+      message += '*Phone:* ' + phone + '\n';
+      message += '*Why I want to train:* ' + reason + '\n';
+
+      // Best-effort save so it shows up in the admin dashboard. WhatsApp —
+      // the part that actually has to work — opens regardless of this.
+      try{
+        var traineeRes = await supabaseClient.from('trainees').insert({name: name, phone: phone, reason: reason});
+        if(traineeRes.error) throw traineeRes.error;
+      } catch(err){
+        console.error('Failed to save trainee application:', err.message || err);
+      }
+
+      window.open(buildWhatsAppLink(message), '_blank');
+      logActivity('graduation', 'Trainee Application', 'Application sent via WhatsApp');
+      closeTraineeModal();
+      form.reset();
+      showToast("Application sent! We'll be in touch on WhatsApp.");
+    });
+  }
+
+  /* ============================================================
+     UI: HEADER, MOBILE NAV, TOAST
+     ============================================================ */
+  function setupHeaderScroll(){
+    var header = document.getElementById('site-header');
+    if(!header) return;
+    function onScroll(){ header.classList.toggle('is-scrolled', window.scrollY > 8); }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  }
+  function setupMobileNav(){
+    var nav = document.getElementById('mobile-nav');
+    var openBtn = document.getElementById('menu-toggle');
+    var closeBtn = document.getElementById('mobile-nav-close');
+    if(!nav || !openBtn) return;
+    function open(){ nav.classList.add('is-open'); nav.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; }
+    function close(){ nav.classList.remove('is-open'); nav.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; }
+    openBtn.addEventListener('click', open);
+    if(closeBtn) closeBtn.addEventListener('click', close);
+    nav.querySelectorAll('.js-mobile-link').forEach(function(link){ link.addEventListener('click', close); });
+  }
+  function showToast(msg){
+    var toast = document.getElementById('toast');
+    var text = document.getElementById('toast-text');
+    if(!toast || !text) return;
+    text.textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('is-visible'); }, 2400);
+  }
+
+  /* ============================================================
+     DELEGATED CLICK EVENTS (interactions with side effects)
+     ============================================================ */
+  function setupDelegatedEvents(){
+    document.addEventListener('click', function(e){
+      var addBtn = e.target.closest('.js-add-item');
+      if(addBtn){ addToCart(addBtn.dataset.id); return; }
+
+      var bookBtn = e.target.closest('.js-book-item');
+      if(bookBtn){
+        var sel = document.getElementById('b-category');
+        if(sel){
+          var cat = findCategory(bookBtn.dataset.presetCategory);
+          if(cat) sel.value = cat.name;
+        }
+        return; // href="#/booking" navigates natively
+      }
+
+      var heroDotBtn = e.target.closest('.js-hero-dot');
+      if(heroDotBtn){ goToHeroSlide(parseInt(heroDotBtn.dataset.index,10)); startHeroAutoplay(); return; }
+
+      var cartToggleBtn = e.target.closest('.js-cart-toggle');
+      if(cartToggleBtn){ openCart(); return; }
+
+      var cartCloseBtn = e.target.closest('.cart-close-btn');
+      if(cartCloseBtn){ closeCart(); return; }
+
+      if(e.target.id === 'cart-backdrop'){ closeCart(); return; }
+
+      var qtyInc = e.target.closest('.js-qty-inc');
+      if(qtyInc){ changeQty(qtyInc.dataset.id, 1); return; }
+
+      var qtyDec = e.target.closest('.js-qty-dec');
+      if(qtyDec){ changeQty(qtyDec.dataset.id, -1); return; }
+
+      var removeBtn = e.target.closest('.js-remove-item');
+      if(removeBtn){ removeFromCart(removeBtn.dataset.id); return; }
+
+      var checkoutBtn = e.target.closest('#cart-checkout-btn');
+      if(checkoutBtn){ checkoutCart(); return; }
+
+      var bulkPresetBtn = e.target.closest('.js-preset-bulk');
+      if(bulkPresetBtn){
+        var orderSel = document.getElementById('b-order-type');
+        if(orderSel) orderSel.value = 'Bulk / Event Order';
+        return; // href="#/booking" navigates natively
+      }
+
+      var cartNavBtn = e.target.closest('.js-close-cart-nav');
+      if(cartNavBtn){ closeCart(); return; } // href navigates natively
+    });
+
+    document.addEventListener('change', function(e){
+      var qtyInput = e.target.closest('.js-qty-input');
+      if(qtyInput){ setQty(qtyInput.dataset.id, qtyInput.value); return; }
+    });
+  }
+
+  /* ============================================================
+     CONTACT PAGE DYNAMIC TEXT
+     ============================================================ */
+  function setupContactExtras(){
+    var copyrightText = '© ' + new Date().getFullYear() + " Wendy's Treats. All rights reserved.";
+    var yearLine = document.getElementById('current-year-line');
+    if(yearLine){ yearLine.textContent = copyrightText; }
+    var homeYearLine = document.getElementById('home-footer-year');
+    if(homeYearLine){ homeYearLine.textContent = copyrightText; }
+    var waText = document.getElementById('footer-whatsapp-text');
+    if(waText){ waText.textContent = '+' + CONFIG.whatsappNumber.replace(/(\d{3})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4'); }
+    var waLink = document.getElementById('footer-whatsapp-link');
+    if(waLink){ waLink.href = CONFIG.social.whatsapp; }
+  }
+  /* ============================================================
+     INIT
+     ============================================================ */
+  async function init(){
+    await Promise.all([loadCatalog(), loadPosts()]);
+
+    renderCatIconRow();
+    renderFavorites();
+    renderMenuDirectory();
+    renderBookingCategorySelect();
+    renderFaq();
+    renderInstagram();
+    renderSocialRow('footer-social');
+    renderSocialRow('mobile-nav-social');
+    renderSocialRow('home-footer-social');
+    renderCart();
+    renderHeroSlide(true);
+    startHeroAutoplay();
+    setupBookingForm();
+    setupWhatsAppDirect();
+    setupTraineeModal();
+    setupHeaderScroll();
+    setupMobileNav();
+    setupSearch();
+    setupFilterButton();
+    setupNotifButton();
+    setupDelegatedEvents();
+    setupContactExtras();
+
+    window.addEventListener('hashchange', renderRoute);
+    renderRoute();
+
+    if(parseHash().route === 'home'){
+      setTimeout(function(){ showToast("Hello, Treat Lover! 🍰 Home-baked. Always fresh."); }, 900);
+    }
+  }
+
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+</script>
+</body>
+</html>
