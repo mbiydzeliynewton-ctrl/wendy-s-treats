@@ -4,11 +4,32 @@
 -- HOW TO RUN THIS:
 --   Supabase Dashboard → your project → SQL Editor → New query
 --   → paste this whole file → Run.
--- This targets a FRESH project (plain CREATE TABLE, not
--- "IF NOT EXISTS") — it's meant to run once. If you need to
--- re-run it, drop the tables first or ask me for a safe
--- migration version instead.
+-- Safe to run more than once — it clears out anything a previous
+-- attempt already created before rebuilding everything. Only do
+-- that once you have real orders/products in there you care about
+-- (at that point, ask me for a migration instead of re-running this).
 -- ============================================================
+
+-- ============================================================
+-- RESET — drops anything a previous run of this exact file left
+-- behind, so "relation already exists" can't happen on a re-run.
+-- ============================================================
+drop table if exists order_items cascade;
+drop table if exists orders cascade;
+drop table if exists bookings cascade;
+drop table if exists trainees cascade;
+drop table if exists posts cascade;
+drop table if exists products cascade;
+drop table if exists categories cascade;
+drop table if exists faqs cascade;
+drop table if exists services cascade;
+drop table if exists site_settings cascade;
+delete from storage.objects where bucket_id = 'product-images';
+delete from storage.buckets where id = 'product-images';
+drop policy if exists "public read product images" on storage.objects;
+drop policy if exists "admin upload product images" on storage.objects;
+drop policy if exists "admin update product images" on storage.objects;
+drop policy if exists "admin delete product images" on storage.objects;
 
 create extension if not exists "pgcrypto"; -- gives us gen_random_uuid()
 
@@ -132,6 +153,46 @@ create table posts (
 create index posts_is_active_idx on posts(is_active) where is_active = true;
 
 -- ============================================================
+-- ============================================================
+-- FAQS — the FAQ page, fully admin-manageable (add/edit/delete)
+-- ============================================================
+create table faqs (
+  id          uuid primary key default gen_random_uuid(),
+  question    text not null,
+  answer      text not null,
+  sort_order  integer not null default 0,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+
+-- ============================================================
+-- SERVICES — the "Why Wendy's Treats" cards, admin-manageable.
+-- `icon` is one of a small curated set the admin picks from in
+-- the dashboard (truck, grid, home, graduation, clock, calendar,
+-- check, mail) rather than a free-form upload.
+-- ============================================================
+create table services (
+  id           uuid primary key default gen_random_uuid(),
+  icon         text not null default 'check',
+  title        text not null,
+  description  text not null,
+  sort_order   integer not null default 0,
+  created_at   timestamptz not null default now(),
+  updated_at   timestamptz not null default now()
+);
+
+-- ============================================================
+-- SITE_SETTINGS — single-value site-wide text: contact details,
+-- socials, the WhatsApp number, and the About page story. A fixed
+-- set of rows (admin edits values; there's nothing meaningful to
+-- "add" here since the frontend only ever looks up known keys).
+-- ============================================================
+create table site_settings (
+  key         text primary key,
+  value       text not null default '',
+  updated_at  timestamptz not null default now()
+);
+
 -- updated_at, kept in sync automatically
 -- ============================================================
 create or replace function set_updated_at()
@@ -150,6 +211,12 @@ create trigger bookings_set_updated_at before update on bookings
   for each row execute function set_updated_at();
 create trigger trainees_set_updated_at before update on trainees
   for each row execute function set_updated_at();
+create trigger faqs_set_updated_at before update on faqs
+  for each row execute function set_updated_at();
+create trigger services_set_updated_at before update on services
+  for each row execute function set_updated_at();
+create trigger site_settings_set_updated_at before update on site_settings
+  for each row execute function set_updated_at();
 
 -- ============================================================
 -- ROW LEVEL SECURITY
@@ -161,18 +228,24 @@ create trigger trainees_set_updated_at before update on trainees
 -- "the admin" are effectively the same thing — there's no flow
 -- that lets anyone but you create a Supabase Auth account.
 -- ============================================================
-alter table categories  enable row level security;
-alter table products    enable row level security;
-alter table orders      enable row level security;
-alter table order_items enable row level security;
-alter table bookings    enable row level security;
-alter table trainees    enable row level security;
-alter table posts       enable row level security;
+alter table categories    enable row level security;
+alter table products      enable row level security;
+alter table orders        enable row level security;
+alter table order_items   enable row level security;
+alter table bookings      enable row level security;
+alter table trainees      enable row level security;
+alter table posts         enable row level security;
+alter table faqs          enable row level security;
+alter table services      enable row level security;
+alter table site_settings enable row level security;
 
 -- Public read access
-create policy "public read categories"      on categories for select using (true);
-create policy "public read active products" on products   for select using (is_active = true);
-create policy "public read active posts"    on posts      for select using (is_active = true);
+create policy "public read categories"      on categories    for select using (true);
+create policy "public read active products" on products      for select using (is_active = true);
+create policy "public read active posts"    on posts         for select using (is_active = true);
+create policy "public read faqs"            on faqs          for select using (true);
+create policy "public read services"        on services      for select using (true);
+create policy "public read site_settings"   on site_settings for select using (true);
 
 -- Public can submit — never read/update/delete
 create policy "public insert orders"      on orders      for insert with check (true);
@@ -181,13 +254,16 @@ create policy "public insert bookings"    on bookings    for insert with check (
 create policy "public insert trainees"    on trainees    for insert with check (true);
 
 -- Admin (any authenticated user) — full access everywhere
-create policy "admin full access categories"  on categories  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
-create policy "admin full access products"    on products    for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
-create policy "admin full access orders"      on orders      for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
-create policy "admin full access order_items" on order_items for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
-create policy "admin full access bookings"    on bookings    for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
-create policy "admin full access trainees"    on trainees    for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
-create policy "admin full access posts"       on posts       for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access categories"    on categories    for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access products"      on products      for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access orders"        on orders        for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access order_items"   on order_items   for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access bookings"      on bookings      for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access trainees"      on trainees      for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access posts"         on posts         for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access faqs"          on faqs          for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access services"      on services      for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "admin full access site_settings" on site_settings for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
 
 -- ============================================================
 -- SEED DATA — categories (rename/reorder/add as you like; this
@@ -197,6 +273,39 @@ insert into categories (id, name, emoji, sort_order) values
   ('cakes',  'Cakes',  '🎂', 1),
   ('savory', 'Savory', '🥧', 2),
   ('drinks', 'Drinks', '🍹', 3);
+
+-- ============================================================
+-- SEED DATA — faqs, services, site_settings (the site's current
+-- real content, so nothing goes blank when this replaces what
+-- was hardcoded)
+-- ============================================================
+insert into faqs (question, answer, sort_order) values
+  ('Do you deliver?', 'Yes! We offer delivery depending on your location. Delivery fees may apply — just share your address when booking.', 1),
+  ('How far in advance should I order a birthday cake?', 'We recommend booking at least 3–5 days ahead for standard cakes, and 1–2 weeks for large or intricate designs.', 2),
+  ('Do you take bulk or event orders?', 'Absolutely — we cater bulk and retail orders for parties, weddings, and corporate events. Reach out via the booking form or WhatsApp.', 3),
+  ('Can I learn to bake with Wendy''s Treats?', 'Yes! We welcome trainees who want to learn hands-on baking and pastry skills. Head to the Booking page and tap "Apply to Train" to send us your details.', 4),
+  ('How do I pay for my order?', 'Once your order is confirmed over WhatsApp, we''ll share payment details (Mobile Money or bank transfer) to complete it.', 5);
+
+insert into services (icon, title, description, sort_order) values
+  ('truck', 'Fast Delivery', 'We deliver your treats fresh, right to your doorstep.', 1),
+  ('grid', 'Bulk & Retail', 'From a single cupcake to a full event order — we''ve got you covered.', 2),
+  ('home', 'Homemade Goodness', 'Every treat is lovingly made fresh from our home kitchen.', 3),
+  ('graduation', 'Open to Trainees', 'Want to learn baking & pastry skills hands-on? We welcome trainees.', 4);
+
+insert into site_settings (key, value) values
+  ('whatsapp_number', '237682389897'),
+  ('email', 'hello@wendystreats.com'),
+  ('social_instagram', 'https://www.instagram.com/wendystreats237'),
+  ('social_facebook', 'https://facebook.com/wendystreats'),
+  ('social_tiktok', 'https://tiktok.com/@wendystreats'),
+  ('social_youtube', 'https://youtube.com/@wendystreats'),
+  ('social_x', 'https://x.com/wendystreats'),
+  ('social_linkedin', 'https://linkedin.com/company/wendystreats'),
+  ('contact_address', 'Buea, Cameroon'),
+  ('contact_hours', 'Mon–Sat 8AM–7PM
+Sun by appointment'),
+  ('about_paragraph_1', 'Wendy''s Treats began with a simple love for baking and bringing people together over good food. Today, we create custom birthday cakes, cake loaves, cupcakes, and a range of savory Cameroonian favorites and local drinks — all made fresh, by hand, from our home kitchen.'),
+  ('about_paragraph_2', 'Whether you''re celebrating a birthday, hosting an event, or just craving something delicious, we''re here to make it sweeter — one order at a time.');
 
 -- ============================================================
 -- STORAGE — product photos

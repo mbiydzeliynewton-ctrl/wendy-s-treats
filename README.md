@@ -135,9 +135,11 @@ live directly in the two HTML files (see `.env.example` for why that's safe).
 ## What changed, and why
 
 **Database.** `categories`, `products`, `orders` + `order_items`, `bookings`,
-`trainees`, `posts` — one table per real content type your site already
-has, no extras. Full column-by-column reasoning is in the comments inside
-`supabase_schema.sql`.
+`trainees`, `posts`, `faqs`, `services`, `site_settings` — one table per real
+content type your site has. `faqs`/`services` are fully admin-manageable
+(add/edit/delete); `site_settings` covers everything else editable —
+contact info, socials, the WhatsApp number, and the About page text. Full
+column-by-column reasoning is in the comments inside `supabase_schema.sql`.
 
 **Authentication.** The old admin login checked a password hash entirely in
 the browser (visible in page source, bypassable from devtools). It's now
@@ -188,6 +190,9 @@ Supabase anon key specifically — it's designed to be public.
 - [ ] Add / edit / delete a product, including photo upload and photo replacement
 - [ ] Confirm an order, confirm a booking, approve a trainee application
 - [ ] Add and delete a post, and see it appear/disappear on the public site
+- [ ] Add / edit / delete a FAQ, and see it reflected on the FAQ page
+- [ ] Add / edit / delete a service, and see it reflected on the Services page
+- [ ] Change a Settings field (e.g. address) and confirm it updates on the public site
 - [ ] Change password, then log in with the new one
 
 **Security**

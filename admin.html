@@ -213,6 +213,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
       <button type="button" class="admin-tab js-admin-tab" data-tab="bookings">Bookings</button>
       <button type="button" class="admin-tab js-admin-tab" data-tab="trainees">Trainees</button>
       <button type="button" class="admin-tab js-admin-tab" data-tab="posts">Posts</button>
+      <button type="button" class="admin-tab js-admin-tab" data-tab="faqs">FAQ</button>
+      <button type="button" class="admin-tab js-admin-tab" data-tab="services">Services</button>
+      <button type="button" class="admin-tab js-admin-tab" data-tab="settings">Settings</button>
     </div>
 
     <div class="admin-panel is-active" id="admin-panel-overview">
@@ -239,6 +242,70 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
     <div class="admin-panel" id="admin-panel-posts">
       <button type="button" class="btn btn--folere btn--sm js-admin-add-post" style="margin-bottom:16px">+ Add Post</button>
       <div id="admin-post-list"></div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel-faqs">
+      <button type="button" class="btn btn--folere btn--sm js-admin-add-faq" style="margin-bottom:16px">+ Add FAQ</button>
+      <div id="admin-faq-list"></div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel-services">
+      <button type="button" class="btn btn--folere btn--sm js-admin-add-service" style="margin-bottom:16px">+ Add Service</button>
+      <div id="admin-service-list"></div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel-settings">
+      <form id="settings-form" novalidate>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-whatsapp">WhatsApp Number <span class="opt">(country code + number, digits only)</span></label>
+          <input class="form-input" type="text" id="set-whatsapp" placeholder="237682389897">
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-email">Email</label>
+          <input class="form-input" type="email" id="set-email">
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-address">Address</label>
+          <input class="form-input" type="text" id="set-address">
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-hours">Hours <span class="opt">(start a new line for a second line)</span></label>
+          <textarea class="form-textarea" id="set-hours"></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-about-1">About Page — Paragraph 1</label>
+          <textarea class="form-textarea" id="set-about-1"></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-about-2">About Page — Paragraph 2</label>
+          <textarea class="form-textarea" id="set-about-2"></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-instagram">Instagram URL</label>
+          <input class="form-input" type="text" id="set-instagram">
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-facebook">Facebook URL</label>
+          <input class="form-input" type="text" id="set-facebook">
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-tiktok">TikTok URL</label>
+          <input class="form-input" type="text" id="set-tiktok">
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-youtube">YouTube URL</label>
+          <input class="form-input" type="text" id="set-youtube">
+        </div>
+        <div class="form-group" style="margin-bottom:14px">
+          <label class="form-label" for="set-x">X (Twitter) URL</label>
+          <input class="form-input" type="text" id="set-x">
+        </div>
+        <div class="form-group" style="margin-bottom:16px">
+          <label class="form-label" for="set-linkedin">LinkedIn URL</label>
+          <input class="form-input" type="text" id="set-linkedin">
+        </div>
+        <button type="submit" class="btn btn--folere btn--block">Save Settings</button>
+      </form>
     </div>
   </div>
 </main>
@@ -345,6 +412,65 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
       <select class="form-select" id="post-cta-target"></select>
     </div>
     <button type="submit" class="btn btn--folere btn--block">Post to Home Page</button>
+  </form>
+</div>
+
+<!-- ============ FAQ FORM MODAL ============ -->
+<div class="modal-backdrop js-close-faq-modal" id="faq-modal-backdrop"></div>
+<div class="modal-dialog" id="faq-modal" role="dialog" aria-modal="true" aria-labelledby="faq-modal-title" aria-hidden="true">
+  <div class="modal-head">
+    <h3 id="faq-modal-title">Add FAQ</h3>
+    <button type="button" class="icon-btn js-close-faq-modal" aria-label="Close"><svg class="icon"><use href="#icon-close"/></svg></button>
+  </div>
+  <form id="faq-form" novalidate>
+    <input type="hidden" id="faq-id">
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="faq-question">Question</label>
+      <input class="form-input" type="text" id="faq-question" required>
+      <span class="form-error-msg">Enter a question.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label" for="faq-answer">Answer</label>
+      <textarea class="form-textarea" id="faq-answer" required></textarea>
+      <span class="form-error-msg">Enter an answer.</span>
+    </div>
+    <button type="submit" class="btn btn--folere btn--block">Save FAQ</button>
+  </form>
+</div>
+
+<!-- ============ SERVICE FORM MODAL ============ -->
+<div class="modal-backdrop js-close-service-modal" id="service-modal-backdrop"></div>
+<div class="modal-dialog" id="service-modal" role="dialog" aria-modal="true" aria-labelledby="service-modal-title" aria-hidden="true">
+  <div class="modal-head">
+    <h3 id="service-modal-title">Add Service</h3>
+    <button type="button" class="icon-btn js-close-service-modal" aria-label="Close"><svg class="icon"><use href="#icon-close"/></svg></button>
+  </div>
+  <form id="service-form" novalidate>
+    <input type="hidden" id="service-id">
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="service-title">Title</label>
+      <input class="form-input" type="text" id="service-title" required>
+      <span class="form-error-msg">Enter a title.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label" for="service-desc">Description</label>
+      <textarea class="form-textarea" id="service-desc" required></textarea>
+      <span class="form-error-msg">Enter a description.</span>
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label" for="service-icon">Icon</label>
+      <select class="form-select" id="service-icon">
+        <option value="truck">Delivery truck</option>
+        <option value="grid">Grid</option>
+        <option value="home">Home</option>
+        <option value="graduation">Graduation cap</option>
+        <option value="clock">Clock</option>
+        <option value="calendar">Calendar</option>
+        <option value="check">Checkmark</option>
+        <option value="mail">Mail</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn--folere btn--block">Save Service</button>
   </form>
 </div>
 
@@ -483,6 +609,28 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
     trainees = res.data.map(mapTrainee);
   }
 
+  var faqs = [];
+  var services = [];
+  var siteSettings = {};
+  function mapFaq(row){ return {id: row.id, question: row.question, answer: row.answer}; }
+  function mapService(row){ return {id: row.id, icon: row.icon, title: row.title, description: row.description}; }
+  async function loadFaqs(){
+    var res = await supabaseClient.from('faqs').select('*').order('sort_order');
+    if(res.error){ showToast(res.error.message); faqs = []; return; }
+    faqs = res.data.map(mapFaq);
+  }
+  async function loadServices(){
+    var res = await supabaseClient.from('services').select('*').order('sort_order');
+    if(res.error){ showToast(res.error.message); services = []; return; }
+    services = res.data.map(mapService);
+  }
+  async function loadSiteSettings(){
+    var res = await supabaseClient.from('site_settings').select('*');
+    if(res.error){ showToast(res.error.message); return; }
+    siteSettings = {};
+    res.data.forEach(function(row){ siteSettings[row.key] = row.value; });
+  }
+
   function formatPrice(n){ return n.toLocaleString('en-US') + ' FCFA'; }
   function icon(name, extraClass){ return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') + '"><use href="#icon-' + name + '"/></svg>'; }
   function escapeHtml(str){
@@ -556,7 +704,7 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
       loginView.hidden = true;
       dashView.hidden = false;
       logoutBtn.hidden = false;
-      await Promise.all([loadCategories(), loadProducts(), loadOrders(), loadBookings(), loadTrainees(), loadPosts()]);
+      await Promise.all([loadCategories(), loadProducts(), loadOrders(), loadBookings(), loadTrainees(), loadPosts(), loadFaqs(), loadServices(), loadSiteSettings()]);
       renderAllPanels();
     } else {
       loginView.hidden = false;
@@ -575,7 +723,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
       {label:'Pending Bookings', value:bookings.filter(function(b){ return b.status==='pending'; }).length, ic:'calendar', tab:'bookings'},
       {label:'Trainee Applications', value:trainees.filter(function(t){ return t.status==='pending'; }).length, ic:'graduation', tab:'trainees'},
       {label:'Products Listed', value:PRODUCTS.length, ic:'grid', tab:'products'},
-      {label:'Active Posts', value:posts.filter(function(p){ return p.active !== false; }).length, ic:'bell', tab:'posts'}
+      {label:'Active Posts', value:posts.filter(function(p){ return p.active !== false; }).length, ic:'bell', tab:'posts'},
+      {label:'FAQs', value:faqs.length, ic:'check', tab:'faqs'},
+      {label:'Services', value:services.length, ic:'truck', tab:'services'}
     ];
     el.innerHTML = stats.map(function(s){
       return '<button type="button" class="admin-stat-card js-admin-stat-link" data-tab="' + s.tab + '"><div class="admin-stat-icon">' + icon(s.ic) + '</div><div><span class="admin-stat-value">' + s.value + '</span><span class="admin-stat-label">' + s.label + '</span></div></button>';
@@ -653,8 +803,52 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
       );
     }).join('');
   }
+  function renderFaqs(){
+    var el = document.getElementById('admin-faq-list');
+    if(faqs.length === 0){ el.innerHTML = '<p class="admin-empty">No FAQs yet — add one to show it on the FAQ page.</p>'; return; }
+    el.innerHTML = faqs.map(function(f){
+      return (
+        '<div class="admin-row">' +
+          '<div class="admin-row-body"><h4>' + escapeHtml(f.question) + '</h4><p>' + escapeHtml(f.answer) + '</p></div>' +
+          '<div class="admin-row-actions">' +
+            '<button type="button" class="admin-icon-action js-admin-edit-faq" data-id="' + f.id + '" aria-label="Edit ' + escapeHtml(f.question) + '">' + icon('edit','icon--sm') + '</button>' +
+            '<button type="button" class="admin-icon-action admin-icon-action--danger js-admin-delete-faq" data-id="' + f.id + '" aria-label="Delete ' + escapeHtml(f.question) + '">' + icon('trash','icon--sm') + '</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+  function renderServices(){
+    var el = document.getElementById('admin-service-list');
+    if(services.length === 0){ el.innerHTML = '<p class="admin-empty">No services yet — add one to show it on the Services page.</p>'; return; }
+    el.innerHTML = services.map(function(s){
+      return (
+        '<div class="admin-row">' +
+          '<div class="admin-row-emoji">' + icon(s.icon) + '</div>' +
+          '<div class="admin-row-body"><h4>' + escapeHtml(s.title) + '</h4><p>' + escapeHtml(s.description) + '</p></div>' +
+          '<div class="admin-row-actions">' +
+            '<button type="button" class="admin-icon-action js-admin-edit-service" data-id="' + s.id + '" aria-label="Edit ' + escapeHtml(s.title) + '">' + icon('edit','icon--sm') + '</button>' +
+            '<button type="button" class="admin-icon-action admin-icon-action--danger js-admin-delete-service" data-id="' + s.id + '" aria-label="Delete ' + escapeHtml(s.title) + '">' + icon('trash','icon--sm') + '</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+  function renderSettingsForm(){
+    var fields = {
+      'set-whatsapp': 'whatsapp_number', 'set-email': 'email', 'set-address': 'contact_address',
+      'set-hours': 'contact_hours', 'set-about-1': 'about_paragraph_1', 'set-about-2': 'about_paragraph_2',
+      'set-instagram': 'social_instagram', 'set-facebook': 'social_facebook', 'set-tiktok': 'social_tiktok',
+      'set-youtube': 'social_youtube', 'set-x': 'social_x', 'set-linkedin': 'social_linkedin'
+    };
+    Object.keys(fields).forEach(function(elId){
+      var el = document.getElementById(elId);
+      if(el && document.activeElement !== el){ el.value = siteSettings[fields[elId]] || ''; }
+    });
+  }
   function renderAllPanels(){
     renderOverview(); renderProducts(); renderOrders(); renderBookings(); renderTrainees(); renderPosts();
+    renderFaqs(); renderServices(); renderSettingsForm();
   }
   function switchToTab(tabName){
     document.querySelectorAll('.js-admin-tab').forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === tabName); });
@@ -931,6 +1125,173 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
   }
 
   /* ============================================================
+     FAQ MODAL
+     ============================================================ */
+  function openFaqModal(id){
+    document.getElementById('faq-form').reset();
+    document.getElementById('faq-id').value = '';
+    if(id){
+      var f = faqs.filter(function(x){ return x.id === id; })[0];
+      if(!f) return;
+      document.getElementById('faq-modal-title').textContent = 'Edit FAQ';
+      document.getElementById('faq-id').value = f.id;
+      document.getElementById('faq-question').value = f.question;
+      document.getElementById('faq-answer').value = f.answer;
+    } else {
+      document.getElementById('faq-modal-title').textContent = 'Add FAQ';
+    }
+    document.getElementById('faq-modal-backdrop').classList.add('is-open');
+    document.getElementById('faq-modal').classList.add('is-open');
+    document.getElementById('faq-modal').setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFaqModal(){
+    document.getElementById('faq-modal-backdrop').classList.remove('is-open');
+    document.getElementById('faq-modal').classList.remove('is-open');
+    document.getElementById('faq-modal').setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  function setupFaqModal(){
+    document.querySelectorAll('.js-close-faq-modal').forEach(function(b){ b.addEventListener('click', closeFaqModal); });
+    document.getElementById('faq-form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      var id = document.getElementById('faq-id').value;
+      var questionInput = document.getElementById('faq-question');
+      var answerInput = document.getElementById('faq-answer');
+      var question = questionInput.value.trim();
+      var answer = answerInput.value.trim();
+      questionInput.classList.toggle('has-error', !question);
+      questionInput.nextElementSibling.classList.toggle('is-visible', !question);
+      answerInput.classList.toggle('has-error', !answer);
+      answerInput.nextElementSibling.classList.toggle('is-visible', !answer);
+      if(!question || !answer) return;
+
+      var submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      var payload = {question: question, answer: answer};
+      var res = id
+        ? await supabaseClient.from('faqs').update(payload).eq('id', id)
+        : await supabaseClient.from('faqs').insert(payload);
+      submitBtn.disabled = false;
+      if(res.error){ showToast(res.error.message); return; }
+      await loadFaqs();
+      renderFaqs();
+      closeFaqModal();
+      showToast('FAQ saved');
+    });
+  }
+  async function deleteFaq(id){
+    var f = faqs.filter(function(x){ return x.id === id; })[0];
+    if(!f) return;
+    if(!window.confirm('Delete this FAQ?')) return;
+    var res = await supabaseClient.from('faqs').delete().eq('id', id);
+    if(res.error){ showToast(res.error.message); return; }
+    await loadFaqs();
+    renderFaqs();
+    showToast('FAQ deleted');
+  }
+
+  /* ============================================================
+     SERVICE MODAL
+     ============================================================ */
+  function openServiceModal(id){
+    document.getElementById('service-form').reset();
+    document.getElementById('service-id').value = '';
+    if(id){
+      var s = services.filter(function(x){ return x.id === id; })[0];
+      if(!s) return;
+      document.getElementById('service-modal-title').textContent = 'Edit Service';
+      document.getElementById('service-id').value = s.id;
+      document.getElementById('service-title').value = s.title;
+      document.getElementById('service-desc').value = s.description;
+      document.getElementById('service-icon').value = s.icon;
+    } else {
+      document.getElementById('service-modal-title').textContent = 'Add Service';
+    }
+    document.getElementById('service-modal-backdrop').classList.add('is-open');
+    document.getElementById('service-modal').classList.add('is-open');
+    document.getElementById('service-modal').setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeServiceModal(){
+    document.getElementById('service-modal-backdrop').classList.remove('is-open');
+    document.getElementById('service-modal').classList.remove('is-open');
+    document.getElementById('service-modal').setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  function setupServiceModal(){
+    document.querySelectorAll('.js-close-service-modal').forEach(function(b){ b.addEventListener('click', closeServiceModal); });
+    document.getElementById('service-form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      var id = document.getElementById('service-id').value;
+      var titleInput = document.getElementById('service-title');
+      var descInput = document.getElementById('service-desc');
+      var title = titleInput.value.trim();
+      var desc = descInput.value.trim();
+      var iconVal = document.getElementById('service-icon').value;
+      titleInput.classList.toggle('has-error', !title);
+      titleInput.nextElementSibling.classList.toggle('is-visible', !title);
+      descInput.classList.toggle('has-error', !desc);
+      descInput.nextElementSibling.classList.toggle('is-visible', !desc);
+      if(!title || !desc) return;
+
+      var submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      var payload = {title: title, description: desc, icon: iconVal};
+      var res = id
+        ? await supabaseClient.from('services').update(payload).eq('id', id)
+        : await supabaseClient.from('services').insert(payload);
+      submitBtn.disabled = false;
+      if(res.error){ showToast(res.error.message); return; }
+      await loadServices();
+      renderServices();
+      closeServiceModal();
+      showToast('Service saved');
+    });
+  }
+  async function deleteService(id){
+    var s = services.filter(function(x){ return x.id === id; })[0];
+    if(!s) return;
+    if(!window.confirm('Delete "' + s.title + '"?')) return;
+    var res = await supabaseClient.from('services').delete().eq('id', id);
+    if(res.error){ showToast(res.error.message); return; }
+    await loadServices();
+    renderServices();
+    showToast('Service deleted');
+  }
+
+  /* ============================================================
+     SETTINGS FORM
+     ============================================================ */
+  function setupSettingsForm(){
+    document.getElementById('settings-form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      var rows = [
+        {key:'whatsapp_number', value: document.getElementById('set-whatsapp').value.trim()},
+        {key:'email', value: document.getElementById('set-email').value.trim()},
+        {key:'contact_address', value: document.getElementById('set-address').value.trim()},
+        {key:'contact_hours', value: document.getElementById('set-hours').value.trim()},
+        {key:'about_paragraph_1', value: document.getElementById('set-about-1').value.trim()},
+        {key:'about_paragraph_2', value: document.getElementById('set-about-2').value.trim()},
+        {key:'social_instagram', value: document.getElementById('set-instagram').value.trim()},
+        {key:'social_facebook', value: document.getElementById('set-facebook').value.trim()},
+        {key:'social_tiktok', value: document.getElementById('set-tiktok').value.trim()},
+        {key:'social_youtube', value: document.getElementById('set-youtube').value.trim()},
+        {key:'social_x', value: document.getElementById('set-x').value.trim()},
+        {key:'social_linkedin', value: document.getElementById('set-linkedin').value.trim()}
+      ];
+      var submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      var res = await supabaseClient.from('site_settings').upsert(rows, {onConflict: 'key'});
+      submitBtn.disabled = false;
+      if(res.error){ showToast(res.error.message); return; }
+      await loadSiteSettings();
+      renderSettingsForm();
+      showToast('Settings saved');
+    });
+  }
+
+  /* ============================================================
      CHANGE PASSWORD
      ============================================================ */
   function openPasswordModal(){
@@ -1042,6 +1403,12 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
       if((b = e.target.closest('.js-admin-approve-trainee'))){ approveTrainee(b.dataset.id); return; }
       if((b = e.target.closest('.js-admin-add-post'))){ openPostModal(); return; }
       if((b = e.target.closest('.js-admin-delete-post'))){ deletePost(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-add-faq'))){ openFaqModal(null); return; }
+      if((b = e.target.closest('.js-admin-edit-faq'))){ openFaqModal(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-delete-faq'))){ deleteFaq(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-add-service'))){ openServiceModal(null); return; }
+      if((b = e.target.closest('.js-admin-edit-service'))){ openServiceModal(b.dataset.id); return; }
+      if((b = e.target.closest('.js-admin-delete-service'))){ deleteService(b.dataset.id); return; }
       if((b = e.target.closest('.js-admin-stat-link'))){ switchToTab(b.dataset.tab); return; }
     });
   }
@@ -1066,6 +1433,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
     setupProductModal();
     setupImageUploadControls();
     setupPostModal();
+    setupFaqModal();
+    setupServiceModal();
+    setupSettingsForm();
     setupPasswordModal();
     setupDelegatedEvents();
     setupLiveRefresh();

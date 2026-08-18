@@ -704,11 +704,12 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
       <svg class="icon"><use href="#icon-menu"/></svg>
     </button>
 
-    <div class="app-greet-block" id="home-greet-block">
+    <a class="app-greet-block" id="home-greet-block" href="#/">
       <h1 class="app-greet-brand">Wendy's Treats</h1>
-    </div>
+    </a>
 
     <nav class="desktop-nav" aria-label="Primary">
+      <a href="#/">Home</a>
       <a href="#/menu">Menu</a>
       <a href="#/services">Services</a>
       <a href="#/booking">Book Now</a>
@@ -845,7 +846,7 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
       <span class="eyebrow">Why Wendy's Treats</span>
       <p class="page-lead">Baked with care, delivered with love.</p>
     </div>
-    <div class="service-grid">
+    <div class="service-grid" id="services-grid">
       <div class="service-card">
         <div class="service-icon"><svg class="icon icon--lg"><use href="#icon-truck"/></svg></div>
         <h3>Fast Delivery</h3>
@@ -972,8 +973,8 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
     </div>
     <div class="about-grid">
       <div class="about-text">
-        <p>Wendy's Treats began with a simple love for baking and bringing people together over good food. Today, we create custom birthday cakes, cake loaves, cupcakes, and a range of savory Cameroonian favorites and local drinks — all made fresh, by hand, from our home kitchen.</p>
-        <p>Whether you're celebrating a birthday, hosting an event, or just craving something delicious, we're here to make it sweeter — one order at a time.</p>
+        <p id="about-p1">Wendy's Treats began with a simple love for baking and bringing people together over good food. Today, we create custom birthday cakes, cake loaves, cupcakes, and a range of savory Cameroonian favorites and local drinks — all made fresh, by hand, from our home kitchen.</p>
+        <p id="about-p2">Whether you're celebrating a birthday, hosting an event, or just craving something delicious, we're here to make it sweeter — one order at a time.</p>
         <div class="about-tags">
           <span class="about-tag"><svg class="icon icon--sm"><use href="#icon-check"/></svg>Homemade</span>
           <span class="about-tag"><svg class="icon icon--sm"><use href="#icon-check"/></svg>Bulk &amp; Retail</span>
@@ -1020,17 +1021,17 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
       <div class="contact-card">
         <span class="contact-card-icon"><svg class="icon"><use href="#icon-mail"/></svg></span>
         <span class="contact-card-label">Email</span>
-        <span class="contact-card-value">hello@wendystreats.com</span>
+        <span class="contact-card-value" id="contact-email-text">hello@wendystreats.com</span>
       </div>
       <div class="contact-card">
         <span class="contact-card-icon"><svg class="icon"><use href="#icon-location"/></svg></span>
         <span class="contact-card-label">Location</span>
-        <span class="contact-card-value">Buea, Cameroon</span>
+        <span class="contact-card-value" id="contact-address-text">Buea, Cameroon</span>
       </div>
       <div class="contact-card">
         <span class="contact-card-icon"><svg class="icon"><use href="#icon-clock"/></svg></span>
         <span class="contact-card-label">Hours</span>
-        <span class="contact-card-value">Mon–Sat 8AM–7PM<br>Sun by appointment</span>
+        <span class="contact-card-value" id="contact-hours-text">Mon–Sat 8AM–7PM<br>Sun by appointment</span>
       </div>
     </div>
     <div class="contact-social">
@@ -1040,7 +1041,6 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
     <div class="contact-credit">
       <span id="current-year-line">© 2026 Wendy's Treats. All rights reserved.</span>
       <span>Crafted by <a href="#" target="_blank" rel="noopener">Newton</a></span>
-      <a href="admin.html" style="margin-top:2px">Admin Login</a>
     </div>
   </div>
 </section>
@@ -1157,11 +1157,11 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
      CONFIG
      ============================================================ */
   var CONFIG = {
-    whatsappNumber: '237653863161', // Wendy's WhatsApp / contact number
+    whatsappNumber: '237682389897', // Wendy's WhatsApp / contact number
     email: 'hello@wendystreats.com', // TODO: replace with real email
     social: {
       whatsapp: '',
-      instagram: 'https://instagram.com/wendystreats',   // TODO: confirm real handle
+      instagram: 'https://www.instagram.com/wendystreats237',
       facebook: 'https://facebook.com/wendystreats',      // TODO: confirm real handle
       tiktok: 'https://tiktok.com/@wendystreats',         // TODO: confirm real handle
       youtube: 'https://youtube.com/@wendystreats',       // TODO: confirm real handle
@@ -1229,13 +1229,65 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
     else { PRODUCTS = results[1].data.map(mapProduct); }
   }
 
-  var FAQS = [
-    {q:'Do you deliver?', a:'Yes! We offer delivery depending on your location. Delivery fees may apply — just share your address when booking.'},
-    {q:'How far in advance should I order a birthday cake?', a:'We recommend booking at least 3–5 days ahead for standard cakes, and 1–2 weeks for large or intricate designs.'},
-    {q:'Do you take bulk or event orders?', a:'Absolutely — we cater bulk and retail orders for parties, weddings, and corporate events. Reach out via the booking form or WhatsApp.'},
-    {q:"Can I learn to bake with Wendy's Treats?", a:'Yes! We welcome trainees who want to learn hands-on baking and pastry skills. Head to the Booking page and tap "Apply to Train" to send us your details.'},
-    {q:'How do I pay for my order?', a:"Once your order is confirmed over WhatsApp, we'll share payment details (Mobile Money or bank transfer) to complete it."}
-  ];
+  var FAQS = [];
+  function mapFaq(row){ return {id: row.id, q: row.question, a: row.answer}; }
+  async function loadFaqs(){
+    var res = await supabaseClient.from('faqs').select('*').order('sort_order');
+    if(res.error){ console.error('Failed to load FAQs:', res.error.message); FAQS = []; return; }
+    FAQS = res.data.map(mapFaq);
+  }
+
+  var SERVICES = [];
+  function mapService(row){ return {id: row.id, icon: row.icon, title: row.title, desc: row.description}; }
+  async function loadServices(){
+    var res = await supabaseClient.from('services').select('*').order('sort_order');
+    if(res.error){ console.error('Failed to load services:', res.error.message); SERVICES = []; return; }
+    SERVICES = res.data.map(mapService);
+  }
+
+  // Site-wide editable text: contact details, socials, the WhatsApp number,
+  // and the About page story. Loaded once, then applied over the CONFIG
+  // defaults above (which stay as a fallback if a key is ever missing).
+  var SITE_SETTINGS = {};
+  async function loadSiteSettings(){
+    var res = await supabaseClient.from('site_settings').select('*');
+    if(res.error){ console.error('Failed to load site settings:', res.error.message); return; }
+    SITE_SETTINGS = {};
+    res.data.forEach(function(row){ SITE_SETTINGS[row.key] = row.value; });
+  }
+  function setting(key, fallback){
+    return (SITE_SETTINGS[key] !== undefined && SITE_SETTINGS[key] !== '') ? SITE_SETTINGS[key] : fallback;
+  }
+  function applySiteSettings(){
+    CONFIG.whatsappNumber = setting('whatsapp_number', CONFIG.whatsappNumber);
+    CONFIG.email = setting('email', CONFIG.email);
+    CONFIG.social.instagram = setting('social_instagram', CONFIG.social.instagram);
+    CONFIG.social.facebook = setting('social_facebook', CONFIG.social.facebook);
+    CONFIG.social.tiktok = setting('social_tiktok', CONFIG.social.tiktok);
+    CONFIG.social.youtube = setting('social_youtube', CONFIG.social.youtube);
+    CONFIG.social.x = setting('social_x', CONFIG.social.x);
+    CONFIG.social.linkedin = setting('social_linkedin', CONFIG.social.linkedin);
+    CONFIG.social.whatsapp = 'https://wa.me/' + CONFIG.whatsappNumber;
+
+    var p1 = document.getElementById('about-p1');
+    if(p1){ p1.textContent = setting('about_paragraph_1', p1.textContent); }
+    var p2 = document.getElementById('about-p2');
+    if(p2){ p2.textContent = setting('about_paragraph_2', p2.textContent); }
+    var emailEl = document.getElementById('contact-email-text');
+    if(emailEl){ emailEl.textContent = CONFIG.email; }
+    var addressEl = document.getElementById('contact-address-text');
+    if(addressEl){ addressEl.textContent = setting('contact_address', addressEl.textContent); }
+    var hoursEl = document.getElementById('contact-hours-text');
+    if(hoursEl){ hoursEl.innerHTML = escapeHtml(setting('contact_hours', hoursEl.textContent)).replace(/\n/g, '<br>'); }
+  }
+
+  function renderServices(){
+    var el = document.getElementById('services-grid');
+    if(!el || SERVICES.length === 0) return;
+    el.innerHTML = SERVICES.map(function(s){
+      return '<div class="service-card"><div class="service-icon">' + icon(s.icon) + '</div><h3>' + escapeHtml(s.title) + '</h3><p>' + escapeHtml(s.desc) + '</p></div>';
+    }).join('');
+  }
 
   var SOCIAL_LIST = [
     {key:'whatsapp', icon:'whatsapp'},
@@ -2043,13 +2095,15 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
      INIT
      ============================================================ */
   async function init(){
-    await Promise.all([loadCatalog(), loadPosts()]);
+    await Promise.all([loadCatalog(), loadPosts(), loadFaqs(), loadServices(), loadSiteSettings()]);
+    applySiteSettings();
 
     renderCatIconRow();
     renderFavorites();
     renderMenuDirectory();
     renderBookingCategorySelect();
     renderFaq();
+    renderServices();
     renderInstagram();
     renderSocialRow('footer-social');
     renderSocialRow('mobile-nav-social');
