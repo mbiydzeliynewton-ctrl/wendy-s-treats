@@ -8,8 +8,8 @@
      Row Level Security policies in supabase_schema.sql allow.
      Never put the service_role key in this file.
      ============================================================ */
-  var SUPABASE_URL = 'YOUR_SUPABASE_URL';
-  var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+  var SUPABASE_URL = 'https://dwtlsztnklxhgaghxfzc.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3dGxzenRua2x4aGdhZ2h4ZnpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4ODQ0NzIsImV4cCI6MjEwMjQ2MDQ3Mn0.wd7jiE84t3hwdOeIiieG3QzOfzTTuruqc-rwKYaBbDI';
   if(SUPABASE_URL === 'YOUR_SUPABASE_URL' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY'){
     document.body.innerHTML =
       '<div style="max-width:420px;margin:80px auto;padding:32px;text-align:center;font-family:inherit;color:#3a2a1e">' +
