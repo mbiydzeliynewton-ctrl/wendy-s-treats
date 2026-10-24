@@ -189,6 +189,7 @@
         id: post.id,
         message: post.title + (post.message ? ' — ' + post.message : ''),
         time: post.createdAt,
+        target: post.ctaTarget || 'all',
         read: readIds.indexOf(post.id) !== -1
       };
     });
@@ -528,7 +529,9 @@
     btn.addEventListener('click', function(){ location.hash = '#/menu'; });
   }
   function relativeTime(ts){
-    var mins = Math.floor((Date.now() - ts) / 60000);
+    var timestamp = typeof ts === 'number' ? ts : Date.parse(ts);
+    if(!isFinite(timestamp)) return 'Date unavailable';
+    var mins = Math.max(0, Math.floor((Date.now() - timestamp) / 60000));
     if(mins < 1) return 'Just now';
     if(mins < 60) return mins + 'm ago';
     var hrs = Math.floor(mins / 60);
@@ -544,10 +547,10 @@
     }
     el.innerHTML = notifications.map(function(n){
       return (
-        '<div class="notif-item' + (n.read ? ' is-read' : '') + '">' +
+        '<a href="#/category/' + encodeURIComponent(n.target || 'all') + '" class="notif-item notif-item-link' + (n.read ? ' is-read' : '') + '">' +
           '<span class="notif-dot-indicator"></span>' +
           '<div class="notif-item-body"><p>' + escapeHtml(n.message) + '</p><span class="notif-item-time">' + relativeTime(n.time) + '</span></div>' +
-        '</div>'
+        '</a>'
       );
     }).join('');
   }
@@ -872,6 +875,9 @@
      ============================================================ */
   function setupDelegatedEvents(){
     document.addEventListener('click', function(e){
+      var notificationLink = e.target.closest('.notif-item-link');
+      if(notificationLink){ closeNotifModal(); return; }
+
       var addBtn = e.target.closest('.js-add-item');
       if(addBtn){ addToCart(addBtn.dataset.id); return; }
 
@@ -942,16 +948,7 @@
   /* ============================================================
      INIT
      ============================================================ */
-  async function init(){
-    await Promise.all([loadCatalog(), loadPosts(), loadFaqs(), loadServices(), loadSiteSettings()]);
-    applySiteSettings();
-
-    renderCatIconRow();
-    renderFavorites();
-    renderMenuDirectory();
-    renderBookingCategorySelect();
-    renderFaq();
-    renderServices();
+  function init(){
     renderInstagram();
     renderSocialRow('footer-social');
     renderSocialRow('mobile-nav-social');
@@ -972,6 +969,36 @@
 
     window.addEventListener('hashchange', renderRoute);
     renderRoute();
+
+    Promise.all([
+      loadCatalog().then(function(){
+        renderCatIconRow();
+        renderFavorites();
+        renderMenuDirectory();
+        renderBookingCategorySelect();
+        var parsed = parseHash();
+        if(parsed.route === 'category') renderCategoryPage(parsed.categoryId, parsed.query);
+      }),
+      loadPosts().then(function(){
+        renderHeroSlide(true);
+        startHeroAutoplay();
+        updateNotifBadge();
+        var modal = document.getElementById('notif-modal');
+        if(modal && modal.classList.contains('is-open')) renderNotifList();
+      }),
+      loadFaqs().then(renderFaq),
+      loadServices().then(renderServices),
+      loadSiteSettings().then(function(){
+        applySiteSettings();
+        renderInstagram();
+        renderSocialRow('footer-social');
+        renderSocialRow('mobile-nav-social');
+        renderSocialRow('home-footer-social');
+        setupContactExtras();
+      })
+    ]).catch(function(err){
+      console.error('Failed to initialize site content:', err.message || err);
+    });
 
     if(parseHash().route === 'home'){
       setTimeout(function(){ showToast("Hello, Treat Lover! 🍰 Home-baked. Always fresh."); }, 900);

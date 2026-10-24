@@ -70,8 +70,7 @@ public registration flow, "logged in" and "admin" are the same thing here.
 
 ## 5. Connect the frontend
 
-Open both `index.html` and `admin.html`. Near the top of the `<script>` in
-each, you'll find:
+Open `index1.js` and `admin.js`. Near the top of each file, you'll find:
 
 ```js
 var SUPABASE_URL = 'YOUR_SUPABASE_URL';
