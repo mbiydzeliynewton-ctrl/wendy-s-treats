@@ -58,8 +58,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
 .image-upload-row{display:flex;gap:14px;align-items:flex-start;}
 .image-preview{
   width:64px;height:64px;border-radius:14px;background:var(--ivory-deep);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;color:var(--folere);overflow:hidden;
 }
+.image-preview-icon{width:32px;height:32px;}
 .image-preview img{width:100%;height:100%;object-fit:cover;}
 .image-upload-controls{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px;}
 .admin-remove-image-btn{align-self:flex-start;font-size:12px;font-weight:700;color:var(--folere);text-decoration:underline;text-underline-offset:2px;}
@@ -70,7 +71,7 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
 .admin-page-header{position:sticky;top:0;z-index:50;background:rgba(251,242,228,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:16px 0;}
 .admin-page-header-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
 .admin-brand{display:flex;align-items:center;gap:10px;}
-.admin-brand-emoji{width:38px;height:38px;object-fit:contain;flex-shrink:0;}
+.admin-brand-logo{width:38px;height:38px;object-fit:contain;flex-shrink:0;}
 .admin-brand-name{display:block;font-family:var(--font-display);font-weight:800;font-size:16px;letter-spacing:-.01em;}
 .admin-brand-sub{display:block;font-size:11.5px;color:var(--ink-soft);font-weight:600;}
 .admin-header-actions{display:flex;align-items:center;gap:10px;}
@@ -104,7 +105,10 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.1;font-weight:700;}
 .admin-stat-label{display:block;font-size:11.5px;color:var(--ink-soft);}
 .admin-row{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-sm);margin-bottom:10px;}
 .admin-row--stack{align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px 12px;}
-.admin-row-emoji{width:46px;height:46px;border-radius:12px;background:var(--ivory-deep);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0;}
+.admin-row-icon{width:46px;height:46px;border-radius:12px;background:var(--ivory-deep);display:flex;align-items:center;justify-content:center;color:var(--folere);flex-shrink:0;overflow:hidden;}
+.admin-row-icon .icon{width:24px;height:24px;}
+.admin-row-icon img{width:100%;height:100%;object-fit:cover;border-radius:inherit;}
+.admin-product-icon{width:26px;height:26px;}
 .admin-row-body{flex:1;min-width:0;}
 .admin-row-body h4{font-size:14.5px;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .admin-row-body p{font-size:13px;color:var(--ink-soft);margin-top:2px;}

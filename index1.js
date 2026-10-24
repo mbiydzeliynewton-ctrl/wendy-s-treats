@@ -31,7 +31,7 @@
   if(SUPABASE_URL === 'YOUR_SUPABASE_URL' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY'){
     document.body.innerHTML =
       '<div style="max-width:420px;margin:80px auto;padding:32px;text-align:center;font-family:inherit;color:#3a2a1e">' +
-      '<div style="font-size:40px;margin-bottom:12px">🔌</div>' +
+      '<div style="margin-bottom:12px">' + '<svg class="icon icon--lg"><use href="#icon-plug"/></svg>' + '</div>' +
       '<h2 style="margin:0 0 12px">Supabase isn\'t connected yet</h2>' +
       '<p style="margin:0;line-height:1.6">Open this file and replace <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script with your real project values — see README.md for exactly where to find them.</p>' +
       '</div>';
@@ -46,20 +46,22 @@
      below already expects, so nothing downstream has to change.
      ============================================================ */
   function mapCategory(row){
-    return { id: row.id, name: row.name, emoji: row.emoji };
+    return { id: row.id, name: row.name };
   }
   function mapProduct(row){
     return {
       id: row.id, name: row.name, category: row.category_id, desc: row.description,
+      ingredients: row.ingredients, servingSize: row.serving_size,
+      sugarGrams: row.sugar_grams, calories: row.calories,
       price: row.price, priceLabel: row.price_label, image: row.image_url,
-      emoji: row.emoji, badge: row.badge, badgeStyle: row.badge_style,
+      badge: row.badge, badgeStyle: row.badge_style,
       type: row.item_type, isFeatured: row.is_featured
     };
   }
   function mapPost(row){
     return {
       id: row.id, title: row.title, message: row.message, badge: row.badge,
-      emoji: row.emoji, ctaText: row.cta_text, ctaTarget: row.cta_target,
+      ctaText: row.cta_text, ctaTarget: row.cta_target,
       active: row.is_active, createdAt: row.created_at
     };
   }
@@ -148,16 +150,16 @@
   ];
 
   var HERO_SLIDES_DEFAULT = [
-    {badge:'Fresh Today', titleTop:'Cakes Baked', titleBottom:'With Love', sub:'100% homemade birthday cakes, custom-designed and baked fresh to order.', cta:'Order a Cake', target:'cakes', emoji:'🎂', stamp:['100%','Homemade','Made to Order']},
-    {badge:'Cameroonian Favorites', titleTop:'Savory Bites,', titleBottom:'Golden & Crisp', sub:'Meat pies, scotch eggs, fish rolls & more, baked golden every day.', cta:'Order Savories', target:'savory', emoji:'🥧', stamp:['Baked','Fresh','Daily']},
-    {badge:'Local & Refreshing', titleTop:'Foléré &', titleBottom:'Kossam, Chilled', sub:'Traditional Cameroonian drinks, made the authentic way and chilled to order.', cta:'Order Drinks', target:'drinks', emoji:'🍹', stamp:['100%','Local','Recipes']}
+    {badge:'Fresh Today', titleTop:'Cakes Baked', titleBottom:'With Love', sub:'100% homemade birthday cakes, custom-designed and baked fresh to order.', cta:'Order a Cake', target:'cakes', icon:'cake', stamp:['100%','Homemade','Made to Order']},
+    {badge:'Cameroonian Favorites', titleTop:'Savory Bites,', titleBottom:'Golden & Crisp', sub:'Meat pies, scotch eggs, fish rolls & more, baked golden every day.', cta:'Order Savories', target:'savory', icon:'pie', stamp:['Baked','Fresh','Daily']},
+    {badge:'Local & Refreshing', titleTop:'Foléré &', titleBottom:'Kossam, Chilled', sub:'Traditional Cameroonian drinks, made the authentic way and chilled to order.', cta:'Order Drinks', target:'drinks', icon:'drink', stamp:['100%','Local','Recipes']}
   ];
   var posts = [];
   function postToSlide(post){
     return {
       badge: post.badge || 'NEW', titleTop: post.title, titleBottom: '',
       sub: post.message, cta: post.ctaText || 'Order Now', target: post.ctaTarget || 'all',
-      emoji: post.emoji || '🎉', stamp: ['Limited','Time','Offer']
+      icon: 'sparkles', stamp: ['Limited','Time','Offer']
     };
   }
   function getHeroSlides(){
@@ -226,6 +228,11 @@
      ============================================================ */
   function formatPrice(n){ return n.toLocaleString('en-US') + ' FCFA'; }
   function icon(name, extraClass){ return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') + '"><use href="#icon-' + name + '"/></svg>'; }
+  function categoryIcon(categoryId, extraClass){
+    var icons = {all:'plate', cakes:'cake', cupcakes:'cupcake', savory:'pie', drinks:'drink', parfaits:'icecream'};
+    var iconName = Object.prototype.hasOwnProperty.call(icons, categoryId) ? icons[categoryId] : 'plate';
+    return icon(iconName, extraClass);
+  }
   function findProduct(id){ for(var i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].id===id) return PRODUCTS[i]; } return null; }
   function findCategory(id){ for(var i=0;i<CATEGORIES.length;i++){ if(CATEGORIES[i].id===id) return CATEGORIES[i]; } return null; }
   function buildWhatsAppLink(message){ return 'https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(message); }
@@ -253,6 +260,7 @@
       try{ return decodeURIComponent(s); }catch(e){ return s; }
     });
     if(parts[0] === 'category'){ return {route:'category', categoryId: parts[1] || 'all'}; }
+    if(parts[0] === 'product'){ return {route:'product', productId: parts[1] || ''}; }
     if(parts[0] === 'search'){ return {route:'category', categoryId:'all', query:(parts[1]||'').toLowerCase()}; }
     if(SIMPLE_ROUTES.indexOf(parts[0]) > -1){ return {route:parts[0]}; }
     return {route:'home'};
@@ -266,7 +274,7 @@
   function syncBottomNavActive(route){
     document.querySelectorAll('.js-bottom-link').forEach(function(i){
       var r = i.dataset.route;
-      var active = r === route || (r === 'menu' && route === 'category');
+      var active = r === route || (r === 'menu' && (route === 'category' || route === 'product'));
       i.classList.toggle('is-active', active);
     });
   }
@@ -277,6 +285,7 @@
     if(!target){ target = document.getElementById('page-home'); route = 'home'; }
 
     if(route === 'category'){ renderCategoryPage(parsed.categoryId, parsed.query); }
+    if(route === 'product'){ renderProductPage(parsed.productId); }
     if(route === 'profile'){ renderProfilePage(); }
 
     void target.offsetWidth; // reflow so the entrance animation replays every time
@@ -287,7 +296,7 @@
     var isHome = route === 'home';
     var searchRow = document.getElementById('home-search-row');
     if(searchRow) searchRow.hidden = !isHome;
-    var titleText = isHome ? '' : (route === 'category' ? categoryPageTitle(parsed.categoryId, parsed.query) : (PAGE_TITLES[route] || ''));
+    var titleText = isHome ? '' : (route === 'category' ? categoryPageTitle(parsed.categoryId, parsed.query) : (route === 'product' ? productPageTitle(parsed.productId) : (PAGE_TITLES[route] || '')));
     document.title = titleText ? (titleText + " | Wendy's Treats") : "Wendy's Treats | Homemade Cakes, Snacks & Local Drinks in Cameroon";
 
     syncBottomNavActive(route);
@@ -303,10 +312,13 @@
     return '<div class="stamp-badge stamp-badge--' + (p.badgeStyle||'folere') + '"><span>' + escapeHtml(p.badge) + '</span></div>';
   }
   function productVisualHtml(p){
+    var visual;
     if(p.image){
-      return '<div class="product-visual"><img src="' + p.image.replace(/"/g,'&quot;') + '" alt="" loading="lazy"></div>';
+      visual = '<div class="product-visual"><img src="' + escapeHtml(p.image) + '" alt="' + escapeHtml(p.name) + '" loading="lazy"></div>';
+    } else {
+      visual = '<div class="product-visual product-visual--' + escapeHtml(p.category || '') + '">' + categoryIcon(p.category, 'product-category-icon') + '</div>';
     }
-    return '<div class="product-visual product-visual--' + p.category + '"><span class="product-emoji">' + p.emoji + '</span></div>';
+    return '<a class="product-image-link" href="#/product/' + encodeURIComponent(p.id) + '" aria-label="View details for ' + escapeHtml(p.name) + '">' + visual + '</a>';
   }
   function productCardHtml(p){
     var actionBtn = p.type === 'booking'
@@ -318,7 +330,7 @@
         productVisualHtml(p) +
         '<div class="product-info">' +
           '<h3>' + escapeHtml(p.name) + '</h3>' +
-          '<p class="product-desc">' + escapeHtml(p.desc) + '</p>' +
+          '<details class="product-desc-disclosure"><summary>Description</summary><p>' + escapeHtml(p.desc) + '</p></details>' +
           '<div class="product-footer">' +
             '<span class="product-price">' + escapeHtml(p.priceLabel) + '</span>' +
             actionBtn +
@@ -326,6 +338,60 @@
         '</div>' +
       '</article>'
     );
+  }
+  function productPageTitle(productId){
+    var product = findProduct(productId);
+    return product ? product.name : 'Product Details';
+  }
+  function productDetailVisualHtml(product){
+    if(product.image){
+      return '<img class="product-detail-image" src="' + escapeHtml(product.image) + '" alt="' + escapeHtml(product.name) + '">';
+    }
+    return '<div class="product-detail-placeholder product-visual--' + escapeHtml(product.category || '') + '">' + categoryIcon(product.category, 'product-detail-category-icon') + '</div>';
+  }
+  function renderProductPage(productId){
+    var el = document.getElementById('product-detail-content');
+    if(!el) return;
+    var product = findProduct(productId);
+    if(!product){
+      el.innerHTML = '<div class="product-detail-empty"><p>That product could not be found.</p><a class="btn btn--folere btn--sm" href="#/category/all">Browse the menu</a></div>';
+      return;
+    }
+    var nutrition = '';
+    if(product.sugarGrams != null || product.calories != null){
+      nutrition += '<section class="product-detail-section"><h3>Nutrition</h3><p class="product-detail-note">Values are per serving' + (product.servingSize ? ' (' + escapeHtml(product.servingSize) + ')' : '') + '.</p><dl class="product-nutrition">';
+      if(product.sugarGrams != null && isFinite(Number(product.sugarGrams)) && Number(product.sugarGrams) >= 0){
+        nutrition += '<div><dt>Sugar</dt><dd>' + escapeHtml(product.sugarGrams) + ' g</dd></div>';
+      }
+      if(product.calories != null && isFinite(Number(product.calories)) && Number(product.calories) >= 0){
+        nutrition += '<div><dt>Calories</dt><dd>' + escapeHtml(product.calories) + ' kcal</dd></div>';
+      }
+      nutrition += '</dl></section>';
+    }
+    var ingredients = '<section class="product-detail-section"><h3>Ingredients</h3><p class="product-detail-copy">' + (product.ingredients ? escapeHtml(product.ingredients) : 'Not provided yet.') + '</p></section>';
+    var content = product.servingSize
+      ? '<section class="product-detail-section"><h3>Content</h3><p class="product-detail-copy">' + escapeHtml(product.servingSize) + '</p></section>'
+      : '';
+    if(!nutrition){
+      nutrition = '<section class="product-detail-section"><h3>Nutrition</h3><p class="product-detail-copy">Nutrition information has not been provided yet.</p></section>';
+    }
+    var action = product.type === 'booking'
+      ? '<a href="#/booking" class="btn btn--folere js-book-item" data-preset-category="' + escapeHtml(product.category || '') + '">Book this product</a>'
+      : '<button type="button" class="btn btn--folere js-add-item" data-id="' + escapeHtml(product.id) + '">Add to cart</button>';
+    var category = findCategory(product.category);
+    el.innerHTML =
+      '<a class="product-detail-back" href="#/category/' + encodeURIComponent(product.category || 'all') + '">' + icon('arrow-left','icon--sm') + ' Back to ' + escapeHtml(category ? category.name : 'menu') + '</a>' +
+      '<div class="product-detail-layout">' +
+        '<div class="product-detail-visual-wrap">' + productDetailVisualHtml(product) + '</div>' +
+        '<div class="product-detail-info">' +
+          (product.badge ? '<span class="eyebrow">' + escapeHtml(product.badge) + '</span>' : '') +
+          '<h2>' + escapeHtml(product.name) + '</h2>' +
+          '<p class="product-detail-price">' + escapeHtml(product.priceLabel) + '</p>' +
+          '<section class="product-detail-section"><h3>Description</h3><p class="product-detail-copy">' + escapeHtml(product.desc) + '</p></section>' +
+          ingredients + content + nutrition +
+          '<div class="product-detail-actions">' + action + '</div>' +
+        '</div>' +
+      '</div>';
   }
   function renderFavorites(){
     var el = document.getElementById('favorites-grid');
@@ -335,21 +401,21 @@
   function renderCatIconRow(){
     var el = document.getElementById('cat-icon-row');
     if(!el) return;
-    var all = [{id:'all', name:'All', emoji:'🍽️'}].concat(CATEGORIES);
+    var all = [{id:'all', name:'All'}].concat(CATEGORIES);
     el.innerHTML = all.map(function(c){
-      return '<a class="cat-icon-item" href="#/category/' + c.id + '"><span class="cat-icon-circle">' + c.emoji + '</span><span class="cat-icon-label">' + c.name + '</span></a>';
+      return '<a class="cat-icon-item" href="#/category/' + c.id + '"><span class="cat-icon-circle">' + categoryIcon(c.id) + '</span><span class="cat-icon-label">' + escapeHtml(c.name) + '</span></a>';
     }).join('');
   }
   function renderMenuDirectory(){
     var el = document.getElementById('menu-cat-tiles');
     if(!el) return;
-    var tiles = [{id:'all', name:'All Treats', emoji:'🍽️'}].concat(CATEGORIES);
+    var tiles = [{id:'all', name:'All Treats'}].concat(CATEGORIES);
     el.innerHTML = tiles.map(function(c){
       var count = c.id === 'all' ? PRODUCTS.length : PRODUCTS.filter(function(p){ return p.category === c.id; }).length;
       return (
         '<a class="cat-tile" href="#/category/' + c.id + '">' +
-          '<span class="cat-tile-emoji">' + c.emoji + '</span>' +
-          '<span class="cat-tile-text"><span class="cat-tile-name">' + c.name + '</span><span class="cat-tile-count">' + count + (count===1?' item':' items') + '</span></span>' +
+          '<span class="cat-tile-icon">' + categoryIcon(c.id) + '</span>' +
+          '<span class="cat-tile-text"><span class="cat-tile-name">' + escapeHtml(c.name) + '</span><span class="cat-tile-count">' + count + (count===1?' item':' items') + '</span></span>' +
           '<span class="cat-tile-arrow">' + icon('chevron-right','icon--sm') + '</span>' +
         '</a>'
       );
@@ -358,10 +424,10 @@
   function renderCategoryPagePills(activeId){
     var el = document.getElementById('category-page-pills');
     if(!el) return;
-    var all = [{id:'all', name:'All', emoji:'🍽️'}].concat(CATEGORIES);
+    var all = [{id:'all', name:'All'}].concat(CATEGORIES);
     el.innerHTML = all.map(function(c){
       var active = c.id === activeId ? ' is-active' : '';
-      return '<a class="pill' + active + '" href="#/category/' + c.id + '"><span class="pill-emoji">' + c.emoji + '</span>' + c.name + '</a>';
+      return '<a class="pill' + active + '" href="#/category/' + c.id + '">' + categoryIcon(c.id, 'pill-category-icon') + escapeHtml(c.name) + '</a>';
     }).join('');
   }
   function renderCategoryPage(categoryId, query){
@@ -439,9 +505,9 @@
   function renderInstagram(){
     var el = document.getElementById('instagram-grid');
     if(!el) return;
-    var emojis = ['🎂','🧁','🥧','🍹','🥛','🍨'];
-    el.innerHTML = emojis.map(function(e){
-      return '<a class="insta-tile" href="' + CONFIG.social.instagram + '" target="_blank" rel="noopener" aria-label="View on Instagram">' + e + '</a>';
+    var productIcons = ['cake','cupcake','pie','drink','milk','icecream'];
+    el.innerHTML = productIcons.map(function(name){
+      return '<a class="insta-tile" href="' + CONFIG.social.instagram + '" target="_blank" rel="noopener" aria-label="View ' + name + ' treats on Instagram">' + icon(name, 'insta-product-icon') + '</a>';
     }).join('');
   }
   function renderSocialRow(containerId){
@@ -466,7 +532,7 @@
         '</div>' +
         '<div class="hero-slide-visual">' +
           '<div class="hero-glow"></div>' +
-          '<span class="hero-slide-emoji">' + s.emoji + '</span>' +
+          '<span class="hero-slide-icon">' + icon(s.icon || 'sparkles') + '</span>' +
           '<div class="hero-stamp"><div class="hero-stamp-text"><span class="l1">' + s.stamp[0] + '</span><span class="l2">' + s.stamp[1] + '</span><span class="l3">' + s.stamp[2] + '</span></div></div>' +
         '</div>' +
       '</div>'
@@ -635,10 +701,10 @@
           var p = findProduct(c.id);
           if(!p) return '';
           var lineTotal = p.price ? formatPrice(p.price * c.qty) : p.priceLabel;
-          var thumb = p.image ? '<img src="' + p.image.replace(/"/g,'&quot;') + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">' : p.emoji;
+          var thumb = p.image ? '<img src="' + escapeHtml(p.image) + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">' : categoryIcon(p.category, 'cart-product-icon');
           return (
             '<div class="cart-item">' +
-              '<div class="cart-item-emoji">' + thumb + '</div>' +
+              '<div class="cart-item-icon">' + thumb + '</div>' +
               '<div class="cart-item-info"><h5>' + escapeHtml(p.name) + '</h5><div class="cart-item-price">' + lineTotal + '</div>' +
                 '<div class="qty-stepper">' +
                   '<button class="qty-btn js-qty-dec" data-id="' + p.id + '" aria-label="Decrease quantity">' + icon('minus') + '</button>' +
@@ -977,7 +1043,7 @@
         renderMenuDirectory();
         renderBookingCategorySelect();
         var parsed = parseHash();
-        if(parsed.route === 'category') renderCategoryPage(parsed.categoryId, parsed.query);
+        if(parsed.route === 'category' || parsed.route === 'product') renderRoute();
       }),
       loadPosts().then(function(){
         renderHeroSlide(true);
@@ -1001,7 +1067,7 @@
     });
 
     if(parseHash().route === 'home'){
-      setTimeout(function(){ showToast("Hello, Treat Lover! 🍰 Home-baked. Always fresh."); }, 900);
+      setTimeout(function(){ showToast("Hello, Treat Lover! Home-baked. Always fresh."); }, 900);
     }
   }
 

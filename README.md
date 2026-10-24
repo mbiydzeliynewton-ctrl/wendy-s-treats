@@ -42,6 +42,12 @@ This one script creates every table, the indexes, the `updated_at` triggers,
 every Row Level Security policy, the `product-images` Storage bucket, and its
 storage policies. You only need to run it once.
 
+If your Supabase project already exists, run
+`supabase_product_display_migration.sql` once in the SQL Editor to add
+optional ingredients, serving-size, sugar, and calorie fields and remove
+legacy emoji columns. Enter only verified nutrition values in the admin;
+blank values stay hidden from customers.
+
 ## 3. Create your admin login
 
 This project has no public sign-up — you create your own one admin account by
@@ -70,7 +76,7 @@ public registration flow, "logged in" and "admin" are the same thing here.
 
 ## 5. Connect the frontend
 
-Open `index1.js` and `admin.js`. Near the top of each file, you'll find:
+Open `index1.js` and `admin1.js`. Near the top of each file, you'll find:
 
 ```js
 var SUPABASE_URL = 'YOUR_SUPABASE_URL';
@@ -156,13 +162,12 @@ instead of being compressed into base64 and stored inside a database column.
 Replacing or deleting a product's photo now also deletes the old file from
 Storage.
 
-**Frontend.** Both files kept their design, layout, and CSS untouched. The
-changes were: swapping the local API calls (`fetch('http://localhost:4000/api/...')`)
-for direct Supabase client calls; adding one "Feature on homepage" checkbox
-to the product form (replacing 3 hardcoded product IDs, so featured items
-are actually admin-editable); and moving the homepage promo banners
-("posts") from browser-only `localStorage` to the real `posts` table, since
-that was the one piece with no backend at all before.
+**Frontend.** The storefront and admin are plain HTML/CSS/JS using Supabase
+directly. Product descriptions expand on demand, and each product photo
+opens a details page with the product image, description, ingredients, serving
+size, sugar, and calorie information. Ingredients and nutrition values are
+optional, admin-managed fields; customers see only verified values entered
+by the store owner.
 
 **Env vars.** No build tool exists in this project, so there's no
 `import.meta.env` or `process.env` available in the browser at runtime.

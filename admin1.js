@@ -13,7 +13,7 @@
   if(SUPABASE_URL === 'YOUR_SUPABASE_URL' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY'){
     document.body.innerHTML =
       '<div style="max-width:420px;margin:80px auto;padding:32px;text-align:center;font-family:inherit;color:#3a2a1e">' +
-      '<div style="font-size:40px;margin-bottom:12px">🔌</div>' +
+      '<div style="margin-bottom:12px"><svg class="icon icon--lg"><use href="#icon-plug"/></svg></div>' +
       '<h2 style="margin:0 0 12px">Supabase isn\'t connected yet</h2>' +
       '<p style="margin:0;line-height:1.6">Open this file and replace <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script with your real project values — see README.md for exactly where to find them.</p>' +
       '</div>';
@@ -34,15 +34,17 @@
   function mapProduct(row){
     return {
       id: row.id, name: row.name, category: row.category_id, desc: row.description,
+      ingredients: row.ingredients, servingSize: row.serving_size,
+      sugarGrams: row.sugar_grams, calories: row.calories,
       price: row.price, priceLabel: row.price_label, image: row.image_url,
-      emoji: row.emoji, badge: row.badge, badgeStyle: row.badge_style,
+      badge: row.badge, badgeStyle: row.badge_style,
       type: row.item_type, isFeatured: row.is_featured
     };
   }
   function mapPost(row){
     return {
       id: row.id, title: row.title, message: row.message, badge: row.badge,
-      emoji: row.emoji, ctaText: row.cta_text, ctaTarget: row.cta_target,
+      ctaText: row.cta_text, ctaTarget: row.cta_target,
       active: row.is_active, createdAt: row.created_at
     };
   }
@@ -66,7 +68,7 @@
   async function loadCategories(){
     var res = await supabaseClient.from('categories').select('*').order('sort_order');
     if(res.error){ showToast(res.error.message); CATEGORIES = []; return; }
-    CATEGORIES = res.data.map(function(row){ return {id: row.id, name: row.name, emoji: row.emoji}; });
+    CATEGORIES = res.data.map(function(row){ return {id: row.id, name: row.name}; });
   }
   async function loadProducts(){
     var res = await supabaseClient.from('products').select('*').order('created_at', {ascending:false});
@@ -123,6 +125,11 @@
 
   function formatPrice(n){ return n.toLocaleString('en-US') + ' FCFA'; }
   function icon(name, extraClass){ return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') + '"><use href="#icon-' + name + '"/></svg>'; }
+  function categoryIcon(categoryId, extraClass){
+    var icons = {cakes:'cake', cupcakes:'cupcake', savory:'pie', drinks:'drink', parfaits:'icecream'};
+    var iconName = Object.prototype.hasOwnProperty.call(icons, categoryId) ? icons[categoryId] : 'plate';
+    return icon(iconName, extraClass);
+  }
   function escapeHtml(str){
     return String(str).replace(/[&<>"']/g, function(c){
       return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
@@ -226,10 +233,10 @@
     if(PRODUCTS.length === 0){ el.innerHTML = '<p class="admin-empty">No products yet.</p>'; return; }
     el.innerHTML = PRODUCTS.map(function(p){
       var cat = findCategory(p.category);
-      var visual = p.image ? '<img src="' + p.image.replace(/"/g,'&quot;') + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">' : p.emoji;
+      var visual = p.image ? '<img src="' + p.image.replace(/"/g,'&quot;') + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">' : categoryIcon(p.category, 'admin-product-icon');
       return (
         '<div class="admin-row">' +
-          '<div class="admin-row-emoji">' + visual + '</div>' +
+          '<div class="admin-row-icon">' + visual + '</div>' +
           '<div class="admin-row-body"><h4>' + escapeHtml(p.name) + '</h4><p>' + escapeHtml(p.priceLabel) + ' · ' + escapeHtml(cat ? cat.name : p.category) + '</p></div>' +
           '<div class="admin-row-actions">' +
             '<button type="button" class="admin-icon-action js-admin-edit-product" data-id="' + p.id + '" aria-label="Edit ' + escapeHtml(p.name) + '">' + icon('edit','icon--sm') + '</button>' +
@@ -286,7 +293,7 @@
     el.innerHTML = posts.map(function(p){
       return (
         '<div class="admin-row">' +
-          '<div class="admin-row-emoji">' + (p.emoji || '🎉') + '</div>' +
+          '<div class="admin-row-icon">' + icon('sparkles') + '</div>' +
           '<div class="admin-row-body"><h4>' + escapeHtml(p.title) + '</h4><p>' + escapeHtml(p.message) + '</p></div>' +
           '<div class="admin-row-actions"><button type="button" class="admin-icon-action admin-icon-action--danger js-admin-delete-post" data-id="' + p.id + '" aria-label="Delete ' + escapeHtml(p.title) + '">' + icon('trash','icon--sm') + '</button></div>' +
         '</div>'
@@ -314,7 +321,7 @@
     el.innerHTML = services.map(function(s){
       return (
         '<div class="admin-row">' +
-          '<div class="admin-row-emoji">' + icon(s.icon) + '</div>' +
+          '<div class="admin-row-icon">' + icon(s.icon) + '</div>' +
           '<div class="admin-row-body"><h4>' + escapeHtml(s.title) + '</h4><p>' + escapeHtml(s.description) + '</p></div>' +
           '<div class="admin-row-actions">' +
             '<button type="button" class="admin-icon-action js-admin-edit-service" data-id="' + s.id + '" aria-label="Edit ' + escapeHtml(s.title) + '">' + icon('edit','icon--sm') + '</button>' +
@@ -355,14 +362,14 @@
   /* ============================================================
      PRODUCT MODAL
      ============================================================ */
-  function updateImagePreview(value, emojiFallback){
+  function updateImagePreview(value, categoryId){
     var preview = document.getElementById('p-image-preview');
     var removeBtn = document.getElementById('p-image-remove');
     if(value){
       preview.innerHTML = '<img src="' + value.replace(/"/g,'&quot;') + '" alt="">';
       removeBtn.hidden = false;
     } else {
-      preview.innerHTML = '<span id="p-image-preview-emoji">' + (emojiFallback || '🍽️') + '</span>';
+      preview.innerHTML = categoryIcon(categoryId || document.getElementById('p-category').value || 'all', 'image-preview-icon');
       removeBtn.hidden = true;
     }
   }
@@ -431,16 +438,16 @@
       var url = e.target.value.trim();
       document.getElementById('p-image').value = url;
       if(url){ document.getElementById('p-image-file').value = ''; }
-      updateImagePreview(url, document.getElementById('p-emoji').value.trim());
+      updateImagePreview(url, document.getElementById('p-category').value);
     });
     document.getElementById('p-image-remove').addEventListener('click', function(){
       document.getElementById('p-image').value = '';
       document.getElementById('p-image-url').value = '';
       document.getElementById('p-image-file').value = '';
-      updateImagePreview('', document.getElementById('p-emoji').value.trim());
+      updateImagePreview('', document.getElementById('p-category').value);
     });
-    document.getElementById('p-emoji').addEventListener('input', function(){
-      if(!document.getElementById('p-image').value){ updateImagePreview('', this.value.trim()); }
+    document.getElementById('p-category').addEventListener('change', function(){
+      if(!document.getElementById('p-image').value){ updateImagePreview('', this.value); }
     });
   }
   var editingOriginalImage = null; // the image URL in place when the modal opened, so we can clean it up if replaced
@@ -463,21 +470,28 @@
       document.getElementById('p-id').value = p.id;
       document.getElementById('p-name').value = p.name;
       catSel.value = p.category;
-      document.getElementById('p-emoji').value = p.emoji;
       document.getElementById('p-price').value = p.price != null ? p.price : '';
       document.getElementById('p-price-label').value = p.priceLabel;
       document.getElementById('p-desc').value = p.desc;
+      document.getElementById('p-ingredients').value = p.ingredients || '';
+      document.getElementById('p-serving-size').value = p.servingSize || '';
+      document.getElementById('p-sugar-grams').value = p.sugarGrams != null ? p.sugarGrams : '';
+      document.getElementById('p-calories').value = p.calories != null ? p.calories : '';
       document.getElementById('p-badge').value = p.badge || '';
       document.getElementById('p-featured').checked = !!p.isFeatured;
       document.getElementById('p-image').value = p.image || '';
       if(p.image && /^https?:\/\//i.test(p.image)){ document.getElementById('p-image-url').value = p.image; }
-      updateImagePreview(p.image || '', p.emoji);
+      updateImagePreview(p.image || '', p.category);
       editingOriginalImage = p.image || null;
     } else {
       document.getElementById('product-modal-title').textContent = 'Add Product';
       document.getElementById('p-id').value = '';
       document.getElementById('p-featured').checked = false;
-      updateImagePreview('', '🍽️');
+      document.getElementById('p-ingredients').value = '';
+      document.getElementById('p-serving-size').value = '';
+      document.getElementById('p-sugar-grams').value = '';
+      document.getElementById('p-calories').value = '';
+      updateImagePreview('', catSel.value);
       editingOriginalImage = null;
     }
     backdrop.classList.add('is-open'); modal.classList.add('is-open');
@@ -497,10 +511,15 @@
       var id = document.getElementById('p-id').value;
       var name = document.getElementById('p-name').value.trim();
       var category = document.getElementById('p-category').value;
-      var emoji = document.getElementById('p-emoji').value.trim() || (findCategory(category) ? findCategory(category).emoji : '🍽️');
       var priceRaw = document.getElementById('p-price').value;
       var priceLabelRaw = document.getElementById('p-price-label').value.trim();
       var desc = document.getElementById('p-desc').value.trim();
+      var ingredients = document.getElementById('p-ingredients').value.trim();
+      var servingSize = document.getElementById('p-serving-size').value.trim();
+      var sugarRaw = document.getElementById('p-sugar-grams').value;
+      var caloriesRaw = document.getElementById('p-calories').value;
+      var sugarGrams = sugarRaw === '' ? null : Number(sugarRaw);
+      var calories = caloriesRaw === '' ? null : Number(caloriesRaw);
       var badge = document.getElementById('p-badge').value.trim();
       var isFeatured = document.getElementById('p-featured').checked;
       var image = document.getElementById('p-image').value.trim();
@@ -512,12 +531,19 @@
       descInput.classList.toggle('has-error', !desc);
       descInput.nextElementSibling.classList.toggle('is-visible', !desc);
       if(!name || !desc) return;
+      if((sugarGrams !== null && (!Number.isFinite(sugarGrams) || sugarGrams < 0)) ||
+         (calories !== null && (!Number.isFinite(calories) || calories < 0))){
+        showToast('Sugar and calories must be valid non-negative numbers');
+        return;
+      }
 
       var payload = {
         name: name, category_id: category || null, description: desc,
+        ingredients: ingredients || null, serving_size: servingSize || null,
+        sugar_grams: sugarGrams, calories: calories,
         price_label: priceLabelRaw || (priceRaw !== '' ? formatPrice(Number(priceRaw)) : ''),
         price: priceRaw !== '' ? Number(priceRaw) : null,
-        emoji: emoji, badge: badge || null, badge_style: badge ? 'folere' : null,
+        badge: badge || null, badge_style: badge ? 'folere' : null,
         is_featured: isFeatured, image_url: image || null
       };
 
@@ -579,7 +605,6 @@
       var title = document.getElementById('post-title').value.trim();
       var message = document.getElementById('post-message').value.trim();
       var badge = document.getElementById('post-badge').value.trim();
-      var emoji = document.getElementById('post-emoji').value.trim();
       var ctaTarget = document.getElementById('post-cta-target').value;
 
       var titleInput = document.getElementById('post-title');
@@ -593,7 +618,7 @@
       var submitBtn = e.target.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
       var res = await supabaseClient.from('posts').insert({
-        title: title, message: message, badge: badge || 'NEW', emoji: emoji || '🎉',
+        title: title, message: message, badge: badge || 'NEW',
         cta_target: ctaTarget, cta_text: 'Order Now', is_active: true
       });
       submitBtn.disabled = false;

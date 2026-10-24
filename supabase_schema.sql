@@ -46,7 +46,6 @@ create extension if not exists "pgcrypto"; -- gives us gen_random_uuid()
 create table categories (
   id          text primary key,            -- e.g. 'cakes', 'savory', 'drinks'
   name        text not null,
-  emoji       text not null default '🍽️',
   sort_order  integer not null default 0,
   created_at  timestamptz not null default now()
 );
@@ -60,10 +59,13 @@ create table products (
   category_id  text references categories(id) on delete set null,
   name         text not null,
   description  text not null,
+  ingredients  text,
+  serving_size text,
+  sugar_grams  numeric(8,2) constraint products_sugar_grams_nonnegative check (sugar_grams is null or sugar_grams >= 0),
+  calories     numeric(8,2) constraint products_calories_nonnegative check (calories is null or calories >= 0),
   price        numeric(10,2),               -- null when only a price_label applies
   price_label  text not null,               -- e.g. "From 15,000 FCFA" — always shown
   image_url    text,                        -- Supabase Storage public URL, or an admin-pasted URL
-  emoji        text not null default '🍽️',  -- fallback visual when there's no image
   badge        text,                        -- optional small ribbon, e.g. "New"
   badge_style  text default 'folere',
   item_type    text not null default 'cart' check (item_type in ('cart','booking')),
@@ -144,7 +146,6 @@ create table posts (
   title       text not null,
   message     text not null,
   badge       text not null default 'NEW',
-  emoji       text not null default '🎉',
   cta_target  text not null default 'all',      -- a category id, or 'all'
   cta_text    text not null default 'Order Now',
   is_active   boolean not null default true,
@@ -269,10 +270,10 @@ create policy "admin full access site_settings" on site_settings for all using (
 -- SEED DATA — categories (rename/reorder/add as you like; this
 -- is the one table you'll likely edit by hand in the Table Editor)
 -- ============================================================
-insert into categories (id, name, emoji, sort_order) values
-  ('cakes',  'Cakes',  '🎂', 1),
-  ('savory', 'Savory', '🥧', 2),
-  ('drinks', 'Drinks', '🍹', 3);
+insert into categories (id, name, sort_order) values
+  ('cakes',  'Cakes',  1),
+  ('savory', 'Savory', 2),
+  ('drinks', 'Drinks', 3);
 
 -- ============================================================
 -- SEED DATA — faqs, services, site_settings (the site's current
